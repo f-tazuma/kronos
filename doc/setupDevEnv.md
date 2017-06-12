@@ -77,6 +77,29 @@ $ npm install babel-preset-es2015 --save-dev
 $ npm install bootstrap jquery --save-dev
 ```
 
+## DockerによるMySQLサーバセットアップ
 
+### イメージの作成
+```
+$ cd env/docker/mysql/
+$ docker build -t kronos-mysql .
+Sending build context to Docker daemon  5.12 kB
+Step 1/10 : FROM mysql:5.7
+...
+```
 
+### コンテナの作成
+```
+$ docker run --name kronos-mysql -e MYSQL_ROOT_PASSWD=rootPwd -p 23306:3306 -d kronos-mysql
+5905352d8fbac91e15691faf73949c4d9cf625481c493979ce7d0f583b36a902
+```
 
+### コンテナの起動
+```
+$ docker start kronos-mysql
+kronos-mysql
+$ docker ps
+
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                     NAMES
+2bdf42b0b645        kronos-mysql        "docker-entrypoint..."   2 minutes ago       Up About a minute   0.0.0.0:23306->3306/tcp   kronos-mysql
+```
