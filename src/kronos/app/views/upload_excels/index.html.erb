@@ -1,3 +1,12 @@
 <% provide(:title, "CSVファイル取り込み") %>
-<h1>UploadExcels#orders</h1>
-<p>Find me in app/views/upload_excels/orders.html.erb</p>
+<h1>
+
+</h1>
+<section>
+  <div>
+    <%= form_tag({action: :upload}, multipart: true) do %>
+        <%= file_field_tag 'picture' %>
+    <% end %>
+  </div>
+</section>
+

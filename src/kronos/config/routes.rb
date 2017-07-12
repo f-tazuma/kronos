@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'upload_excels', to: 'upload_excels#index'
+  post 'upload_excels', to: 'upload_excels#upload'
 
   get 'welcome/index'
 
