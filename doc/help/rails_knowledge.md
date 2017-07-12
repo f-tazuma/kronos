@@ -5,13 +5,15 @@ MVCのみでクラス設計を行うとModelがファットになることある
 
 ```
 app/
-├── Console
-├── Exceptions
-├── Http
-├── Models
-├── Providers
-├── Services    → サービス層を追加
-└── User.php
+├── assets
+├── channels
+├── controllers
+├── helpers
+├── jobs
+├── mailers
+├── models
+├── services    → サービス層(ディレクトリ)を追加
+└── views
 ```
 
 ```ruby
@@ -73,3 +75,7 @@ class UploadExcelsController < ApplicationController
   end
 end
 ```
+
+## Excelファイルの取り扱い
+rubyでExcelファイルを扱うためのライブラリは複数あるようだが、以下のライブラリを利用してみる。
+https://github.com/randym/axlsx
