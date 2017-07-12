@@ -29,5 +29,7 @@ module Kronos
       g.assets = false
       g.helper = false
     end
+
+    config.autoload_paths += %W(#{config.root}/app/services)
   end
 end

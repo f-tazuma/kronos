@@ -1,12 +1,12 @@
-<% provide(:title, "CSVファイル取り込み") %>
-<h1>
+<% provide(:title, @view_model.title) %>
+<h1><%= @view_model.title %></h1>
 
-</h1>
 <section>
+  <%= form_tag({controller: "upload_excels", action: "upload"}, method: :post , multipart: true) do %>
   <div>
-    <%= form_tag({action: :upload}, multipart: true) do %>
-        <%= file_field_tag 'picture' %>
-    <% end %>
+    <%= file_field_tag 'workers' %>
+    <%= submit_tag 'アップロード' %>
   </div>
+  <% end %>
 </section>
 

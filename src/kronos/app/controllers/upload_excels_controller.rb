@@ -1,13 +1,17 @@
-require_relative './../services/import_excel_service'
-
 class UploadExcelsController < ApplicationController
 
   def index
-    service = ImportExcelService.new()
-    service.test()
-    render :action => "index"
+    @view_model = ViewModel.new()
+    @view_model.title = 'CSVファイルアップロード'
+    render :action => 'index'
   end
 
+  def upload
+    # CSVファイルアップロード
+
+    service = ImportExcelService.new()
+    service.test()
+  end
 
   def orders
   end

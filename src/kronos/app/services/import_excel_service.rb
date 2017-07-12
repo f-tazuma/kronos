@@ -1,5 +1,5 @@
 class ImportExcelService
   def test()
-    puts "----------------hoge"
+    puts "test"
   end
 end
