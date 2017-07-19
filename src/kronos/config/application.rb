@@ -30,6 +30,9 @@ module Kronos
       g.helper = false
     end
 
+    # 自動ロード対象ディレクトリを追加
     config.autoload_paths += %W(#{config.root}/app/services)
+    config.autoload_paths += %W(#{config.root}/lib/assets)
+
   end
 end

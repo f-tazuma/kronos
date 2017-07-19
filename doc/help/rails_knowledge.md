@@ -78,4 +78,5 @@ end
 
 ## Excelファイルの取り扱い
 rubyでExcelファイルを扱うためのライブラリは複数あるようだが、以下のライブラリを利用してみる。
-https://github.com/randym/axlsx
+https://github.com/weshatheleopard/rubyXL
+

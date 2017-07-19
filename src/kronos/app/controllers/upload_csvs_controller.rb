@@ -1,8 +1,8 @@
-class UploadExcelsController < ApplicationController
+class UploadCsvsController < ApplicationController
 
   def index
     @view_model = ViewModel.new()
-    @view_model.title = 'エクセルファイルアップロード'
+    @view_model.title = 'CSVファイルアップロード'
     render :action => 'index'
   end
 
