@@ -76,6 +76,19 @@ class UploadExcelsController < ApplicationController
 end
 ```
 
+## テストの実行方法
+### テストの実行
+```
+$ rbenv exec rake test
+```
+
+### 特定のテストファイルを指定してテストを実行する
+```
+$ rake test TEST=test/lib/assets/csv_file_reader_test.rb
+```
+
+
+
 ## Excelファイルの取り扱い
 rubyでExcelファイルを扱うためのライブラリは複数あるようだが、以下のライブラリを利用してみる。
 https://github.com/weshatheleopard/rubyXL
