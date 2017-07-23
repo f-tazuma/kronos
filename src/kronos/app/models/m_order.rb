@@ -1,0 +1,2 @@
+class MOrder < ApplicationRecord
+end

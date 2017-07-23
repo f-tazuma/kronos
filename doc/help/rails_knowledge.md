@@ -42,7 +42,7 @@ end
 config/application.rbにautoloadするパスを追加する。    
 config.autoload_paths += %W(#{config.root}/app/services)
 
-```
+```ruby
 module Kronos
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -86,8 +86,6 @@ $ rbenv exec rake test
 ```
 $ rake test TEST=test/lib/assets/csv_file_reader_test.rb
 ```
-
-
 
 ## Excelファイルの取り扱い
 rubyでExcelファイルを扱うためのライブラリは複数あるようだが、以下のライブラリを利用してみる。

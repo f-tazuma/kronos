@@ -24,3 +24,7 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore Test csv files
+!/test/fixtures/files/source_csvs/.keep
+/test/fixtures/files/source_csvs/*

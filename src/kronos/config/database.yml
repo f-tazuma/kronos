@@ -10,8 +10,15 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *default
-  database: db/development.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: kronos
+  pool: 5
+  username: webapp
+  password: webappPwd
+  host: localhost
+  port: 23306
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
