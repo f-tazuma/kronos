@@ -1,0 +1,10 @@
+version: '2'
+services:
+  mysql:
+    build: ./mysql
+    image: "kronos-mysql"
+    ports:
+      - "13307:3306"
+    container_name: kronos-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootPwd

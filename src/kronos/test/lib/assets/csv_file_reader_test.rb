@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../../test_helper'
 require_relative '../../../lib/assets/csv_file_reader'
 
 class CsvFileReaderTest < ActiveSupport::TestCase
@@ -7,9 +7,8 @@ class CsvFileReaderTest < ActiveSupport::TestCase
   end
 
   test 'Csv File should convert model' do
-    file_path = './../../fixtures/files/source_csvs/Anken.csv'
-    mapping = {0 => "no"}
-    m_orders = CsvFileReader::convertCsvToObject(file_path, MOrder.new(), mapping)
-
+    file_path = File.expand_path('./../../../_data/source_csvs/Anken.csv', __FILE__)
+    map = {0 => 'no'}
+    CsvFileReader::convertCsvToObject(file_path, MOrder.new(), map)
   end
 end

@@ -26,5 +26,5 @@
 .byebug_history
 
 # Ignore Test csv files
-!/test/fixtures/files/source_csvs/.keep
-/test/fixtures/files/source_csvs/*
+!/test/_data/source_csvs/.keep
+/test/_data//source_csvs/*

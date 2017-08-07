@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.5'
 # -------------------------------------
 # Application Original Setting
 # -------------------------------------
+gem 'mysql2', '~> 0.4'
 gem 'rubyXL', '~> 3.3'
 
 group :development, :test do
