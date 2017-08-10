@@ -3,7 +3,7 @@
 ## railsコマンドで各種クラスを作成する
 [参照](https://railsguides.jp/command_line.html#rails-generate)
 
-#### コントローラの作成
+### コントローラの作成
 + 書式
 `rails generate controller コントローラ名 メソッド1 メソッド2`
 
@@ -22,6 +22,16 @@ class UploadExcelsController < ApplicationController
 end
 
 ```
+
+### migrationファイルの作成
+
+```
+$ ./bin/rails g migration MOrders
+Running via Spring preloader in process 11674
+      invoke  active_record
+      create    db/migrate/20170808234619_m_orders.rb
+```
+
 
 ## rails generate でassets, helpersを生成しない
 rails generateコマンドを利用すると、assetsやhelpersに初期ファイルが生成される。
@@ -42,4 +52,10 @@ rails generateコマンドを利用すると、assetsやhelpersに初期ファ�
       g.helper = false
     end
   end
+```
+
+## mysqlへの接続
++ ローカル環境
+```
+$ mysql -h 127.0.0.1 --port 13307 -u webapp kronos -p
 ```
