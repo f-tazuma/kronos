@@ -6,8 +6,8 @@ class UploadCsvsController < ApplicationController
     render :action => 'index'
   end
 
+  # アップロードされたファイルの受け取り処理
   def upload
-    # アップロードされたファイルの受け取り処理
 
     # 社員データ
     if params[:workers]
