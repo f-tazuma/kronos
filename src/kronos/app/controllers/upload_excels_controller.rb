@@ -15,7 +15,7 @@ class UploadExcelsController < ApplicationController
       UploadFileReceiver::storeFiles(uploaded_file)
     end
 
-    service = ImportExcelService.new()
+    service = ImportCsvsService.new()
     service.test()
   end
 

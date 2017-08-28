@@ -2,7 +2,7 @@
 <h1><%= @view_model.title %></h1>
 
 <section>
-  <%= form_tag({controller: "upload_csvs", action: "upload"}, method: :post , multipart: true) do %>
+  <%= form_tag({controller: "import_csvs", action: "import"}, method: :post , multipart: true) do %>
   <div>
     <%= file_field_tag 'workers' %>
     <%= submit_tag 'アップロード' %>

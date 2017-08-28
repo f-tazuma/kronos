@@ -1,0 +1,2 @@
+class MWorker < ApplicationRecord
+end

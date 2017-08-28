@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS `m_department`;
+DROP TABLE IF EXISTS `m_workers`;
+DROP TABLE IF EXISTS `m_projects`;
+DROP TABLE IF EXISTS `m_orders`;
+DROP TABLE IF EXISTS `t_order_work_breakdowns`;
+DROP TABLE IF EXISTS `t_worked_hours`;
+
 -- -----------------------------------------------------
 -- Table 部署マスタ
 -- -----------------------------------------------------
@@ -20,7 +27,9 @@ CREATE TABLE IF NOT EXISTS `m_workers` (
   `worker_number` VARCHAR(20) NOT NULL,
   `family_name` VARCHAR(50) NULL,
   `first_name` VARCHAR(50) NULL,
-  `full_name` VARCHAR(100) NOT NULL,
+  `full_name` VARCHAR(100) DEFAULT NULL,
+  `family_name_kana` VARCHAR(50) NULL,
+  `first_name_kana` VARCHAR(50) NULL,
   `mail_address` VARCHAR(200) NULL,
   `birth_day` DATETIME NULL,
   `m_department_id` BIGINT NOT NULL,
@@ -74,8 +83,8 @@ CREATE TABLE IF NOT EXISTS `m_orders` (
   CONSTRAINT `fk_m_orders_m_projects1`
     FOREIGN KEY (`m_projects_id`)
     REFERENCES `kronos`.`m_projects` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -93,8 +102,8 @@ CREATE TABLE IF NOT EXISTS `t_order_work_breakdowns` (
   CONSTRAINT `fk_t_worked_hours_m_orders10`
     FOREIGN KEY (`m_orders_id`)
     REFERENCES `kronos`.`m_orders` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -116,17 +125,17 @@ CREATE TABLE IF NOT EXISTS `t_worked_hours` (
   CONSTRAINT `fk_t_worked_hours_m_workers1`
     FOREIGN KEY (`m_workers_id`)
     REFERENCES `kronos`.`m_workers` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_t_worked_hours_m_orders1`
     FOREIGN KEY (`m_orders_id`)
     REFERENCES `kronos`.`m_orders` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_t_worked_hours_t_order_work_breakdowns1`
     FOREIGN KEY (`t_order_work_breakdowns_id`)
     REFERENCES `kronos`.`t_order_work_breakdowns` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 

@@ -1,22 +1,22 @@
-class UploadCsvsController < ApplicationController
+class ImportCsvsController < ApplicationController
 
   def index
     @view_model = ViewModel.new()
-    @view_model.title = 'CSVファイルアップロード'
+    @view_model.title = 'CSVデータ取り込み'
     render :action => 'index'
   end
 
   # アップロードされたファイルの受け取り処理
-  def upload
+  def import
 
     # 社員データ
     if params[:workers]
       uploaded_file = params[:workers]
-      UploadFileReceiver::storeFiles(uploaded_file)
+      file_info = UploadFileReceiver::store_file(uploaded_file)
     end
 
-    service = ImportExcelService.new()
-    service.test()
+    service = ImportCsvsService.new(file_info[:file_path])
+    service.import_workers
   end
 
   def orders

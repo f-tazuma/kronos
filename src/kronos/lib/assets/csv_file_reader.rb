@@ -5,7 +5,7 @@ class CsvFileReader
   # covert csv row to active record model list using mapping hash
   # param
   #   mapping : ex:{1 => "hoge", 2 => "foo"} 各行の列2の値をmodel.hogeに、列3の値をmodel.fooに設定する
-  def self.convertCsvToObject(csv_file_path, model, mapping, start_row)
+  def self.convert_csv_to_object(csv_file_path, model, mapping, start_row)
     model_list = []
     CSV.foreach(csv_file_path).with_index(1) do |row, index|
       if((index +1) > start_row)
