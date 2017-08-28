@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `m_department`;
+DROP TABLE IF EXISTS `m_departments`;
 DROP TABLE IF EXISTS `m_workers`;
 DROP TABLE IF EXISTS `m_projects`;
 DROP TABLE IF EXISTS `m_orders`;
@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `t_worked_hours`;
 -- -----------------------------------------------------
 -- Table 部署マスタ
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `m_department` (
+CREATE TABLE IF NOT EXISTS `m_departments` (
   `id` BIGINT PRIMARY KEY,
   `name` VARCHAR(100) NOT NULL,
   `path` VARCHAR(1000) NOT NULL,
