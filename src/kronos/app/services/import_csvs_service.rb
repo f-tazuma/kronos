@@ -14,13 +14,23 @@ class ImportCsvsService
         3 => 'family_name_kana',
         4 => 'first_name_kana',
         30 => 'mail_address',
-        17 => 'm_department_id'
+        17 => 'm_department_id',
     }
-    workers = CsvFileReader::convert_csv_to_object(@file_path, MWorker.new(), map, 2)
+    workers_hash_list = CsvFileReader::convert_csv_to_hash_list(@file_path, map, 2)
 
-    workers.each do |worker|
-      worker.save
+    workers_hash_list.each do |worker_hash|
+      # worker_numberで社員を検索
+      worker = MWorker.where(worker_number: worker_hash["worker_number"]).take
+      if(worker)
+        worker.update(worker_hash)
+
+        # # 存在する場合、update
+        # update_hash = csv_worker.attributes
+        # update_hash.delete("id")
+        # worker.update(update_hash)
+      else
+        MWorker.create(worker_hash)
+      end
     end
-
   end
 end

@@ -35,12 +35,12 @@ CREATE TABLE IF NOT EXISTS `m_workers` (
   `m_department_id` BIGINT NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NULL,
-  INDEX `fk_m_workers_m_department_idx` (`m_department_id` ASC),
-  CONSTRAINT `fk_m_workers_m_department`
+  INDEX `fk_m_workers_m_departments_idx` (`m_department_id` ASC),
+  CONSTRAINT `fk_m_workers_m_departments`
     FOREIGN KEY (`m_department_id`)
-    REFERENCES `kronos`.`m_department` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `m_departments` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `m_orders` (
   INDEX `fk_m_orders_m_projects1_idx` (`m_projects_id` ASC),
   CONSTRAINT `fk_m_orders_m_projects1`
     FOREIGN KEY (`m_projects_id`)
-    REFERENCES `kronos`.`m_projects` (`id`)
+    REFERENCES `m_projects` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `t_order_work_breakdowns` (
   INDEX `fk_t_worked_hours_m_orders1_idx` (`m_orders_id` ASC),
   CONSTRAINT `fk_t_worked_hours_m_orders10`
     FOREIGN KEY (`m_orders_id`)
-    REFERENCES `kronos`.`m_orders` (`id`)
+    REFERENCES `m_orders` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -124,17 +124,17 @@ CREATE TABLE IF NOT EXISTS `t_worked_hours` (
   INDEX `fk_t_worked_hours_t_order_work_breakdowns1_idx` (`t_order_work_breakdowns_id` ASC),
   CONSTRAINT `fk_t_worked_hours_m_workers1`
     FOREIGN KEY (`m_workers_id`)
-    REFERENCES `kronos`.`m_workers` (`id`)
+    REFERENCES `m_workers` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_t_worked_hours_m_orders1`
     FOREIGN KEY (`m_orders_id`)
-    REFERENCES `kronos`.`m_orders` (`id`)
+    REFERENCES `m_orders` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_t_worked_hours_t_order_work_breakdowns1`
     FOREIGN KEY (`t_order_work_breakdowns_id`)
-    REFERENCES `kronos`.`t_order_work_breakdowns` (`id`)
+    REFERENCES `t_order_work_breakdowns` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
