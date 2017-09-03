@@ -18,6 +18,7 @@ class ImportCsvsService
     }
     workers_hash_list = CsvFileReader::convert_csv_to_hash_list(@file_path, map, 2, true)
 
+    count = 0
     workers_hash_list.each do |worker_hash|
       # worker_numberで社員を検索
       worker = MWorker.where(worker_number: worker_hash['worker_number']).take
@@ -27,7 +28,9 @@ class ImportCsvsService
       else
         MWorker.create(worker_hash)
       end
+      count = count +1
     end
+    return count
   end
 
   # 案件情報取り込み処理
@@ -43,6 +46,7 @@ class ImportCsvsService
     }
     orders_hash_list = CsvFileReader::convert_csv_to_hash_list(@file_path, map, 2, true)
 
+    count = 0
     orders_hash_list.each do |order_hash|
       # noで受注を検索
       order = MOrder.where(order_no: order_hash['order_no']).take
@@ -52,7 +56,9 @@ class ImportCsvsService
       else
         MOrder.create(order_hash)
       end
+      count = count +1
     end
+    return count
   end
 
   # 稼働情報取り込み処理
@@ -89,6 +95,7 @@ class ImportCsvsService
 
       # バルクインサート
       TWorkedHour.import work_hours_hash_list
+      return work_hours_hash_list.count()
     end
   end
 end

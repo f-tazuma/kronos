@@ -12,14 +12,17 @@ class ImportCsvsController < ApplicationController
 
   # アップロードされたファイルの受け取り処理
   def import
+    flash[:notice] = []
 
-    # 社員データ
+    # 社員情報
     if params[:workers]
       uploaded_file = params[:workers]
       file_info = UploadFileReceiver::store_file(uploaded_file)
 
       service = ImportCsvsService.new(file_info[:file_path])
-      service.import_workers
+      count = service.import_workers
+
+      flash[:notice] << "社員情報: #{count} 件登録"
     end
 
     # 受注情報
@@ -28,7 +31,9 @@ class ImportCsvsController < ApplicationController
       file_info = UploadFileReceiver::store_file(uploaded_file)
 
       service = ImportCsvsService.new(file_info[:file_path])
-      service.import_orders
+      count = service.import_orders
+
+      flash[:notice] << "受注情報: #{count} 件登録"
     end
 
     # 稼働情報
@@ -40,17 +45,12 @@ class ImportCsvsController < ApplicationController
       file_info = UploadFileReceiver::store_file(uploaded_file)
 
       service = ImportCsvsService.new(file_info[:file_path])
-      service.import_work_hours(start_date, end_date)
+      count = service.import_work_hours(start_date, end_date)
+
+      flash[:notice] << "稼働情報: #{count} 件登録"
     end
 
+    redirect_to action: 'index'
   end
 
-  def orders
-  end
-
-  def workers
-  end
-
-  def worked_hours
-  end
 end

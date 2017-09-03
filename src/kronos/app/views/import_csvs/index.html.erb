@@ -3,6 +3,14 @@
 <h1><%= @view_bug[:title] %></h1>
 
 <section>
+  <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <%= flash[:notice].join("<br>") %>
+      </div>
+  <% end %>
+</section>
+
+<section>
   <%= form_tag({controller: "import_csvs", action: "import"}, method: :post , multipart: true) do %>
     <div>
       <%= label :workers, :社員情報 %>
