@@ -1,12 +1,26 @@
 <% provide(:title, @view_model.title) %>
+
 <h1><%= @view_model.title %></h1>
 
 <section>
   <%= form_tag({controller: "import_csvs", action: "import"}, method: :post , multipart: true) do %>
-  <div>
-    <%= file_field_tag 'workers' %>
-    <%= submit_tag 'アップロード' %>
-  </div>
+    <div>
+      <%= label :workers, :社員情報 %>
+      <%= file_field_tag 'workers' %>
+    </div>
+    <div>
+      <%= label :orders, :受注情報 %>
+      <%= file_field_tag 'orders' %>
+    </div>
+    <div>
+      <%= label :target_year_month, :対象年月 %>
+      <%= select_year(Date.today, field_name: 'target_year') %>
+      <%= select_month(Date.today, field_name: 'target_month', use_month_numbers: true) %>
+
+      <%= label :work_hours, :稼働情報 %>
+      <%= file_field_tag 'work_hours' %>
+    </div>
+      <%= submit_tag 'アップロード' %>
   <% end %>
 </section>
 
