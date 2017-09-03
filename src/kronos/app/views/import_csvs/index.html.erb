@@ -1,6 +1,6 @@
-<% provide(:title, @view_model.title) %>
+<% provide(:title, @view_bug[:title]) %>
 
-<h1><%= @view_model.title %></h1>
+<h1><%= @view_bug[:title] %></h1>
 
 <section>
   <%= form_tag({controller: "import_csvs", action: "import"}, method: :post , multipart: true) do %>
@@ -13,9 +13,11 @@
       <%= file_field_tag 'orders' %>
     </div>
     <div>
-      <%= label :target_year_month, :対象年月 %>
-      <%= select_year(Date.today, field_name: 'target_year') %>
-      <%= select_month(Date.today, field_name: 'target_month', use_month_numbers: true) %>
+      <%= label :target_date, :取り込み開始日 %>
+      <%= date_field(:target_date, :start, :value => @view_bug[:target_date_start]) %>
+
+      <%= label :target_date, :取り込み終了日 %>
+      <%= date_field(:target_date, :end, :value => @view_bug[:target_date_end]) %>
 
       <%= label :work_hours, :稼働情報 %>
       <%= file_field_tag 'work_hours' %>

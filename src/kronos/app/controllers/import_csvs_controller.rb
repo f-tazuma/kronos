@@ -1,8 +1,12 @@
 class ImportCsvsController < ApplicationController
 
   def index
-    @view_model = ViewModel.new()
-    @view_model.title = 'CSVデータ取り込み'
+    @view_bug = {}
+    @view_bug[:title] = 'CSVデータ取り込み'
+
+    @view_bug[:target_date_start] = Date.today.at_beginning_of_year()
+    @view_bug[:target_date_end] = Date.today.at_end_of_month()
+
     render :action => 'index'
   end
 
@@ -29,15 +33,14 @@ class ImportCsvsController < ApplicationController
 
     # 稼働情報
     if params[:work_hours]
-      year = params[:date][:target_year].to_s
-      month = params[:date][:target_month].to_s
-      target_year_month = "#{year}-#{month}"
+      start_date = params[:target_date][:start]
+      end_date = params[:target_date][:end]
 
       uploaded_file = params[:work_hours]
       file_info = UploadFileReceiver::store_file(uploaded_file)
 
       service = ImportCsvsService.new(file_info[:file_path])
-      service.import_work_hours(target_year_month)
+      service.import_work_hours(start_date, end_date)
     end
 
   end

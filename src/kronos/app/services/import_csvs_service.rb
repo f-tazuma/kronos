@@ -56,7 +56,7 @@ class ImportCsvsService
   end
 
   # 稼働情報取り込み処理
-  def import_work_hours(target_year_month)
+  def import_work_hours(start_date, end_date)
 
     map = {
         1 => 'order_no',
@@ -64,19 +64,31 @@ class ImportCsvsService
         11 => 'work_day',
         16 => 'work_hours'
     }
-    work_hours_hash_list = CsvFileReader::convert_csv_to_hash_list(@file_path, map, 2, true)
+    tmp_work_hours_hash_list = CsvFileReader::convert_csv_to_hash_list(@file_path, map, 2, true)
+
+    # 対象月のレコードのみ対象とする
+    work_hours_hash_list = []
+    tmp_work_hours_hash_list.each do |work_hour_hash|
+      work_day = Date.strptime(work_hour_hash['work_day'] ,'%Y/%m/%d').strftime('%Y-%m-%d')
+      if(start_date <= work_day and end_date >= work_day)
+        work_hours_hash_list.push(work_hour_hash)
+      end
+    end
 
     ActiveRecord::Base.transaction do
       # データ取り込み対象月を削除
       sql = ActiveRecord::Base.send(
           :sanitize_sql_array,
-          ["DELETE FROM t_worked_hours WHERE DATE_FORMAT(work_day, '%Y%m') = ?", target_year_month]
+          ["DELETE FROM t_worked_hours WHERE work_day <= ? and work_day >= ?", start_date, end_date]
       )
       $result = ActiveRecord::Base.connection.execute(sql)
 
-      work_hours_hash_list.each do |work_hour_hash|
-        TWorkedHour.create(work_hour_hash)
-      end
+      # work_hours_hash_list.each do |work_hour_hash|
+      #   TWorkedHour.create(work_hour_hash)
+      # end
+
+      # バルクインサート
+      TWorkedHour.import work_hours_hash_list
     end
   end
 end
