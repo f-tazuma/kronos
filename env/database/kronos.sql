@@ -126,22 +126,7 @@ CREATE TABLE IF NOT EXISTS `t_worked_hours` (
   INDEX `fk_t_worked_hours_worker_number1_idx` (`worker_number` ASC),
   INDEX `fk_t_worked_hours_order_no_idx` (`order_no` ASC),
   INDEX `fk_t_worked_hours_t_order_work_breakdowns1_idx` (`t_order_work_breakdowns_id` ASC),
-  INDEX `t_worked_hours_work_day1_idx` (`work_day` ASC),
-  CONSTRAINT `fk_t_worked_hours_m_workers1`
-    FOREIGN KEY (`worker_number`)
-    REFERENCES `m_workers` (`worker_number`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_t_worked_hours_m_orders1`
-    FOREIGN KEY (`order_no`)
-    REFERENCES `m_orders` (`order_no`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_t_worked_hours_t_order_work_breakdowns1`
-    FOREIGN KEY (`t_order_work_breakdowns_id`)
-    REFERENCES `t_order_work_breakdowns` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
+  INDEX `t_worked_hours_work_day1_idx` (`work_day` ASC)
 )
 ENGINE = InnoDB;
 
