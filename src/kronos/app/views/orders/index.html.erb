@@ -21,7 +21,7 @@
       <tbody>
       <% @view_bug[:orders].each do |order| %>
         <tr>
-          <td><a name="${order.id}"><%= order.order_no %></a></td>
+          <td><a href=/orders/<%= order.order_no %>><%= order.order_no %></a></td>
           <td><%= order.name %></td>
           <td><%= order.client_name %></td>
           <% if order.ordered_date %>
@@ -31,10 +31,10 @@
           <% end %>
           <td><%= order.estimate_work_hours %></td>
           <td><%= order.ordered_work_hours %></td>
-          <td><%= order.ordered_volume %></td>
+          <td><%= number_to_currency(order.ordered_volume, :unit => "￥", :precision => 0) %></td>
           <td><%= order.status %></td>
           <td>
-            <button class="btn-eidt btn btn-default" data-id="${order.id}">編集</button>
+            <a href=/orders/<%= order.order_no %>/edit>編集</a>
           </td>
         </tr>
       <% end %>
