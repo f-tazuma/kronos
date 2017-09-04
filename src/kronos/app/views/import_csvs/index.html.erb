@@ -1,36 +1,36 @@
 <% provide(:title, @view_bug[:title]) %>
 
 <h1><%= @view_bug[:title] %></h1>
-
-<section>
-  <% if flash[:notice] %>
+<main>
+  <section>
+    <% if flash[:notice] %>
       <div class="alert alert-success">
         <%= flash[:notice].join("<br>") %>
       </div>
-  <% end %>
-</section>
+    <% end %>
+  </section>
 
-<section>
-  <%= form_tag({controller: "import_csvs", action: "import"}, method: :post , multipart: true) do %>
-    <div>
-      <%= label :workers, :社員情報 %>
-      <%= file_field_tag 'workers' %>
-    </div>
-    <div>
-      <%= label :orders, :受注情報 %>
-      <%= file_field_tag 'orders' %>
-    </div>
-    <div>
-      <%= label :target_date, :取り込み開始日 %>
-      <%= date_field(:target_date, :start, :value => @view_bug[:target_date_start]) %>
+  <section>
+    <%= form_tag({controller: "import_csvs", action: "import"}, method: :post , multipart: true) do %>
+      <div>
+        <%= label :workers, :社員情報 %>
+        <%= file_field_tag 'workers' %>
+      </div>
+      <div>
+        <%= label :orders, :受注情報 %>
+        <%= file_field_tag 'orders' %>
+      </div>
+      <div>
+        <%= label :target_date, :取り込み開始日 %>
+        <%= date_field(:target_date, :start, :value => @view_bug[:target_date_start]) %>
 
-      <%= label :target_date, :取り込み終了日 %>
-      <%= date_field(:target_date, :end, :value => @view_bug[:target_date_end]) %>
+        <%= label :target_date, :取り込み終了日 %>
+        <%= date_field(:target_date, :end, :value => @view_bug[:target_date_end]) %>
 
-      <%= label :work_hours, :稼働情報 %>
-      <%= file_field_tag 'work_hours' %>
-    </div>
-      <%= submit_tag 'アップロード' %>
-  <% end %>
-</section>
-
+        <%= label :work_hours, :稼働情報 %>
+        <%= file_field_tag 'work_hours' %>
+      </div>
+        <%= submit_tag 'アップロード' %>
+    <% end %>
+  </section>
+</main>
