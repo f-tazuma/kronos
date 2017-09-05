@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
     @view_bug = {}
     @view_bug[:title] = '受注一覧'
 
-    @view_bug[:orders] = MOrder.all
+    @orders = MOrder.all
 
     render :action => 'index'
   end
@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     @view_bug = {}
     @view_bug[:title] = '受注詳細'
 
-    @view_bug[:order] = MOrder.where(:order_no => params[:id])
+    @order = MOrder.where(:order_no => params[:id]).first
 
     render :action => 'show'
   end

@@ -19,7 +19,7 @@
       </tr>
       </thead>
       <tbody>
-      <% @view_bug[:orders].each do |order| %>
+      <% @orders.each do |order| %>
         <tr>
           <td><a href=/orders/<%= order.order_no %>><%= order.order_no %></a></td>
           <td><%= order.name %></td>
