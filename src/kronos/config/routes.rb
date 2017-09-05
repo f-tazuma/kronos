@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   # 受注情報
   get 'orders', to: 'orders#index'
+  get 'orders/:id', to: 'orders#show'
 
   # csvファイルアップロード
   get 'import_csvs', to: 'import_csvs#index'

@@ -7,4 +7,13 @@ class OrdersController < ApplicationController
 
     render :action => 'index'
   end
+
+  def show
+    @view_bug = {}
+    @view_bug[:title] = '受注詳細'
+
+    @view_bug[:order] = MOrder.where(:order_no => params[:id])
+
+    render :action => 'show'
+  end
 end
