@@ -1,6 +1,6 @@
-<% provide(:title, @view_bug[:title]) %>
+<% provide(:title, @title) %>
 
-<h1><%= @view_bug[:title] %></h1>
+<h1><%= @title %></h1>
 <main>
   <section>
     <% if flash[:notice] %>
@@ -22,10 +22,10 @@
       </div>
       <div>
         <%= label :target_date, :取り込み開始日 %>
-        <%= date_field(:target_date, :start, :value => @view_bug[:target_date_start]) %>
+        <%= date_field(:target_date, :start, :value => @target_date_start) %>
 
         <%= label :target_date, :取り込み終了日 %>
-        <%= date_field(:target_date, :end, :value => @view_bug[:target_date_end]) %>
+        <%= date_field(:target_date, :end, :value => @target_date_end) %>
 
         <%= label :work_hours, :稼働情報 %>
         <%= file_field_tag 'work_hours' %>
