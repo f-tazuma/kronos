@@ -3,7 +3,8 @@
 <h1><%= @title %></h1>
 
 <main>
-  <%= form_tag /order/ + @order.id, :method => :put do %>
+
+  <%= form_tag("/order/" + params[:id], method: "put")  do %>
     <div class="orders-base center-block">
       <h3>受注情報</h3>
 
@@ -17,7 +18,7 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">受注名</label>
         <div class="col-sm-8">
-          <%= text_field_tag 'order[name]' %>
+          <%= text_field(:order, :name) %>
         </div>
       </div>
 
