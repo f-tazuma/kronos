@@ -23,6 +23,6 @@ class OrdersController < ApplicationController
 
     @order = MOrder.where(:order_no => params[:id]).first
 
-    render :action => 'show'
+    render :action => 'edit'
   end
 end
