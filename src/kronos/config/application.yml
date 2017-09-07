@@ -1,0 +1,22 @@
+defaults: &defaults
+  # 受注関連
+  order:
+    order_kind:
+      - 開発
+      - 保守
+    salse_kind:
+      - 売上
+      - 非売上
+    status:
+      - 見積
+      - 仮受注
+      - 受注
+      - 納品
+      - 検収
+
+development:
+  <<: *defaults
+test:
+  <<: *defaults
+production:
+  <<: *defaults

@@ -43,9 +43,16 @@
       </div>
 
       <div class="form-group row">
+        <label class="col-sm-2 col-form-label">受注種別</label>
+        <div class="col-sm-8">
+          <%= select :order, :order_kind, Settings.order.order_kind,  :include_blank => true %>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="col-sm-2 col-form-label">売上種別</label>
         <div class="col-sm-8">
-          <%= select :order, :sales_kind, [["売上", "1"], ["非売上", "2"]],  :include_blank => true %>
+          <%= select :order, :sales_kind, Settings.order.salse_kind,  :include_blank => true %>
         </div>
       </div>
 
@@ -74,7 +81,7 @@
       <div class="form-group row">
         <label for="orderedStatus" class="col-sm-2 col-form-label">ステータス</label>
         <div class="col-sm-8">
-          <%= select :order, :status, [["売上", "1"], ["非売上", "2"]],  :include_blank => true %>
+          <%= select :order, :status, Settings.order.status,  :include_blank => true %>
         </div>
       </div>
 
