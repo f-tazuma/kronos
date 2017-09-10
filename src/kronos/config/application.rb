@@ -34,8 +34,8 @@ module Kronos
     config.autoload_paths += %W(#{config.root}/app/services)
     config.autoload_paths += %W(#{config.root}/lib/assets)
 
-    # TimeZone設定
+    # TimeZone、locale設定
     config.time_zone = 'Tokyo'
-
+    config.i18n.default_locale = :ja
   end
 end

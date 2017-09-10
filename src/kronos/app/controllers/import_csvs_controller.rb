@@ -2,10 +2,10 @@ class ImportCsvsController < ApplicationController
 
   def index
     @view_bug = {}
-    @view_bug[:title] = 'CSVデータ取り込み'
+    @title = 'CSVデータ取り込み'
 
-    @view_bug[:target_date_start] = Date.today.at_beginning_of_year()
-    @view_bug[:target_date_end] = Date.today.at_end_of_month()
+    @target_date_start = Date.today.at_beginning_of_year()
+    @target_date_end = Date.today.at_end_of_month()
 
     render :action => 'index'
   end

@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
 
-  get 'upload_excels', to: 'upload_excels#index'
-  post 'upload_excels', to: 'upload_excels#upload'
+  # 受注情報
+  get 'orders', to: 'orders#index'
+  get 'orders/:id', to: 'orders#show'
+  get 'orders/:id/edit', to: 'orders#edit'
+  patch 'orders/:id', to: 'orders#update'
 
+  # csvファイルアップロード
   get 'import_csvs', to: 'import_csvs#index'
   post 'import_csvs', to: 'import_csvs#import'
 
-  get 'welcome/index'
+  get 'orders/index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

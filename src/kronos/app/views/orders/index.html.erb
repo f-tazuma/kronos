@@ -1,0 +1,45 @@
+<% provide(:title, @title) %>
+
+<h1><%= @title %></h1>
+
+<main>
+  <div class="table-list">
+    <table class="table table-border table-striped">
+      <thead>
+      <tr>
+        <td class="col-md">受注番号</td>
+        <td class="col-md-4">受注名</td>
+        <td class="col-md">顧客名</td>
+        <td class="col-md">受注日</td>
+        <td class="col-md">見積工数</td>
+        <td class="col-md">受注工数</td>
+        <td class="col-md">受注金額</td>
+        <td class="col-md">ステータス</td>
+        <td class="col-md">操作</td>
+      </tr>
+      </thead>
+      <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><a href=/orders/<%= order.order_no %>><%= order.order_no %></a></td>
+          <td><%= order.name %></td>
+          <td><%= order.client_name %></td>
+          <% if order.ordered_date %>
+            <td><%= l(order.ordered_date.to_date, format: :long) %></td>
+          <% else %>
+              <td></td>
+          <% end %>
+          <td><%= order.estimate_work_hours %></td>
+          <td><%= order.ordered_work_hours %></td>
+          <td><%= number_to_currency(order.ordered_volume, :unit => "￥", :precision => 0) %></td>
+          <td><%= order.status %></td>
+          <td>
+            <a href=/orders/<%= order.order_no %>/edit>編集</a>
+          </td>
+        </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+  </div>
+</main>

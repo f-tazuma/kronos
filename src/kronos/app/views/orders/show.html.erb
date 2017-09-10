@@ -1,0 +1,94 @@
+<% provide(:title, @title) %>
+
+<h1><%= @title %></h1>
+
+<main>
+  <form method="post" action="/project_orders/edit/${order.id}">
+    <div class="orders-base center-block">
+      <h3>受注情報</h3>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">受注番号</label>
+        <div class="col-sm-8">
+          <%= @order.order_no %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">受注名</label>
+        <div class="col-sm-8">
+          <%= @order.name %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="workKind" class="col-sm-2 col-form-label">クライアント名</label>
+        <div class="col-sm-8">
+          <%= @order.client_name %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="salesKind" class="col-sm-2 col-form-label">受注日</label>
+        <div class="col-sm-8">
+          <%= @order.ordered_date %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">検収日(予定日)</label>
+        <div class="col-sm-8">
+          <%= @order.receiving_inspection_date %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">売上種別</label>
+        <div class="col-sm-8">
+          <%= @order.sales_kind %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">見積工数</label>
+        <div class="col-sm-8">
+          <%= @order.estimate_work_hours %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">受注工数</label>
+        <div class="col-sm-8">
+          <%= @order.ordered_work_hours %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="orderedHours" class="col-sm-2 col-form-label">受注工数</label>
+        <div class="col-sm-8">
+          <%= @order.ordered_work_hours %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="acceptanceDate" class="col-sm-2 col-form-label">受注額</label>
+        <div class="col-sm-8">
+          <%= @order.ordered_volume %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="orderedStatus" class="col-sm-2 col-form-label">ステータス</label>
+        <div class="col-sm-8">
+          <%= @order.status %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="main-ctrl">
+      <a href="/project_orders" class="btn btn-primary active" role="button" aria-pressed="true">戻る</a>
+      <button type="submit" class="btn btn-primary">登録</button>
+    </div>
+  </form>
+</main>
