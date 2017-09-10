@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'orders', to: 'orders#index'
   get 'orders/:id', to: 'orders#show'
   get 'orders/:id/edit', to: 'orders#edit'
+  patch 'orders/:id', to: 'orders#update'
 
   # csvファイルアップロード
   get 'import_csvs', to: 'import_csvs#index'

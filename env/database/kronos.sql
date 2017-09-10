@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `m_orders` (
   `estimate_work_hours` DECIMAL(8,2) NULL COMMENT '見積作業時間',
   `ordered_work_hours` DECIMAL(8,2) NULL,
   `ordered_volume` BIGINT NULL,
-  `status` INT NULL COMMENT '見積,仮受注,受注,納品,検収',
+  `status` VARCHAR(50) NULL COMMENT '見積,仮受注,受注,納品,検収',
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NULL,
   PRIMARY KEY (id),
