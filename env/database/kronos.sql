@@ -55,10 +55,11 @@ CREATE TABLE IF NOT EXISTS `m_projects` (
   `project_no` VARCHAR(20) NOT NULL UNIQUE,
   `name` VARCHAR(100) NOT NULL,
   `description` MEDIUMTEXT NULL,
+  `work_start_date` DATETIME NULL,
+  `work_end_date` DATETIME NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NULL,
-  `m_account_id` BIGINT NULL,
-  UNIQUE INDEX `path_UNIQUE` (`project_no` ASC))
+  UNIQUE INDEX `project_no_UNIQUE` (`project_no` ASC))
 ENGINE = InnoDB;
 
 

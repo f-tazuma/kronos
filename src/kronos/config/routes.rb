@@ -6,6 +6,13 @@ Rails.application.routes.draw do
   get 'orders/:id/edit', to: 'orders#edit'
   patch 'orders/:id', to: 'orders#update'
 
+  # プロジェクト情報
+  get 'projects', to: 'projects#index'
+  get 'projects/:id', to: 'projects#show'
+  get 'projects/:id/edit', to: 'projects#edit'
+  post 'projects', to: 'projects#create'
+  patch 'projects/:id', to: 'projects#update'
+
   # csvファイルアップロード
   get 'import_csvs', to: 'import_csvs#index'
   post 'import_csvs', to: 'import_csvs#import'
