@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   # プロジェクト情報
   get 'projects', to: 'projects#index'
+  get 'projects/new', to: 'projects#new'
   get 'projects/:id', to: 'projects#show'
   get 'projects/:id/edit', to: 'projects#edit'
   post 'projects', to: 'projects#create'

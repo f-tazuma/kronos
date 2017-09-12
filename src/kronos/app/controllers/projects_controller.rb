@@ -1,15 +1,19 @@
 class ProjectsController < ApplicationController
   def index
     @title = 'プロジェクト一覧'
-
     @projects = MProject.all
 
     render :action => 'index'
   end
 
+  def new
+    @title = 'プロジェクト新規作成'
+    @project = MProject.new
+    render :action => 'new'
+  end
+
   def show
     @title = 'プロジェクト詳細'
-
     @project = MProject.where(:id => params[:id]).first
 
     render :action => 'show'
@@ -17,7 +21,6 @@ class ProjectsController < ApplicationController
 
   def edit
     @title = 'プロジェクト編集'
-
     @order = MProject.where(:order_no => params[:id]).first
 
     render :action => 'edit'
