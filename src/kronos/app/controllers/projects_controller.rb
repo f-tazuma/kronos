@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
   def index
     @title = 'プロジェクト一覧'
     @projects = MProject.all
-
     render :action => 'index'
   end
 
@@ -15,14 +14,12 @@ class ProjectsController < ApplicationController
   def show
     @title = 'プロジェクト詳細'
     @project = MProject.where(:id => params[:id]).first
-
     render :action => 'show'
   end
 
   def edit
     @title = 'プロジェクト編集'
     @order = MProject.where(:order_no => params[:id]).first
-
     render :action => 'edit'
   end
 
@@ -36,11 +33,13 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def create
+
+  end
+
   private
 
   def order_params
-    params.require(:m_project).permit(
-
-    )
+    params.require(:m_project).permit()
   end
 end

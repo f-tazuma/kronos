@@ -5,8 +5,8 @@
 <main>
   <%= form_for @project, :url => { :action => "create" } do |f| %>
     <div class="orders-base center-block">
-
-    <%= f.submit "作成" %>
+      <%= render 'form', f: f %>
+      <%= f.submit "作成" %>
     </div>
   <% end %>
 </main>
