@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
 
   def edit
     @title = 'プロジェクト編集'
-    @order = MProject.where(:order_no => params[:id]).first
+    @project = MProject.where(:order_no => params[:id]).first
     render :action => 'edit'
   end
 
@@ -34,12 +34,25 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    @project = MProject.new(project_params)
+    if @project.save
+      flash[:success] = "#{@params[:name]}を作成しました。"
+      redirect_to @project
+    else
+      render 'new'
+    end
 
   end
 
   private
 
-  def order_params
-    params.require(:m_project).permit()
+  def project_params
+    params.require(:m_project).permit(
+      :project_no,
+      :name,
+      :description,
+      :work_start_date,
+      :work_end_date
+    )
   end
 end
