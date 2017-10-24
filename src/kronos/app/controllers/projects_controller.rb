@@ -36,9 +36,10 @@ class ProjectsController < ApplicationController
   def create
     @project = MProject.new(project_params)
     if @project.save
-      flash[:success] = "#{@params[:name]}を作成しました。"
-      redirect_to @project
+      flash[:success] = "#{@project.name}を作成しました。"
+      redirect_to action: 'index'
     else
+      flash[:errors] = @project.errors.messages
       render 'new'
     end
 
