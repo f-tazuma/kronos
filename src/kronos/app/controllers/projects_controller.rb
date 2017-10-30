@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
       flash[:success] = "#{@project.name}を作成しました。"
       redirect_to action: 'index'
     else
-      flash[:errors] = @project.errors.messages
+      flash[:errors] = @project.errors.full_messages
       render 'new'
     end
 

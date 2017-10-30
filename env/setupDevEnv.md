@@ -124,8 +124,16 @@ kronos-mysql | 2017-08-03T15:00:51.001630Z 0 [Warning] TIMESTAMP with implicit D
 ...
 ```
 
-## データベースの作成
+## データベース構築
+
+### テーブル作成
 ```text
 $ mysql -h 127.0.0.1 --port 13307 -u webapp kronos -p < kronos.sql 
 Enter password: 
+```
+
+### データ投入
+```text
+$ cd ./Kronos/src/kronos
+$ rbenv exec rake db:seed
 ```

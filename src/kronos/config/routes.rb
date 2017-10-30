@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  # ルート
+  root to: 'root#index'
+
   # 受注情報
   get 'orders', to: 'orders#index'
   get 'orders/:id', to: 'orders#show'
