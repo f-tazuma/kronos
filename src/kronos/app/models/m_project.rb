@@ -1,6 +1,8 @@
 class MProject < ApplicationRecord
-  validates :project_no, inclusion: { in: %w(small medium large),
-                                message: "%{value}は有効な値ではありません" }
-  validates :project_no, presence: true
-  validates :name, presence: true
+  # バリデーション
+  validates :project_no,
+            presence: { message: "%{value}は必須"},
+            format: { with: /\A[0-9A-Za-z]+\z/, message: "%{value}は英数字のみ" },
+            length: { in: 5..20, message: "%{value}は5文字以上、20文字以下" },
+            uniqueness: {message: "%{value}はすでに登録"}
 end
