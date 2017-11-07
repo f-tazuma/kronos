@@ -19,14 +19,14 @@ class ProjectsController < ApplicationController
 
   def edit
     @title = 'プロジェクト編集'
-    @project = MProject.where(:order_no => params[:id]).first
+    @project = MProject.where(:project_no => params[:id]).first
     render :action => 'edit'
   end
 
   def update
-    order_no = params[:m_order][:order_no]
-    @order = MProject.where(order_no: order_no).first
-    if(@order.update_attributes(order_params))
+    project_no = params[:m_project][:project_no]
+    @project = MProject.where(project_no: project_no).first
+    if(@project.update_attributes(project_params))
       redirect_to action: 'index'
     else
       render :action => 'edit'
