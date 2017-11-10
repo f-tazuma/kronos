@@ -20,6 +20,12 @@ class ProjectsController < ApplicationController
   def edit
     @title = 'プロジェクト編集'
     @project = MProject.where(:project_no => params[:id]).first
+
+    # 該当プロジェクトに関連づけられている受注情報
+    @related_orders = MOrder.where(:m_projects_id => @project.id)
+    # 該当プロジェクトに関連づけられていない受注情報
+    @non_related_orders = MOrder.where(:m_projects_id => nil)
+
     render :action => 'edit'
   end
 

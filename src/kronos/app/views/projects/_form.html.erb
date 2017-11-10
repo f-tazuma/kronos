@@ -33,3 +33,37 @@
       <%= f.date_field(:work_end_date) %>
     </div>
   </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">プロジェクト対象受注</label>
+    <table>
+      <% @related_orders.each do |order| %>
+        <tr>
+          <td><%= check_box_tag "related[#{order.id}]", true, false, {} %></td>
+          <td><%= order.order_no %></td>
+          <td><%= order.name %></td>
+          <td><%= order.client_name %></td>
+          <td><%= order.estimate_work_hours %></td>
+          <td><%= order.ordered_work_hours %></td>
+          <td><%= order.ordered_volume %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">プロジェクト対象外受注</label>
+    <table>
+      <% @non_related_orders.each do |order| %>
+        <tr>
+          <td><%= check_box_tag "related[#{order.id}]", true, false, {} %></td>
+          <td><%= order.order_no %></td>
+          <td><%= order.name %></td>
+          <td><%= order.client_name %></td>
+          <td><%= order.estimate_work_hours %></td>
+          <td><%= order.ordered_work_hours %></td>
+          <td><%= order.ordered_volume %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
