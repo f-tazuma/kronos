@@ -39,7 +39,7 @@
     <table>
       <% @related_orders.each do |order| %>
         <tr>
-          <td><%= check_box_tag "related[#{order.id}]", true, false, {} %></td>
+          <td><%= check_box_tag "related_orders[#{order.id}]", true, false, {} %></td>
           <td><%= order.order_no %></td>
           <td><%= order.name %></td>
           <td><%= order.client_name %></td>
@@ -56,7 +56,7 @@
     <table>
       <% @non_related_orders.each do |order| %>
         <tr>
-          <td><%= check_box_tag "related[#{order.id}]", true, false, {} %></td>
+          <td><%= check_box_tag "non_related_orders[#{order.id}]", true, false, {} %></td>
           <td><%= order.order_no %></td>
           <td><%= order.name %></td>
           <td><%= order.client_name %></td>

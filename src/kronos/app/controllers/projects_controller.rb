@@ -30,13 +30,19 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    project_no = params[:m_project][:project_no]
-    @project = MProject.where(project_no: project_no).first
-    if(@project.update_attributes(project_params))
-      redirect_to action: 'index'
-    else
-      render :action => 'edit'
-    end
+
+    service = ProjectService.new(params)
+    service.update_project
+
+    redirect_to action: 'index'
+
+    # project_no = params[:m_project][:project_no]
+    # @project = MProject.where(project_no: project_no).first
+    # if(@project.update_attributes(project_params))
+    #   redirect_to action: 'index'
+    # else
+    #   render :action => 'edit'
+    # end
   end
 
   def create
