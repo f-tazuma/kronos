@@ -45,7 +45,7 @@
           <td><%= order.client_name %></td>
           <td><%= order.estimate_work_hours %></td>
           <td><%= order.ordered_work_hours %></td>
-          <td><%= order.ordered_volume %></td>
+          <td><%= number_to_currency(order.ordered_volume, :unit => "￥", :precision => 0) %></td>
         </tr>
       <% end %>
     </table>
@@ -62,7 +62,7 @@
           <td><%= order.client_name %></td>
           <td><%= order.estimate_work_hours %></td>
           <td><%= order.ordered_work_hours %></td>
-          <td><%= order.ordered_volume %></td>
+          <td><%= number_to_currency(order.ordered_volume, :unit => "￥", :precision => 0) %></td>
         </tr>
       <% end %>
     </table>
