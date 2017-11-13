@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
 
   def edit
     @title = 'プロジェクト編集'
-    @project = MProject.where(:project_no => params[:id]).first
+    @project = MProject.where(:id => params[:id]).first
 
     # 該当プロジェクトに関連づけられている受注情報
     @related_orders = MOrder.where(:m_projects_id => @project.id)

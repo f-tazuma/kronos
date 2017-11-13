@@ -8,9 +8,9 @@ class ProjectService
 
     ActiveRecord::Base.transaction do
       # プロジェクト情報の更新
-      project_no = @params[:m_project][:project_no]
-      @project = MProject.where(project_no: project_no).first
-      @project.update_attributes(project_params)
+      id = @params[:id]
+      @project = MProject.where(id: id).first
+      ret = @project.update_attributes(project_params)
 
       # 関連受注情報の登録
       if(@params[:non_related_orders])
