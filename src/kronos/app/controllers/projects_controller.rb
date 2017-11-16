@@ -13,7 +13,9 @@ class ProjectsController < ApplicationController
 
   def show
     @title = 'プロジェクト詳細'
-    @project = MProject.where(:id => params[:id]).first
+    service = WorkHoursService.new(params)
+    @view_bug = service.getDataForProjectShow
+
     render :action => 'show'
   end
 
