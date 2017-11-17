@@ -6,6 +6,6 @@ class WorkHoursService
 
   def getDataForProjectShow
     @project = MProject.where(:id => @params[:id]).first
-    @work_hours = WorkedHoursDao.selectSumHoursGroupByOrderNoDate(@params[:id])
+    @work_hours = WorkedHoursDao.selectReportWorkedData(@params[:id])
   end
 end

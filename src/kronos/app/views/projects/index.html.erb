@@ -22,7 +22,7 @@
       <tbody>
       <% @projects.each do |project| %>
         <tr>
-          <td><a href=/projects/<%= project.project_no %>><%= project.project_no %></a></td>
+          <td><a href=/projects/<%= project.id %>><%= project.project_no %></a></td>
           <td><%= project.name %></td>
           <td><%= project.description %></td>
           <% if project.work_start_date %>
