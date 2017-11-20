@@ -13,13 +13,6 @@ class WorkHoursService
     # 稼働時間
     db_work_hours = WorkedHoursDao.selectReportWorkedData(@params[:id])
 
-    # work_hours = Hash.new { |h,k| h[k] = {} }
-    # tmp_work_hours.each do | elem |
-    #   week_num = elem['week_num_of_year']
-    #   workers_id = elem['workers_id']
-    #   work_hours[workers_id][week_num] =  elem['week_work_hours']
-    # end
-
     tmp_work_hours = {}
     tmp_week_nums = []
 
