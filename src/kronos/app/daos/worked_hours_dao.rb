@@ -1,5 +1,14 @@
 class WorkedHoursDao
 
+  # 対象プロジェクトの稼働済時間を取得する
+  def self.selectWorkedHours(project_id)
+    sql ='
+
+
+    '
+  end
+
+  # 対象プロジェクトの週番号・作業者別稼働時間を取得する
   def self.selectReportWorkedData(project_id)
     sql = '
       SELECT
@@ -16,7 +25,7 @@ class WorkedHoursDao
         ON worked.order_no = orders.order_no
       INNER JOIN m_projects projects
         ON orders.m_projects_id = projects.id
-      LEFT JOIN m_workers workers
+      INNER JOIN m_workers workers
       ON worked.worker_number = workers.worker_number
       WHERE
       projects.id = ?
@@ -35,12 +44,10 @@ class WorkedHoursDao
     prepared = ActiveRecord::Base.send(
         :sanitize_sql_array, [sql, project_id]
     )
-
     con = ActiveRecord::Base.connection
     result = con.select_all(prepared)
     result.to_hash
     return result
-
   end
 
 end
