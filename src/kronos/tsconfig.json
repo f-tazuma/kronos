@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "es5"
+  },
+  "files": [
+    "typings/index.d.ts"
+  ],
+  "exclude": [
+  ]
+}

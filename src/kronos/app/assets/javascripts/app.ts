@@ -1,0 +1,1 @@
+import Hoge from "./hoge";

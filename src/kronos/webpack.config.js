@@ -20,9 +20,9 @@ module.exports = [
                     loaders: ["style-loader", "css-loader", "sass-loader"]
                 },
                 {
-                    test: /\.js?$/,
+                    test: /\.ts?$/,
                     exclude: /(node_modules|dist)/,
-                    loader: 'babel-loader',
+                    loader: 'ts-loader',
                     query: {
                         cacheDirectory: true
                     }

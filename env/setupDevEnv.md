@@ -64,18 +64,21 @@ $ mkdir -p app/assets/stylesheets
 ```
 
 ### nodeセットアップ
-
 ```text
 $ pwd
 /Users/xxx/Develop/Repos/Kronos/src/kronos
 $ npm install webpack --save-dev
 $ npm install watch --save-dev
+$ npm install typescript --save-dev
+$ npm install ts-loader --save-dev
+$ npm install vue --save-dev
 $ npm install node-sass --save-dev
 $ npm install css-loader file-loader sass-loader style-loader --save-dev
-$ npm install babel-cli babel-core babel-loader --save-dev
-$ npm install babel-preset-es2015 --save-dev
 $ npm install bootstrap jquery --save-dev
 ```
+
+
+
 
 ## DockerによるMySQLサーバセットアップ
 
