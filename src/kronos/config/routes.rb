@@ -21,7 +21,12 @@ Rails.application.routes.draw do
   get 'import_csvs', to: 'import_csvs#index'
   post 'import_csvs', to: 'import_csvs#import'
 
-  get 'orders/index'
+  # API
+  namespace :api, {format: 'json'} do
+    get 'projects/:id', to: 'projects#show'
+  end
+
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
