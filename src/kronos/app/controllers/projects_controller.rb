@@ -24,9 +24,9 @@ class ProjectsController < ApplicationController
     @project = MProject.where(:id => params[:id]).first
 
     # 該当プロジェクトに関連づけられている受注情報
-    @related_orders = MOrder.where(:m_projects_id => @project.id)
+    @related_orders = MOrder.where(:m_project_id => @project.id)
     # 該当プロジェクトに関連づけられていない受注情報
-    @non_related_orders = MOrder.where(:m_projects_id => nil)
+    @non_related_orders = MOrder.where(:m_project_id => nil)
 
     render :action => 'edit'
   end

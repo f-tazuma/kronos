@@ -16,9 +16,9 @@ class WorkedHoursDao
       INNER JOIN m_orders orders
         ON worked.order_no = orders.order_no
       INNER JOIN m_projects projects
-        ON orders.m_projects_id = projects.id
+        ON orders.m_project_id = projects.id
       INNER JOIN m_workers workers
-      ON worked.worker_number = workers.worker_number
+        ON worked.worker_number = workers.worker_number
       WHERE
       projects.id = ?
       GROUP BY
@@ -47,7 +47,7 @@ class WorkedHoursDao
     sql = '
       SELECT
         projects.id                          project_id,
-        projects.project_name,
+        projects.name,
         workers.id                           workers_id,
         workers.family_name,
         workers.first_name,
@@ -58,12 +58,12 @@ class WorkedHoursDao
         INNER JOIN m_projects projects
           ON planed.m_project_id = projects.id
         INNER JOIN m_workers workers
-          ON planed.worker_id = workers.id
+          ON planed.worker_number = workers.worker_number
       WHERE
-        mst_project_id = ?
+        projects.id = ?
       GROUP BY
         projects.id,
-        projects.project_name,
+        projects.name,
         workers_id,
         workers.family_name,
         workers.first_name,

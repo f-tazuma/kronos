@@ -16,7 +16,7 @@ class ProjectService
       if(@params[:non_related_orders])
         @params[:non_related_orders].each do |id|
           order = MOrder.find(id)
-          order.m_projects_id = @project.id
+          order.m_project_id = @project.id
           order.save
         end
       end
@@ -25,7 +25,7 @@ class ProjectService
       if(@params[:related_orders])
         @params[:related_orders].each do |id|
           order = MOrder.find(id)
-          order.m_projects_id = nil
+          order.m_project_id = nil
           order.save
         end
       end

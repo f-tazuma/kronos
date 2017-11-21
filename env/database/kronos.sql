@@ -139,15 +139,15 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `t_planed_work_hours` (
   `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
   `worker_number` VARCHAR(20) NOT NULL,
-  `order_no` VARCHAR(20) NOT NULL,
+  `m_projects_id` BIGINT NULL,
   `t_order_work_breakdowns_id` BIGINT NULL,
   `work_plan_day` DATETIME NULL,
   `work_hours` DECIMAL(5,2) NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NULL,
   INDEX `fk_t_plan_work_hours_worker_number1_idx` (`worker_number` ASC),
-  INDEX `fk_t_plan_work_hours_order_no_idx` (`order_no` ASC),
+  INDEX `fk_t_plan_work_hours_m_projects_id_idx` (`m_projects_id` ASC),
   INDEX `fk_t_plan_work_hours_t_order_work_breakdowns1_idx` (`t_order_work_breakdowns_id` ASC),
   INDEX `t_plan_work_hours_work_plan_day1_idx` (`work_plan_day` ASC)
 )
-  ENGINE = InnoDB;
+ENGINE = InnoDB;

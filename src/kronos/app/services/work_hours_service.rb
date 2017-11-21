@@ -12,38 +12,14 @@ class WorkHoursService
 
     # 稼働時間
     db_work_hours = WorkedHoursDao.selectReportWorkedData(@params[:id])
+    work_hours = convert_row_report_hash(db_work_hours)
 
     # 稼働予定時間
-    db_planed_work_hours WorkedHoursDao.selectReportPlanedWorkData(@params[:id])
-
-    tmp_work_hours = {}
-    tmp_week_nums = []
-
-    db_work_hours.each do | elem |
-      workers_id = elem['workers_id']
-      week_num = elem['week_num_of_year']
-      tmp = {}
-      tmp[week_num] = elem['week_work_hours']
-
-      if(tmp_work_hours.key?(workers_id))
-        tmp_work_hours[workers_id].push(tmp)
-      else
-        tmp_work_hours[workers_id] = []
-        tmp_work_hours[workers_id].push(tmp)
-      end
-
-      # 週番号を配列で保持
-      tmp_week_nums.push(week_num)
-    end
-
-    work_hours = {}
-    work_hours[:worker_week_hours] = tmp_work_hours
-    tmp_week_nums.uniq!
-
-    work_hours[:start_week] = tmp_week_nums.min
-    work_hours[:end_week] = tmp_week_nums.max
+    db_planed_work_hours = WorkedHoursDao.selectReportPlanedWorkData(@params[:id])
+    planed_work_hours = convert_row_report_hash(db_planed_work_hours)
 
     data[:work_hours] = work_hours
+    data[:planed_work_hours] = planed_work_hours
 
     return data
   end
@@ -51,33 +27,24 @@ class WorkHoursService
   private
   def convert_row_report_hash(db_data)
     tmp_hours = {}
-    tmp_week_nums = []
 
     db_data.each do | elem |
       workers_id = elem['workers_id']
       week_num = elem['week_num_of_year']
-      tmp = {}
-      tmp[week_num] = elem['week_work_hours']
 
       if(tmp_hours.key?(workers_id))
-        tmp_hours[workers_id].push(tmp)
+        tmp_hours[workers_id]['hours'][week_num] = elem['week_work_hours']
       else
-        tmp_hours[workers_id] = []
-        tmp_hours[workers_id].push(tmp)
+        tmp_hours[workers_id] = {}
+        tmp_hours[workers_id]['hours'] = {}
+        tmp_hours[workers_id]['hours'][week_num] = {}
+        tmp_hours[workers_id]['hours'][week_num] = elem['week_work_hours']
+        tmp_hours[workers_id]['family_name'] = elem['family_name']
+        tmp_hours[workers_id]['first_name'] = elem['first_name']
       end
-
-      # 週番号を配列で保持
-      tmp_week_nums.push(week_num)
     end
 
-    hours = {}
-    hours[:worker_week_hours] = tmp_hours
-    tmp_week_nums.uniq!
-
-    hours[:start_week] = tmp_week_nums.min
-    hours[:end_week] = tmp_week_nums.max
-
-    return hours
+    return tmp_hours
   end
 
 end
