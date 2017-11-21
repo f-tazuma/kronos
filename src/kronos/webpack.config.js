@@ -1,7 +1,7 @@
 module.exports = [
     {
         entry: {
-            app: './app/assets/javascripts/entry.js'
+            app: './app/assets/javascripts/app.ts'
             // style: './src/css/entry.js'
         },
         output: {
@@ -22,14 +22,12 @@ module.exports = [
                 {
                     test: /\.ts?$/,
                     exclude: /(node_modules|dist)/,
-                    loader: 'ts-loader',
-                    query: {
-                        cacheDirectory: true
-                    }
+                    loader: 'ts-loader'
                 }
             ]
         },
         resolve: {
+            extensions: [ '.tsx', '.ts', '.js' ]
         }
     }
 ];

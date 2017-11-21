@@ -55,7 +55,9 @@ $ rails server
 
 ## フロント開発
 
-### assetsディレクトリのクリア
+### 初回
+
+#### assetsディレクトリのクリア
 ```text
 $ cd src/kronos/
 $ rm -rf app/assets/
@@ -63,7 +65,7 @@ $ mkdir -p app/assets/javascripts
 $ mkdir -p app/assets/stylesheets
 ```
 
-### nodeセットアップ
+#### nodeセットアップ
 ```text
 $ pwd
 /Users/xxx/Develop/Repos/Kronos/src/kronos
@@ -76,7 +78,6 @@ $ npm install node-sass --save-dev
 $ npm install css-loader file-loader sass-loader style-loader --save-dev
 $ npm install bootstrap jquery --save-dev
 ```
-
 
 
 
