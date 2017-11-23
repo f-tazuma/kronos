@@ -1,8 +1,8 @@
 module.exports = [
     {
         entry: {
-            app: './app/assets/javascripts/app.ts'
-            // style: './src/css/entry.js'
+            app:        './app/assets/javascripts/app.ts',
+            projects:   './app/assets/javascripts/projects/entry.ts'
         },
         output: {
             path: __dirname + '/public/javascripts',
