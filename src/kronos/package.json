@@ -5,7 +5,9 @@
     "webpack": "./node_modules/webpack/bin/webpack.js --progress --colors",
     "webpack:watch": "./node_modules/webpack/bin/webpack.js --progress --colors --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/jquery": "^3.2.16"
+  },
   "devDependencies": {
     "bootstrap": "^3.3.7",
     "css-loader": "^0.28.7",

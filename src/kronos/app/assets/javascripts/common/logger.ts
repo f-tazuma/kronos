@@ -5,12 +5,11 @@ class Logger {
     }
 
     static get logLevels() :any{
-        let levels = {
-            "debug" : 0,
-            "info" : 1,
-            "warning" : 2,
-            "error" : 3
-        };
+        let levels: {[key: string]: number} = {}
+        levels["debug"] = 0
+        levels["info"] = 1
+        levels["warning"] = 2
+        levels["error"] = 3
         return levels;
     }
 

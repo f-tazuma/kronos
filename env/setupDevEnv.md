@@ -77,6 +77,7 @@ $ npm install vue --save-dev
 $ npm install node-sass --save-dev
 $ npm install css-loader file-loader sass-loader style-loader --save-dev
 $ npm install bootstrap jquery --save-dev
+$ npm install --save @types/jquery
 ```
 
 
