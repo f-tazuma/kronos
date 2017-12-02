@@ -4,16 +4,22 @@ import Vue from 'vue';
 
 class Projects {
     id: any;
+    rawData: any;
     data: any;
 
     constructor() {
         let pathInfo = location.pathname.split('/');
         this.id = pathInfo.pop();
+        this.main();
     }
 
     main() {
-        this.data = this.apiGetData()
-
+        this.apiGetData().done((data) => {
+            // 取得データ保持
+            this.rawData = data;
+            // プロジェクト情報表示
+            this.showProject();
+        })
     }
 
     apiGetData() {

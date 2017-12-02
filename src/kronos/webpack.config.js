@@ -7,7 +7,7 @@ module.exports = {
         projects:   './app/assets/javascripts/projects/entry.ts'
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, './public/javascripts'),
         publicPath: __dirname + '/public/javascripts',
         filename: "[name].bundle.js",
     },
@@ -57,7 +57,9 @@ module.exports = {
     performance: {
         hints: false
     },
-    devtool: '#eval-source-map'
+    // devtool: '#eval-source-map'
+    // source-mapを表示する
+    devtool: 'inline-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {

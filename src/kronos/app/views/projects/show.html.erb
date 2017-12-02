@@ -1,7 +1,10 @@
 <% provide(:title, @title) %>
-<script type="text/javascript" src="/javascripts/projects.bundle.js"></script>
 <h1><%= @title %></h1>
 <main>
-  <section class="project_hours">
-  </section>
+  <div id="vue-app">
+    <section class="project_hours">
+      {{ message }}
+    </section>
+  </div>
 </main>
+<script type="text/javascript" src="/javascripts/projects.bundle.js"></script>
