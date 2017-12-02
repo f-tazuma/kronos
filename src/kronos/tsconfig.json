@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "strictNullChecks": true,
-    "noUnusedLocals" : true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "outDir": "./dist/",
+    "outDir": "./public/javascripts",
     "sourceMap": true,
-    "noImplicitAny": true,
-    "lib": ["dom", "ES2017"],
-    "module": "ES2015",
+    "strict": true,
+    "noImplicitReturns": true,
+    "module": "es2015",
+    "moduleResolution": "node",
     "target": "es5"
-  }
+  },
+  "include": [
+    "./app/assets/javascripts/**/*"
+  ]
 }

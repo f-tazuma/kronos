@@ -1,9 +1,9 @@
 import Logger from './../common/logger'
 import * as $ from 'jquery';
-// import Vue from 'vue'
+import Vue from 'vue';
 
 class Projects {
-    id: string;
+    id: any;
     data: any;
 
     constructor() {
@@ -38,6 +38,16 @@ class Projects {
     // 初期化処理
     drawWorkedAndPlanedHours() {
 
+    }
+
+    /**
+     * vue.js による画面描画
+     */
+    showProject() {
+        let app = new Vue({
+            el: '#vue-app',
+            data: this.data,
+        });
     }
 }
 export default Projects;

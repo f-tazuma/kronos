@@ -55,6 +55,22 @@ $ rails server
 
 ## フロント開発
 
+### TypeScript & Vue.jsの開発環境作成
+https://github.com/Microsoft/TypeScript-Vue-Starter
+```
+$ npm install --save-dev jquery
+$ npm install --save-dev @types/jquery
+$ npm install --save-dev vue
+$ npm install --save-dev typescript webpack ts-loader css-loader vue-loader vue-template-compiler@2.2.1
+```
+
+
+
+
+
+
+
+
 ### 初回
 
 #### assetsディレクトリのクリア
@@ -73,13 +89,26 @@ $ npm install webpack --save-dev
 $ npm install watch --save-dev
 $ npm install typescript --save-dev
 $ npm install ts-loader --save-dev
-$ npm install vue --save-dev
 $ npm install node-sass --save-dev
 $ npm install css-loader file-loader sass-loader style-loader --save-dev
+$ npm install vue --save-dev
 $ npm install bootstrap jquery --save-dev
-$ npm install --save @types/jquery
+$ npm instal --save @types/jqueryl
 ```
 
+#### webpackによるビルド
+package.json
+```
+  "scripts": {
+    "webpack": "./node_modules/webpack/bin/webpack.js --progress --colors",
+    "webpack:watch": "./node_modules/webpack/bin/webpack.js --progress --colors --watch"
+  },
+```
+
+ビルド
+```
+$ npm run webpack
+```
 
 
 ## DockerによるMySQLサーバセットアップ
