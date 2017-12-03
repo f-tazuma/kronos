@@ -56,20 +56,13 @@ $ rails server
 ## フロント開発
 
 ### TypeScript & Vue.jsの開発環境作成
-https://github.com/Microsoft/TypeScript-Vue-Starter
+[参考](https://github.com/Microsoft/TypeScript-Vue-Starter)
 ```
 $ npm install --save-dev jquery
 $ npm install --save-dev @types/jquery
 $ npm install --save-dev vue
 $ npm install --save-dev typescript webpack ts-loader css-loader vue-loader vue-template-compiler@2.2.1
 ```
-
-
-
-
-
-
-
 
 ### 初回
 
@@ -79,21 +72,6 @@ $ cd src/kronos/
 $ rm -rf app/assets/
 $ mkdir -p app/assets/javascripts
 $ mkdir -p app/assets/stylesheets
-```
-
-#### nodeセットアップ
-```text
-$ pwd
-/Users/xxx/Develop/Repos/Kronos/src/kronos
-$ npm install webpack --save-dev
-$ npm install watch --save-dev
-$ npm install typescript --save-dev
-$ npm install ts-loader --save-dev
-$ npm install node-sass --save-dev
-$ npm install css-loader file-loader sass-loader style-loader --save-dev
-$ npm install vue --save-dev
-$ npm install bootstrap jquery --save-dev
-$ npm instal --save @types/jqueryl
 ```
 
 #### webpackによるビルド
@@ -109,7 +87,6 @@ package.json
 ```
 $ npm run webpack
 ```
-
 
 ## DockerによるMySQLサーバセットアップ
 

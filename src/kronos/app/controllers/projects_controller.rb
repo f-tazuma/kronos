@@ -8,6 +8,12 @@ class ProjectsController < ApplicationController
   def new
     @title = 'プロジェクト新規作成'
     @project = MProject.new
+
+    # 該当プロジェクトに関連づけられている受注情報→新規作成時はないので空配列
+    @related_orders = []
+    # 該当プロジェクトに関連づけられていない受注情報
+    @non_related_orders = MOrder.where(:m_project_id => nil)
+
     render :action => 'new'
   end
 

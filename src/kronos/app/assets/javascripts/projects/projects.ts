@@ -2,23 +2,28 @@ import Logger from './../common/logger'
 import * as $ from 'jquery';
 import Vue from 'vue';
 
+import ProjectComponent from './project-component.vue';
+
 class Projects {
-    id: any;
-    rawData: any;
+    message: string
+    id: string;
     data: any;
 
     constructor() {
         let pathInfo = location.pathname.split('/');
-        this.id = pathInfo.pop();
+        this.id = String(pathInfo.pop());
         this.main();
     }
 
     main() {
         this.apiGetData().done((data) => {
-            // 取得データ保持
-            this.rawData = data;
-            // プロジェクト情報表示
+
             this.showProject();
+
+            // // 取得データ保持
+            // this.data = data;
+            // // プロジェクト情報表示
+            // this.showProject();
         })
     }
 
@@ -52,7 +57,8 @@ class Projects {
     showProject() {
         let app = new Vue({
             el: '#vue-app',
-            data: this.data,
+            components: { ProjectComponent },
+            template: '<project-component>'
         });
     }
 }
