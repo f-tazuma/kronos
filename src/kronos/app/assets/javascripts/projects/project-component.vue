@@ -9,20 +9,10 @@
     </div>
 </template>
 
-<script lang="ts">
-    import Vue from "vue";
-
-    export default Vue.extend({
-        name: "project-component",
-        data() {
-            return {
-                project : {
-                    name : "名前",
-                    project_no : "00001"
-                }
-            }
-        }
-    });
+<script>
+    export default {
+        props: ['project']
+    }
 </script>
 
 <style scoped>

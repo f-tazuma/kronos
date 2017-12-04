@@ -17,8 +17,8 @@ class Projects {
 
     main() {
         this.apiGetData().done((data) => {
-
-            this.showProject();
+            this.data = data;
+            this.showProject(data);
 
             // // 取得データ保持
             // this.data = data;
@@ -54,11 +54,13 @@ class Projects {
     /**
      * vue.js による画面描画
      */
-    showProject() {
+    showProject(data: any) {
         let app = new Vue({
             el: '#vue-app',
             components: { ProjectComponent },
-            template: '<project-component>'
+            data(self: any) {
+                return data
+            }
         });
     }
 }
