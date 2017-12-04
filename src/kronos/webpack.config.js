@@ -3,8 +3,7 @@ var webpack = require('webpack')
 
 module.exports = {
     entry: {
-        app:        './app/assets/javascripts/app.ts',
-        projects:   './app/assets/javascripts/projects/entry.ts'
+        projects:   './app/assets/javascripts/projects/projects.ts'
     },
     output: {
         path: path.resolve(__dirname, './public/javascripts'),
