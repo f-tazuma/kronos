@@ -30,15 +30,18 @@ class WorkHoursService
 
     db_data.each do | elem |
       workers_id = elem['workers_id']
+      year = elem['year']
+      month = elem['month_of_year']
       week_num = elem['week_num_of_year']
+      year_month_week_num = "#{year}/#{month}/#{week_num}"
 
       if(tmp_hours.key?(workers_id))
-        tmp_hours[workers_id]['hours'][week_num] = elem['week_work_hours']
+        tmp_hours[workers_id]['hours'][year_month_week_num] = elem['week_work_hours']
       else
         tmp_hours[workers_id] = {}
         tmp_hours[workers_id]['hours'] = {}
-        tmp_hours[workers_id]['hours'][week_num] = {}
-        tmp_hours[workers_id]['hours'][week_num] = elem['week_work_hours']
+        tmp_hours[workers_id]['hours'][year_month_week_num] = {}
+        tmp_hours[workers_id]['hours'][year_month_week_num] = elem['week_work_hours']
         tmp_hours[workers_id]['family_name'] = elem['family_name']
         tmp_hours[workers_id]['first_name'] = elem['first_name']
       end

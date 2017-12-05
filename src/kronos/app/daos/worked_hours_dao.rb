@@ -9,7 +9,8 @@ class WorkedHoursDao
         workers.id workers_id,
         workers.family_name,
         workers.first_name,
-        EXTRACT(MONTH FROM worked.work_day) as month_of_year,
+        EXTRACT(YEAR FROM worked.work_day) year,
+        EXTRACT(MONTH FROM worked.work_day) month_of_year,
         EXTRACT(WEEK FROM worked.work_day)  week_num_of_year,
         sum(worked.work_hours) week_work_hours
         FROM t_worked_hours worked
@@ -27,6 +28,7 @@ class WorkedHoursDao
         workers_id,
         workers.family_name,
         workers.first_name,
+        year,
         month_of_year,
         week_num_of_year
       ORDER BY

@@ -13,7 +13,7 @@
     import Vue from "vue";
 
     export default Vue.extend({
-        props: ['project']
+        props: ["project"]
     })
 </script>
 

@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import Vue from 'vue';
 
 import BaseComponent from "./components/base.vue";
+import WorkHoursComponent from "./components/work_hours.vue";
 
 class Projects {
     message: string
@@ -53,7 +54,7 @@ class Projects {
         let data = this.data
         let app = new Vue({
             el: '#app',
-            components: { BaseComponent },
+            components: { BaseComponent, WorkHoursComponent },
             data() {
                 return data
             }
