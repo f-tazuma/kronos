@@ -2,7 +2,7 @@ import Logger from './../common/logger'
 import * as $ from 'jquery';
 import Vue from 'vue';
 
-import ProjectComponent from './project-component.vue';
+import BaseComponent from "./components/base.vue";
 
 class Projects {
     message: string
@@ -18,12 +18,7 @@ class Projects {
     main() {
         this.apiGetData().done((data) => {
             this.data = data;
-            this.showProject(data);
-
-            // // 取得データ保持
-            // this.data = data;
-            // // プロジェクト情報表示
-            // this.showProject();
+            this.showProject();
         })
     }
 
@@ -54,14 +49,18 @@ class Projects {
     /**
      * vue.js による画面描画
      */
-    showProject(data: any) {
+    showProject() {
+        let data = this.data
         let app = new Vue({
-            el: '#vue-app',
-            components: { ProjectComponent },
-            data(self: any) {
+            el: '#app',
+            components: { BaseComponent },
+            data() {
                 return data
             }
         });
     }
 }
 export default Projects;
+
+// 処理実行
+(new Projects())

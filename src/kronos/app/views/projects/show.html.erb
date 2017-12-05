@@ -1,9 +1,9 @@
 <% provide(:title, @title) %>
 <h1><%= @title %></h1>
 <main>
-  <div id="vue-app">
+  <div id="app">
     <section>
-      <project-component v-bind:project="project"></project-component>
+      <base-component v-bind:project="project"></base-component>
     </section>
   </div>
 </main>
