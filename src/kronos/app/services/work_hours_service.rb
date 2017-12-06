@@ -6,7 +6,7 @@ class WorkHoursService
     @params = params
 
     # 対象期間を設定
-    @term_from = params['term_from'] || Date.new(Date.today.year, 1, 1)
+    @term_from = params['term_from'] || Date.commercial(Date.today.year, 1, 1)
     @term_to = params['term_to'] || Date.new(Date.today.year, 12, 31)
   end
 
@@ -27,6 +27,8 @@ class WorkHoursService
     data[:work_hours] = work_hours
     data[:planed_work_hours] = planed_work_hours
 
+    data[:terms] = get_terms()
+
     return data
   end
 
@@ -39,51 +41,38 @@ class WorkHoursService
       year = elem['year']
       month = elem['month_of_year']
       week_num = elem['week_num_of_year']
-      year_month_week_num = "#{year}/#{month}/#{week_num}"
+      year_week_num = "#{year}.#{week_num}"
 
-      if(tmp_hours.key?(workers_id))
+      if(! tmp_hours.key?(workers_id))
+        # 新しい作業者idの場合、対象期間分キーを作成
+        tmp_hours[workers_id] = {}
+        tmp_hours[workers_id]['hours'] = {}
+        tmp_hours[workers_id]['family_name'] = elem['family_name']
+        tmp_hours[workers_id]['first_name'] = elem['first_name']
         (@term_from..@term_to).each do | looper |
-          year_month_week_num  = "#{looper.year}/#{looper.month}/#{looper.cweek}"
-          p year_month_week_num
+          key  = "#{looper.year}.#{looper.cweek}"
+          tmp_hours[workers_id]['hours'][key] = nil
         end
-
-        tmp_hours[workers_id]['hours'][year_month_week_num] = elem['week_work_hours']
+        tmp_hours[workers_id]['hours'][year_week_num] = elem['week_work_hours']
       else
-        tmp_hours[workers_id] = {}
-        tmp_hours[workers_id]['hours'] = {}
-        tmp_hours[workers_id]['hours'][year_month_week_num] = {}
-        tmp_hours[workers_id]['hours'][year_month_week_num] = elem['week_work_hours']
-        tmp_hours[workers_id]['family_name'] = elem['family_name']
-        tmp_hours[workers_id]['first_name'] = elem['first_name']
-
-
-      end
-
-    (@term_from..@term_to).each do | looper |
-      year_month_week_num  = "#{looper.year}/#{looper.month}/#{looper.cweek}"
-      p year_month_week_num
-    end
-
-    db_data.each do | elem |
-      workers_id = elem['workers_id']
-      year = elem['year']
-      month = elem['month_of_year']
-      week_num = elem['week_num_of_year']
-      year_month_week_num = "#{year}/#{month}/#{week_num}"
-
-      if(tmp_hours.key?(workers_id))
-        tmp_hours[workers_id]['hours'][year_month_week_num] = elem['week_work_hours']
-      else
-        tmp_hours[workers_id] = {}
-        tmp_hours[workers_id]['hours'] = {}
-        tmp_hours[workers_id]['hours'][year_month_week_num] = {}
-        tmp_hours[workers_id]['hours'][year_month_week_num] = elem['week_work_hours']
-        tmp_hours[workers_id]['family_name'] = elem['family_name']
-        tmp_hours[workers_id]['first_name'] = elem['first_name']
+        tmp_hours[workers_id]['hours'][year_week_num] = elem['week_work_hours']
       end
     end
 
     return tmp_hours
+  end
+
+  def get_terms
+    terms = {}
+    (@term_from..@term_to).each do | looper |
+      buff = {}
+      buff['year'] = looper.year
+      buff['month'] = looper.month
+      buff['cweek'] = looper.cweek
+      key  = "#{looper.year}.#{looper.cweek}"
+      terms[key] = buff
+    end
+    return terms
   end
 
 end

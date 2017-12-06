@@ -3,10 +3,9 @@ import * as $ from 'jquery';
 import Vue from 'vue';
 
 import BaseComponent from "./components/base.vue";
-import WorkHoursComponent from "./components/work_hours.vue";
+import ProgressComponent from "./components/progress.vue";
 
 class Projects {
-    message: string
     id: string;
     data: any;
 
@@ -18,7 +17,15 @@ class Projects {
 
     main() {
         this.apiGetData().done((data) => {
-            this.data = data;
+            let prepareData = {
+                project : data.project,
+                progress : {
+                    workHours: data.work_hours,
+                    planHours: data.planed_work_hours,
+                    terms: data.terms
+                }
+            }
+            this.data = prepareData;
             this.showProject();
         })
     }
@@ -42,11 +49,6 @@ class Projects {
         return defer.promise();
     }
 
-    // 初期化処理
-    drawWorkedAndPlanedHours() {
-
-    }
-
     /**
      * vue.js による画面描画
      */
@@ -54,7 +56,7 @@ class Projects {
         let data = this.data
         let app = new Vue({
             el: '#app',
-            components: { BaseComponent, WorkHoursComponent },
+            components: { BaseComponent, ProgressComponent },
             data() {
                 return data
             }
