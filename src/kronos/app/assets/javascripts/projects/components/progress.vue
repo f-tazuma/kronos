@@ -3,17 +3,27 @@
         <table>
             <thead>
                 <td class="worker_name">氏名</td>
+                <td>予定<br>実績</td>
                 <td v-for="(term, key) in progress.terms">
                     {{term.cweek}}
                 </td>
             </thead>
 
-            <tr v-for="(elem, key) in progress.workHours">
-                <td class="worker_name">{{elem.family_name}}{{elem.first_name}}</td>
-                <td v-for="(hours, key) in elem.hours">
-                    {{hours}}
-                </td>
-            </tr>
+            <template v-for="(elem, key) in progress.workHours">
+                <tr>
+                    <td class="worker_name" rowspan="2">{{elem.family_name}}{{elem.first_name}}</td>
+                    <td>予定</td>
+                    <td v-for="(hours, key) in elem.hours">
+                        <input type="number" size="4" v-model="progress.inputPlanHours[key]">
+                    </td>
+                </tr>
+                <tr>
+                    <td>実績</td>
+                    <td v-for="(hours, key) in elem.hours">
+                        {{hours}}
+                    </td>
+                </tr>
+            </template>
 
         </table>
     </div>
@@ -47,6 +57,12 @@
         text-align: center;
         vertical-align: middle;
         width: 50px;
+    }
+    table tr td input {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     table thead td.worker_name,

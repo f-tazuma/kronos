@@ -17,12 +17,20 @@ class Projects {
 
     main() {
         this.apiGetData().done((data) => {
+            // 計画作業時間入力行とバイディングするための配列を作るため、作業者ごとに配列を保持
+            let workerPlanedHours: { [key: string]: any; } = {};
+
+            for(let looper in data.work_hours) {
+                workerPlanedHours[looper] = []
+            }
+
             let prepareData = {
                 project : data.project,
                 progress : {
                     workHours: data.work_hours,
                     planHours: data.planed_work_hours,
-                    terms: data.terms
+                    terms: data.terms,
+                    inputPlanHours: workerPlanedHours
                 }
             }
             this.data = prepareData;
