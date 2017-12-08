@@ -25,7 +25,7 @@
                 </tr>
             </template>
         </table>
-        <button v-on:click="debug">デバッグ</button>
+        <button v-on:click="updatePlanWorkHours">予定時間更新</button>
     </div>
 </template>
 
@@ -36,8 +36,9 @@
     export default Vue.extend({
         props: ["progress"],
         methods : {
-            debug: () => {
-                Logger.debug("hoge")
+            updatePlanWorkHours() {
+                console.log("AAA")
+                this.$emit('project-test');
             }
         }
     })

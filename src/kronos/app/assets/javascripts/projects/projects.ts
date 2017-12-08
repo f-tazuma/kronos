@@ -2,8 +2,8 @@ import Logger from './../common/logger'
 import * as $ from 'jquery';
 import Vue from 'vue';
 
-import BaseComponent from "./components/base.vue";
-import ProgressComponent from "./components/progress.vue";
+import ProjectComponent from './components/project.vue';
+import ProgressComponent from './components/progress.vue';
 
 class Projects {
     id: string;
@@ -67,9 +67,24 @@ class Projects {
         let data = this.data
         let app = new Vue({
             el: '#app',
-            components: { BaseComponent, ProgressComponent },
+            template: `
+                <div>
+                <section>
+                    <project-component v-bind:project="project"></project-component>
+                </section>
+                <section>
+                    <progress-component v-bind:progress="progress" v-on:project-test="test"></progress-component>
+                </section>
+                </div>
+            `,
+            components: { ProjectComponent, ProgressComponent },
             data() {
                 return data
+            },
+            methods : {
+                test : () => {
+                    Logger.debug("親関数呼び出し")
+                }
             }
         });
     }
