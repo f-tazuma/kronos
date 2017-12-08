@@ -9,12 +9,12 @@
                 </td>
             </thead>
 
-            <template v-for="(elem, key) in progress.workHours">
+            <template v-for="(elem, workerId) in progress.workHours">
                 <tr>
                     <td class="worker_name" rowspan="2">{{elem.family_name}}{{elem.first_name}}</td>
                     <td>予定</td>
                     <td v-for="(hours, key) in elem.hours">
-                        <input type="number" size="4" v-model="progress.inputPlanHours[key]">
+                        <input type="number" size="4" v-model="progress.inputPlanHours[workerId][key]">
                     </td>
                 </tr>
                 <tr>
@@ -24,16 +24,22 @@
                     </td>
                 </tr>
             </template>
-
         </table>
+        <button v-on:click="debug">デバッグ</button>
     </div>
 </template>
 
 <script lang="ts">
     import Vue from "vue";
+    import Logger from './../../common/logger'
 
     export default Vue.extend({
-        props: ["progress"]
+        props: ["progress"],
+        methods : {
+            debug: () => {
+                Logger.debug("hoge")
+            }
+        }
     })
 </script>
 

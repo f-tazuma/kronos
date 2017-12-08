@@ -20,8 +20,11 @@ class Projects {
             // 計画作業時間入力行とバイディングするための配列を作るため、作業者ごとに配列を保持
             let workerPlanedHours: { [key: string]: any; } = {};
 
-            for(let looper in data.work_hours) {
-                workerPlanedHours[looper] = []
+            for(let workerId in data.work_hours) {
+                workerPlanedHours[workerId] = {}
+                for(let term in data.terms) {
+                    workerPlanedHours[workerId][term] = null
+                }
             }
 
             let prepareData = {
