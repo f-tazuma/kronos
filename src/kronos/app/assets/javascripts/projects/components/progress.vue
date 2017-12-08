@@ -35,10 +35,9 @@
 
     export default Vue.extend({
         props: ["progress"],
-        methods : {
+        methods: {
             updatePlanWorkHours() {
-                console.log("AAA")
-                this.$emit('project-test');
+                this.$emit('project-updatePlanWorkHours');
             }
         }
     })
