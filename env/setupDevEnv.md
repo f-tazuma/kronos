@@ -60,6 +60,7 @@ $ rails server
 ```
 $ npm install --save-dev jquery
 $ npm install --save-dev @types/jquery
+$ npm install --save-dev axios
 $ npm install --save-dev vue
 $ npm install --save-dev typescript webpack ts-loader css-loader vue-loader vue-template-compiler@2.2.1
 ```

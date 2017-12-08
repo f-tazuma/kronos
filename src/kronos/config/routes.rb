@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   get 'import_csvs', to: 'import_csvs#index'
   post 'import_csvs', to: 'import_csvs#import'
 
+  # テスト
+  get 'test01', to: 'test01#index'
+
   # API
   namespace :api, {format: 'json'} do
     get 'projects/:id', to: 'projects#show'
