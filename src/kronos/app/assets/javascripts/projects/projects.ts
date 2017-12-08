@@ -5,6 +5,9 @@ import Vue from 'vue';
 import ProjectComponent from './components/project.vue';
 import ProgressComponent from './components/progress.vue';
 
+
+
+
 class Projects {
     id: string;
     data: any;
@@ -73,7 +76,7 @@ class Projects {
                     <project-component v-bind:project="project"></project-component>
                 </section>
                 <section>
-                    <progress-component v-bind:progress="progress" v-on:project-test="test"></progress-component>
+                    <progress-component v-bind:progress="progress" v-on:project-upadtePlanWorkHours="upadtePlanWorkHours"></progress-component>
                 </section>
                 </div>
             `,
@@ -82,7 +85,7 @@ class Projects {
                 return data
             },
             methods : {
-                test : () => {
+                upadtePlanWorkHours : () => {
                     Logger.debug("親関数呼び出し")
                 }
             }
