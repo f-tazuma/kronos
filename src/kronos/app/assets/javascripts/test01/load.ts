@@ -19,10 +19,8 @@ let app = new Vue({
         };
     },
     created : function() {
-        ApiTest.getProjectData().then((res) => {
-
-        });
-    },
+    }
+    ,
     methods : {
         updatePlanWorkHours : () => {
 
