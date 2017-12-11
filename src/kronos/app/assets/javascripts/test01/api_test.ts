@@ -5,6 +5,7 @@ import Logger from "../common/logger";
 class ApiTest {
 
     static getProjectData() {
+
         let url = "/api/projects/1"
         axios.get(url)
             .then(function (response) {
@@ -17,6 +18,9 @@ class ApiTest {
                 return error;
             });
     }
+
+
+
 
     // static getProjectData1() {
     //     let defer = $.Deferred();
