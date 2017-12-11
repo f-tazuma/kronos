@@ -1,5 +1,6 @@
 module Api
   class ProjectsController < ApplicationController
+    protect_from_forgery with: :null_session
 
     def show
       @title = 'プロジェクト詳細'
@@ -8,9 +9,10 @@ module Api
       render json: @view_bug
     end
 
-    def updateWorkHours
-      p params
+    def updatePlanWorkHours
+      @view_bug = {}
 
+      render json: @view_bug
     end
 
     private
