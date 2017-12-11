@@ -17,32 +17,36 @@ let app = new Vue({
                 </section>
                 </div>
             `,
-    created : function() {
+    mounted : function() {
         this.setDisplayData();
     },
     components: { ProjectComponent, ProgressComponent },
     data() {
         return {
+            project: null,
+            progress: null
         }
     }
     ,
     methods : {
-        setDisplayData: () => {
+        setDisplayData: function() {
             let pathInfo = location.pathname.split('/');
             let url = "/api/projects/" + String(pathInfo.pop());
+
+            let self = this;
 
             axios.get(url)
                 .then(function (response :any) {
                     Logger.debug("sucsess to call: " + url);
                     Logger.debug(response.data);
-                    this.prepareData(response.data)
+                    self.prepareData(response.data)
                 })
                 .catch(function (error) {
                     Logger.error("sucsess to call: " + url);
                 });
         },
 
-        prepareData: (data :any) => {
+        prepareData: function(data :any) {
             // 計画作業時間入力行とバイディングするための配列を作るため、作業者ごとに配列を保持
             let workerPlanedHours: { [key: string]: any; } = {};
 
@@ -62,7 +66,9 @@ let app = new Vue({
                     inputPlanHours: workerPlanedHours
                 }
             }
+            // dataに値を設定
             this.$data.project = prepareData.project;
+            this.$data.progress = prepareData.progress;
         },
 
         updatePlanWorkHours: () => {
