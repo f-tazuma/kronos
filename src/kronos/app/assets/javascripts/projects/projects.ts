@@ -17,14 +17,14 @@ let app = new Vue({
                 </section>
                 </div>
             `,
-    mounted : function() {
+    created : function() {
         this.setDisplayData();
     },
     components: { ProjectComponent, ProgressComponent },
     data() {
         return {
-            project: null,
-            progress: null
+            project: {},
+            progress: {}
         }
     }
     ,
@@ -32,7 +32,6 @@ let app = new Vue({
         setDisplayData: function() {
             let pathInfo = location.pathname.split('/');
             let url = "/api/projects/" + String(pathInfo.pop());
-
             let self = this;
 
             axios.get(url)
