@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post 'projects', to: 'projects#create'
   patch 'projects/:id', to: 'projects#update'
 
+
   # csvファイルアップロード
   get 'import_csvs', to: 'import_csvs#index'
   post 'import_csvs', to: 'import_csvs#import'
@@ -27,9 +28,8 @@ Rails.application.routes.draw do
   # API
   namespace :api, {format: 'json'} do
     get 'projects/:id', to: 'projects#show'
+    post 'projects/update-work-hours/:id', to: 'projects#updateWorkHours'
   end
-
-
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

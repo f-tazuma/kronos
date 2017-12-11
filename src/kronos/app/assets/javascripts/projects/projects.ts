@@ -18,7 +18,7 @@ let app = new Vue({
                 </div>
             `,
     created : function() {
-        this.setDisplayData();
+        this.setInitialDisplayData();
     },
     components: { ProjectComponent, ProgressComponent },
     data() {
@@ -29,7 +29,8 @@ let app = new Vue({
     }
     ,
     methods : {
-        setDisplayData: function() {
+        //　初期表示
+        setInitialDisplayData: function() {
             let pathInfo = location.pathname.split('/');
             let url = "/api/projects/" + String(pathInfo.pop());
             let self = this;
@@ -45,6 +46,7 @@ let app = new Vue({
                 });
         },
 
+        // APIで取得したデータを表示に適したオブジェクトに整形する
         prepareData: function(data :any) {
             // 計画作業時間入力行とバイディングするための配列を作るため、作業者ごとに配列を保持
             let workerPlanedHours: { [key: string]: any; } = {};
@@ -70,8 +72,24 @@ let app = new Vue({
             this.$data.progress = prepareData.progress;
         },
 
-        updatePlanWorkHours: () => {
+        // 作業予定時間を登録する
+        updatePlanWorkHours: function() {
+            let pathInfo = location.pathname.split('/');
 
+            let url = "/api/projects/plan-work-hours/" + String(pathInfo.pop())
+            let self = this;
+
+            axios({
+                method: 'post',
+                url: url,
+                data: self.progress.inputPlanHours
+                // data: self.$data.progress.planHours
+            }).then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 });

@@ -8,6 +8,11 @@ module Api
       render json: @view_bug
     end
 
+    def updateWorkHours
+      p params
+
+    end
+
     private
 
     def project_params
