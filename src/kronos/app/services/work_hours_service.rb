@@ -10,18 +10,19 @@ class WorkHoursService
     @term_to = params['term_to'] || Date.new(Date.today.year, 12, 31)
   end
 
-  def getDataForProjectShow
+  # プロジェクト情報、稼働時間、計画時間を取得する
+  def get_daata_for_project_show
     data = {}
 
     # プロジェクト情報
     data[:project] = MProject.where(:id => @params[:id]).first
 
     # 稼働時間
-    db_work_hours = WorkedHoursDao.selectReportWorkedData(@params[:id])
+    db_work_hours = WorkedHoursDao.select_report_worked_daata(@params[:id])
     work_hours = convert_row_report_hash(db_work_hours)
 
     # 稼働予定時間
-    db_planed_work_hours = WorkedHoursDao.selectReportPlanedWorkData(@params[:id])
+    db_planed_work_hours = WorkedHoursDao.select_report_worked_daata(@params[:id])
     planed_work_hours = convert_row_report_hash(db_planed_work_hours)
 
     data[:work_hours] = work_hours
@@ -30,6 +31,13 @@ class WorkHoursService
     data[:terms] = get_terms()
 
     return data
+  end
+
+  # 計画稼働時間を登録する
+  def update_plan_work_hours
+    plan = @params[:project]
+
+
   end
 
   private

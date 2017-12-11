@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   # API
   namespace :api, {format: 'json'} do
     get 'projects/:id', to: 'projects#show'
-    post 'projects/plan-work-hours/:id', to: 'projects#updatePlanWorkHours'
+    post 'projects/plan-work-hours/:id', to: 'projects#update_plan_work_hours'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

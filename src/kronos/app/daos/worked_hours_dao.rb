@@ -1,7 +1,7 @@
 class WorkedHoursDao
 
   # 対象プロジェクトの週番号・作業者別稼働時間を取得する
-  def self.selectReportWorkedData(project_id)
+  def self.select_report_worked_daata(project_id)
     sql = '
       SELECT
         projects.id,

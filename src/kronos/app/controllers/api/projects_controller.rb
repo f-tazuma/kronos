@@ -3,15 +3,15 @@ module Api
     protect_from_forgery with: :null_session
 
     def show
-      @title = 'プロジェクト詳細'
       service = WorkHoursService.new(params)
-      @view_bug = service.getDataForProjectShow
+      @view_bug = service.get_daata_for_project_show
       render json: @view_bug
     end
 
-    def updatePlanWorkHours
+    def update_plan_work_hours
       @view_bug = {}
-
+      service = WorkHoursService.new(params)
+      service.update_plan_work_hours
       render json: @view_bug
     end
 

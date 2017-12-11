@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
   def show
     @title = 'プロジェクト詳細'
     service = WorkHoursService.new(params)
-    @view_bug = service.getDataForProjectShow
+    @view_bug = service.get_daata_for_project_show
 
     render :action => 'show'
   end
