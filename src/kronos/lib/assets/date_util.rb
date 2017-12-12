@@ -13,7 +13,6 @@ class DateUtil
     days = []
 
     # 基準日を1日ずつ減らしていき、パラメータ週番号と同じ日を配列に追加する
-
     while base_date.cweek >= week_number do
       if(base_date.cweek == week_number)
         days.push(base_date)

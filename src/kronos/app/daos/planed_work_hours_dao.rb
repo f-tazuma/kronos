@@ -10,9 +10,10 @@ class PlanedWorkHoursDao
         workers.worker_number,
         workers.family_name,
         workers.first_name,
-        MONTH(planed.work_plan_day) month_of_year,
-        WEEK(planed.work_plan_day, 7) week_num_of_year,
-        sum(planed.work_hours)                   week_plan_hours
+        YEAR(planed.work_plan_day)            year,
+        MONTH(planed.work_plan_day)           month_of_year,
+        WEEK(planed.work_plan_day, 7)         week_num_of_year,
+        sum(planed.work_hours)                week_work_hours
       FROM t_planed_work_hours planed
         INNER JOIN m_projects projects
           ON planed.m_project_id = projects.id
@@ -27,6 +28,7 @@ class PlanedWorkHoursDao
         worker_number,
         workers.family_name,
         workers.first_name,
+        year,
         month_of_year,
         week_num_of_year
     '

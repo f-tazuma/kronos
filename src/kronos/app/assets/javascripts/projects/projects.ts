@@ -54,7 +54,12 @@ let app = new Vue({
             for(let workerId in data.work_hours) {
                 workerPlanedHours[workerId] = {}
                 for(let term in data.terms) {
-                    workerPlanedHours[workerId][term] = null
+                    if(workerId in data.planed_work_hours
+                        && term in data.planed_work_hours[workerId]['hours']) {
+                        workerPlanedHours[workerId][term] = data.planed_work_hours[workerId]['hours'][term]
+                    }else{
+                        workerPlanedHours[workerId][term] = null
+                    }
                 }
             }
 
