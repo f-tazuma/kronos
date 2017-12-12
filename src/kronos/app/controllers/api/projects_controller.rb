@@ -8,10 +8,10 @@ module Api
       render json: @view_bug
     end
 
-    def update_plan_work_hours
+    def store_planed_work_hours
       @view_bug = {}
       service = WorkHoursService.new(params)
-      service.update_plan_work_hours
+      service.store_planed_work_hours
       render json: @view_bug
     end
 

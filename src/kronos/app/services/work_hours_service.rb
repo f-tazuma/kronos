@@ -34,21 +34,59 @@ class WorkHoursService
   end
 
   # 計画稼働時間を登録する
-  def update_plan_work_hours
+  def store_planed_work_hours
     plan_data = @params[:project]
+    project_id = @params[:id]
+
     plan_data.each do |worker_number, work_hours|
       # 作業者毎の予定作業時間データをループ処理
       work_hours.each do |year_week_num, hour|
-
-
-
+        if hour != nil
+          year_week_num = year_week_num.split(".")
+          store_planed(project_id, worker_number, year_week_num[0], year_week_num[1], hour)
+        end
       end
     end
   end
 
-
-
   private
+
+  # 週番号から対象日に作業時間を按分してデータ登録する
+  def store_planed(project_id, worker_number, year, week_num, hour)
+    # 対象週番号の日付を取得
+    days = DateUtil::get_days_by_week_num(year.to_i, week_num.to_i)
+
+    ActiveRecord::Base.transaction do
+      # 対象日のデータを削除
+      TPlanedWorkHour.where(work_plan_day: days.last..days.first)
+        .where(worker_number: worker_number)
+        .where(m_project_id: project_id).delete_all
+
+      # 対象週の日付配列は先頭2要素が、土曜日、日曜日。よって、2要素は削除する
+      days = days.slice(0, 5)
+      divmod = hour.to_i.divmod(days.size)
+
+      # 4営業日は按分した作業時間を登録する
+      days.first(4).each do |day|
+        TPlanedWorkHour.create(
+            worker_number: worker_number,
+            m_project_id: 1,
+            work_plan_day: day,
+            work_hours: divmod[0]
+        )
+      end
+      # 1営業日は按分時間に余りを足して登録する
+      days.last(1).each do |day|
+        TPlanedWorkHour.create(
+            worker_number: worker_number,
+            m_project_id: 1,
+            work_plan_day: day,
+            work_hours: divmod[0] + divmod[1]
+        )
+      end
+    end
+  end
+
   # 実績、予定時間のデータベースデータをhashに変換する
   def convert_row_report_hash(db_data)
     tmp_hours = {}
@@ -92,7 +130,5 @@ class WorkHoursService
     end
     return terms
   end
-
-  #
 
 end

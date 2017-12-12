@@ -1,8 +1,8 @@
 require "date"
 
 class DateUtil
-  # 年、週番号を引数に、対象週番号に該当する日を配列で返す
-  def self.getDatesByWeekNum(year, week_number)
+  # 年(数値)、週番号(数値)を引数に、対象週番号に該当する日を配列で返す
+  def self.get_days_by_week_num(year, week_number)
     year_start_date = Date.new(Date.today.year, 1, 1)
     # 対象週番号から1/1に加算する日付を生成
     plus_days = 7 * week_number

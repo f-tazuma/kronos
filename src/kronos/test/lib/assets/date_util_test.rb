@@ -6,8 +6,8 @@ class DateUtilTest < ActiveSupport::TestCase
   def setup
   end
 
-  test 'getDatesByWeekNum(2017, 10) should return array of 2017/3/6-2017/3/12' do
-    days = DateUtil::getDatesByWeekNum(2017, 10)
+  test 'get_days_by_week_num(2017, 10) should return array of 2017/3/6-2017/3/12' do
+    days = DateUtil::get_days_by_week_num(2017, 10)
     assert_equal 7, days.size
 
     expect_days = []
