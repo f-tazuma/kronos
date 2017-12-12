@@ -85,7 +85,7 @@ class ImportCsvsService
       # データ取り込み対象月を削除
       sql = ActiveRecord::Base.send(
           :sanitize_sql_array,
-          ["DELETE FROM t_worked_hours WHERE work_day <= ? and work_day >= ?", start_date, end_date]
+          ["DELETE FROM t_worked_hours WHERE work_day >= ? and work_day <= ?", start_date, end_date]
       )
       $result = ActiveRecord::Base.connection.execute(sql)
 

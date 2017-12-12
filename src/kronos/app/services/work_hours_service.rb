@@ -11,18 +11,18 @@ class WorkHoursService
   end
 
   # プロジェクト情報、稼働時間、計画時間を取得する
-  def get_daata_for_project_show
+  def get_data_for_project_show
     data = {}
 
     # プロジェクト情報
     data[:project] = MProject.where(:id => @params[:id]).first
 
     # 稼働時間
-    db_work_hours = WorkedHoursDao.select_report_worked_daata(@params[:id])
+    db_work_hours = WorkedHoursDao.select_report_worked_data(@params[:id])
     work_hours = convert_row_report_hash(db_work_hours)
 
     # 稼働予定時間
-    db_planed_work_hours = WorkedHoursDao.select_report_worked_daata(@params[:id])
+    db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(@params[:id])
     planed_work_hours = convert_row_report_hash(db_planed_work_hours)
 
     data[:work_hours] = work_hours
@@ -35,41 +35,51 @@ class WorkHoursService
 
   # 計画稼働時間を登録する
   def update_plan_work_hours
-    plan = @params[:project]
+    plan_data = @params[:project]
+    plan_data.each do |worker_number, work_hours|
+      # 作業者毎の予定作業時間データをループ処理
+      work_hours.each do |year_week_num, hour|
 
 
+
+      end
+    end
   end
 
+
+
   private
+  # 実績、予定時間のデータベースデータをhashに変換する
   def convert_row_report_hash(db_data)
     tmp_hours = {}
 
     db_data.each do |elem|
-      workers_id = elem['workers_id']
+      worker_number = elem['worker_number']
       year = elem['year']
       month = elem['month_of_year']
       week_num = elem['week_num_of_year']
       year_week_num = "#{year}.#{week_num}"
 
-      if(! tmp_hours.key?(workers_id))
+      if(! tmp_hours.key?(worker_number))
         # 新しい作業者idの場合、対象期間分キーを作成
-        tmp_hours[workers_id] = {}
-        tmp_hours[workers_id]['hours'] = {}
-        tmp_hours[workers_id]['family_name'] = elem['family_name']
-        tmp_hours[workers_id]['first_name'] = elem['first_name']
+        tmp_hours[worker_number] = {}
+        tmp_hours[worker_number]['hours'] = {}
+        tmp_hours[worker_number]['family_name'] = elem['family_name']
+        tmp_hours[worker_number]['first_name'] = elem['first_name']
         (@term_from..@term_to).each do | looper |
           key  = "#{looper.year}.#{looper.cweek}"
-          tmp_hours[workers_id]['hours'][key] = nil
+          tmp_hours[worker_number]['hours'][key] = nil
         end
-        tmp_hours[workers_id]['hours'][year_week_num] = elem['week_work_hours']
+        tmp_hours[worker_number]['hours'][year_week_num] = elem['week_work_hours']
       else
-        tmp_hours[workers_id]['hours'][year_week_num] = elem['week_work_hours']
+        tmp_hours[worker_number]['hours'][year_week_num] = elem['week_work_hours']
       end
     end
 
     return tmp_hours
   end
 
+  # 対象期間 年.週番号 を取得する
   def get_terms
     terms = {}
     (@term_from..@term_to).each do | looper |
@@ -82,5 +92,7 @@ class WorkHoursService
     end
     return terms
   end
+
+  #
 
 end

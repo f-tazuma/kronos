@@ -4,7 +4,7 @@ module Api
 
     def show
       service = WorkHoursService.new(params)
-      @view_bug = service.get_daata_for_project_show
+      @view_bug = service.get_data_for_project_show
       render json: @view_bug
     end
 
