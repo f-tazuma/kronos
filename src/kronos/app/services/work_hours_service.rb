@@ -30,6 +30,8 @@ class WorkHoursService
 
     data[:terms] = get_terms()
 
+    # 集計情報()
+
     return data
   end
 

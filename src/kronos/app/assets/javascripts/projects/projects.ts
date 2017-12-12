@@ -67,7 +67,7 @@ let app = new Vue({
                 project : data.project,
                 progress : {
                     workHours: data.work_hours,
-                    planHours: data.planed_work_hours,
+                    // planHours: data.planed_work_hours,
                     terms: data.terms,
                     inputPlanHours: workerPlanedHours
                 }
