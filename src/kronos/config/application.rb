@@ -31,7 +31,8 @@ module Kronos
     end
 
     # 自動ロード対象ディレクトリを追加
-    config.autoload_paths += %W(#{config.root}/app/services)
+    # config.autoload_paths += %W(#{config.root}/app/services)
+    # config.autoload_paths += %W(#{config.root}/app/daos)
     config.autoload_paths += %W(#{config.root}/lib/assets)
 
     # TimeZone、locale設定

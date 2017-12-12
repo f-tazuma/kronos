@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `m_projects`;
 DROP TABLE IF EXISTS `m_orders`;
 DROP TABLE IF EXISTS `t_order_work_breakdowns`;
 DROP TABLE IF EXISTS `t_worked_hours`;
+DROP TABLE IF EXISTS `t_planed_work_hours`;
 
 -- -----------------------------------------------------
 -- Table 部署マスタ
@@ -55,10 +56,11 @@ CREATE TABLE IF NOT EXISTS `m_projects` (
   `project_no` VARCHAR(20) NOT NULL UNIQUE,
   `name` VARCHAR(100) NOT NULL,
   `description` MEDIUMTEXT NULL,
+  `work_start_date` DATETIME NULL,
+  `work_end_date` DATETIME NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NULL,
-  `m_account_id` BIGINT NULL,
-  UNIQUE INDEX `path_UNIQUE` (`project_no` ASC))
+  UNIQUE INDEX `project_no_UNIQUE` (`project_no` ASC))
 ENGINE = InnoDB;
 
 
@@ -72,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `m_orders` (
   `client_name` VARCHAR(100) NOT NULL,
   `description` MEDIUMTEXT NULL,
   `ordered_date` DATETIME NULL,
-  `m_projects_id` BIGINT NULL,
+  `m_project_id` BIGINT NULL,
   `receiving_inspection_date` DATETIME NULL COMMENT '検収(予定)日',
   `order_kind` VARCHAR(50) NULL COMMENT '開発、保守',
   `sales_kind` VARCHAR(50) NULL COMMENT '売上,非売上',
@@ -84,9 +86,9 @@ CREATE TABLE IF NOT EXISTS `m_orders` (
   `updated_at` DATETIME NULL,
   PRIMARY KEY (id),
   UNIQUE INDEX `path_UNIQUE` (`order_no` ASC),
-  INDEX `fk_m_orders_m_projects1_idx` (`m_projects_id` ASC),
+  INDEX `fk_m_orders_m_projects1_idx` (`m_project_id` ASC),
   CONSTRAINT `fk_m_orders_m_projects1`
-    FOREIGN KEY (`m_projects_id`)
+    FOREIGN KEY (`m_project_id`)
     REFERENCES `m_projects` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -131,3 +133,22 @@ CREATE TABLE IF NOT EXISTS `t_worked_hours` (
 )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table 作業予定時間トラン
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `t_planed_work_hours` (
+  `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+  `worker_number` VARCHAR(20) NOT NULL,
+  `m_project_id` BIGINT NULL,
+  `t_order_work_breakdowns_id` BIGINT NULL,
+  `work_plan_day` DATETIME NULL,
+  `work_hours` DECIMAL(5,2) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL,
+  INDEX `fk_t_plan_work_hours_worker_number1_idx` (`worker_number` ASC),
+  INDEX `fk_t_plan_work_hours_m_project_id_idx` (`m_project_id` ASC),
+  INDEX `fk_t_plan_work_hours_t_order_work_breakdowns1_idx` (`t_order_work_breakdowns_id` ASC),
+  INDEX `t_plan_work_hours_work_plan_day1_idx` (`work_plan_day` ASC)
+)
+ENGINE = InnoDB;

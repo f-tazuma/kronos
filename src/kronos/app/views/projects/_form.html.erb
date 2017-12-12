@@ -1,0 +1,69 @@
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">プロジェクトNo</label>
+    <div class="col-sm-8">
+      <%= f.text_field :project_no %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">プロジェクト名</label>
+    <div class="col-sm-8">
+      <%= f.text_field :name, :size=>100 %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">備考</label>
+    <div class="col-sm-8">
+      <%= f.text_area :description %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">作業開始(予定)日</label>
+    <div class="col-sm-8">
+      <%= f.date_field(:work_start_date) %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">作業終了(予定)日</label>
+    <div class="col-sm-8">
+      <%= f.date_field(:work_end_date) %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">プロジェクト対象受注</label>
+    <table>
+      <% @related_orders.each do |order| %>
+        <tr>
+          <td><%= check_box_tag "related_orders[#{order.id}]", true, false, {} %></td>
+          <td><%= order.order_no %></td>
+          <td><%= order.name %></td>
+          <td><%= order.client_name %></td>
+          <td><%= order.estimate_work_hours %></td>
+          <td><%= order.ordered_work_hours %></td>
+          <td><%= number_to_currency(order.ordered_volume, :unit => "￥", :precision => 0) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">プロジェクト対象外受注</label>
+    <table>
+      <% @non_related_orders.each do |order| %>
+        <tr>
+          <td><%= check_box_tag "non_related_orders[#{order.id}]", true, false, {} %></td>
+          <td><%= order.order_no %></td>
+          <td><%= order.name %></td>
+          <td><%= order.client_name %></td>
+          <td><%= order.estimate_work_hours %></td>
+          <td><%= order.ordered_work_hours %></td>
+          <td><%= number_to_currency(order.ordered_volume, :unit => "￥", :precision => 0) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>

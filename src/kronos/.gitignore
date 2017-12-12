@@ -25,6 +25,9 @@
 
 .byebug_history
 
+# Ignore vendor dir
+/vendor
+
 # Ignore Test csv files
 !/test/_data/source_csvs/.keep
 /test/_data//source_csvs/*

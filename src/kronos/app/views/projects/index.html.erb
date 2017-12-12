@@ -1,0 +1,47 @@
+<% provide(:title, @title) %>
+
+<h1><%= @title %></h1>
+
+<main>
+  <section>
+    <a href=/projects/new>新規作成</a>
+  </section>
+
+  <div class="table-list">
+    <table class="table table-border table-striped">
+      <thead>
+      <tr>
+        <td class="col-md">No</td>
+        <td class="col-md-4">プロジェクト名</td>
+        <td class="col-md">補足</td>
+        <td class="col-md">作業開始日(予定)</td>
+        <td class="col-md">作業終了日(予定)</td>
+        <td class="col-md">操作</td>
+      </tr>
+      </thead>
+      <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><a href=/projects/<%= project.id %>><%= project.project_no %></a></td>
+          <td><%= project.name %></td>
+          <td><%= project.description %></td>
+          <% if project.work_start_date %>
+            <td><%= l(project.work_start_date.to_date, format: :long) %></td>
+          <% else %>
+              <td></td>
+          <% end %>
+          <% if project.work_end_date %>
+              <td><%= l(project.work_end_date.to_date, format: :long) %></td>
+          <% else %>
+              <td></td>
+          <% end %>
+          <td>
+            <a href=/projects/<%= project.id %>/edit>編集</a>
+          </td>
+        </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+  </div>
+</main>

@@ -1,0 +1,14 @@
+<% provide(:title, @title) %>
+
+<h1><%= @title %></h1>
+
+<main>
+  <%= render 'layouts/message' %>
+
+  <%= form_for @project, :url => { :action => "create" } do |f| %>
+    <div class="orders-base center-block">
+      <%= render 'form', f: f %>
+      <%= f.submit "作成" %>
+    </div>
+  <% end %>
+</main>

@@ -1,0 +1,2 @@
+class TPlanedWorkHour < ApplicationRecord
+end

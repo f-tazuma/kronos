@@ -55,7 +55,19 @@ $ rails server
 
 ## フロント開発
 
-### assetsディレクトリのクリア
+### TypeScript & Vue.jsの開発環境作成
+[参考](https://github.com/Microsoft/TypeScript-Vue-Starter)
+```
+$ npm install --save-dev jquery
+$ npm install --save-dev @types/jquery
+$ npm install --save-dev axios
+$ npm install --save-dev vue
+$ npm install --save-dev typescript webpack ts-loader css-loader vue-loader vue-template-compiler@2.2.1
+```
+
+### 初回
+
+#### assetsディレクトリのクリア
 ```text
 $ cd src/kronos/
 $ rm -rf app/assets/
@@ -63,18 +75,18 @@ $ mkdir -p app/assets/javascripts
 $ mkdir -p app/assets/stylesheets
 ```
 
-### nodeセットアップ
+#### webpackによるビルド
+package.json
+```
+  "scripts": {
+    "webpack": "./node_modules/webpack/bin/webpack.js --progress --colors",
+    "webpack:watch": "./node_modules/webpack/bin/webpack.js --progress --colors --watch"
+  },
+```
 
-```text
-$ pwd
-/Users/xxx/Develop/Repos/Kronos/src/kronos
-$ npm install webpack --save-dev
-$ npm install watch --save-dev
-$ npm install node-sass --save-dev
-$ npm install css-loader file-loader sass-loader style-loader --save-dev
-$ npm install babel-cli babel-core babel-loader --save-dev
-$ npm install babel-preset-es2015 --save-dev
-$ npm install bootstrap jquery --save-dev
+ビルド
+```
+$ npm run webpack
 ```
 
 ## DockerによるMySQLサーバセットアップ
@@ -124,8 +136,16 @@ kronos-mysql | 2017-08-03T15:00:51.001630Z 0 [Warning] TIMESTAMP with implicit D
 ...
 ```
 
-## データベースの作成
+## データベース構築
+
+### テーブル作成
 ```text
 $ mysql -h 127.0.0.1 --port 13307 -u webapp kronos -p < kronos.sql 
 Enter password: 
+```
+
+### データ投入
+```text
+$ cd ./Kronos/src/kronos
+$ rbenv exec rake db:seed
 ```
