@@ -14,15 +14,19 @@ class WorkHoursService
   def get_data_for_project_show
     data = {}
 
-    # プロジェクト情報
-    data[:project] = MProject.where(:id => @params[:id]).first
+    project_id = @params[:id]
 
+    # プロジェクト情報
+    data[:project] = MProject.where(:id => project_id).first
+    data[:orders] = OrdersDao.select_orders_by_project_id(project_id)
+
+    # 稼働情報
     # 稼働時間
-    db_work_hours = WorkedHoursDao.select_report_worked_data(@params[:id])
+    db_work_hours = WorkedHoursDao.select_report_worked_data(project_id)
     work_hours = convert_row_report_hash(db_work_hours)
 
     # 稼働予定時間
-    db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(@params[:id])
+    db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(project_id)
     planed_work_hours = convert_row_report_hash(db_planed_work_hours)
 
     data[:work_hours] = work_hours
@@ -30,7 +34,9 @@ class WorkHoursService
 
     data[:terms] = get_terms()
 
-    # 集計情報()
+    # 集計情報
+    data[:total_consume_worked_hours] = OrdersDao.select_total_consume_worked_hours(project_id, Date.today())
+    data[:total_planed_work_hours] = PlanedWorkHoursDao.select_total_planed_work_hours(project_id, Date.today())
 
     return data
   end

@@ -4,6 +4,15 @@ import Vue from 'vue';
 
 import ProjectComponent from './components/project.vue';
 import ProgressComponent from './components/progress.vue';
+import Filter from './../common/filter';
+
+// Vue.filter('money', function (value :any) {
+//     if (!value) return ''
+//     return value.toLocaleString();
+// })
+
+// フィルタ設定読み込み
+(new Filter())
 
 let app = new Vue({
     el: '#app',
@@ -23,7 +32,10 @@ let app = new Vue({
     components: { ProjectComponent, ProgressComponent },
     data() {
         return {
-            project: {},
+            project: {
+                project: {},
+                orders: {}
+            },
             progress: {}
         }
     }
@@ -64,7 +76,10 @@ let app = new Vue({
             }
 
             let prepareData = {
-                project : data.project,
+                project: {
+                    project: data.project,
+                    orders: data.orders
+                },
                 progress : {
                     workHours: data.work_hours,
                     // planHours: data.planed_work_hours,
