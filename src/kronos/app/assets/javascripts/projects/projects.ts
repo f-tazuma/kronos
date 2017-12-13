@@ -78,7 +78,9 @@ let app = new Vue({
             let prepareData = {
                 project: {
                     project: data.project,
-                    orders: data.orders
+                    orders: data.orders,
+                    total_consume_worked_hours: data.total_consume_worked_hours,
+                    total_planed_work_hours: data.total_planed_work_hours
                 },
                 progress : {
                     workHours: data.work_hours,
