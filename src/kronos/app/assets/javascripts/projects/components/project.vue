@@ -58,14 +58,14 @@
         props: ["project"],
         computed: {
             getEstimateTotalWorkHours: function() {
-                return this.project.total.total_consume_worked_hours + this.project.total.total_planed_work_hours
+                return parseFloat(this.project.total.total_consume_worked_hours) + parseFloat(this.project.total.total_planed_work_hours)
             },
             getWorkHourRate: function() {
                 let rate = this.project.total.total_consume_worked_hours / this.project.total.total_estimate_work_hours * 100
                 return rate.toFixed(2)
             },
             getEstimateWorkHourRate: function() {
-                let rate = (this.project.total.total_consume_worked_hours + this.project.total.total_planed_work_hours) / this.project.total.total_estimate_work_hours * 100
+                let rate = (parseFloat(this.project.total.total_consume_worked_hours) + parseFloat(this.project.total.total_planed_work_hours)) / parseFloat(this.project.total.total_estimate_work_hours) * 100
                 return rate.toFixed(2)
             }
         }
