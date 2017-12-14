@@ -29,7 +29,8 @@ let app = new Vue({
         return {
             project: {
                 project: {},
-                orders: {}
+                orders: {},
+                total: {}
             },
             progress: {}
         }
@@ -74,8 +75,7 @@ let app = new Vue({
                 project: {
                     project: data.project,
                     orders: data.orders,
-                    total_consume_worked_hours: data.total_consume_worked_hours,
-                    total_planed_work_hours: data.total_planed_work_hours
+                    total: data.total
                 },
                 progress : {
                     workHours: data.work_hours,

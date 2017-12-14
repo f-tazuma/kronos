@@ -72,12 +72,16 @@ class WorkHoursService
     # 受注情報から受注工数、受注金額を合計する
     total_estimate_work_hours = 0
     @orders.each do |order|
-      total_estimate_work_hours = total_estimate_work_hours + order.estimate_work_hours
+      if order['estimate_work_hours'] != nil
+        total_estimate_work_hours = total_estimate_work_hours + order['estimate_work_hours']
+      end
     end
 
     data[:consume_worked_hours] = consume_worked_hours
     data[:planed_work_hours] = planed_work_hours
     data[:total_estimate_work_hours] = total_estimate_work_hours
+    data[:total_consume_worked_hours] = get_total_from_hours(consume_worked_hours)
+    data[:total_planed_work_hours] = get_total_from_hours(planed_work_hours)
 
     return data
   end
@@ -86,7 +90,9 @@ class WorkHoursService
   def get_total_from_hours(hours_data)
     total = 0
     hours_data.each do |elem|
-      total = total + elem.worked_hours
+      if elem['worked_hours'] != nil
+        total = total + elem['worked_hours']
+      end
     end
     return total
   end
