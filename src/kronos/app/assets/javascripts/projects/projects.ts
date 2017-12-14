@@ -6,11 +6,6 @@ import ProjectComponent from './components/project.vue';
 import ProgressComponent from './components/progress.vue';
 import Filter from './../common/filter';
 
-// Vue.filter('money', function (value :any) {
-//     if (!value) return ''
-//     return value.toLocaleString();
-// })
-
 // フィルタ設定読み込み
 (new Filter())
 

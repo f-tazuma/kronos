@@ -18,7 +18,12 @@ class WorkHoursService
 
     # プロジェクト情報
     data[:project] = MProject.where(:id => project_id).first
-    data[:orders] = OrdersDao.select_orders_by_project_id(project_id)
+    # 受注情報
+    @orders = OrdersDao.select_orders_by_project_id(project_id)
+    data[:orders] = @orders
+
+    # 集計情報
+    data[:total] = get_total_work_hours(project_id)
 
     # 稼働情報
     # 稼働時間
@@ -31,12 +36,7 @@ class WorkHoursService
 
     data[:work_hours] = work_hours
     data[:planed_work_hours] = planed_work_hours
-
     data[:terms] = get_terms()
-
-    # 集計情報
-    data[:total_consume_worked_hours] = OrdersDao.select_total_consume_worked_hours(project_id, Date.today())
-    data[:total_planed_work_hours] = PlanedWorkHoursDao.select_total_planed_work_hours(project_id, Date.today())
 
     return data
   end
@@ -58,6 +58,38 @@ class WorkHoursService
   end
 
   private
+
+  # 作業時間の集計値情報を取得する
+  def get_total_work_hours(project_id)
+    data = {}
+    consume_worked_hours = OrdersDao.select_total_consume_worked_hours(project_id, Date.today())
+    planed_work_hours = PlanedWorkHoursDao.select_total_planed_work_hours(project_id, Date.today())
+
+    # 作業実績、作業予定工数は「受注,年,月」毎の集計値なので、トータルを求める
+    sum_consume = get_total_from_hours(consume_worked_hours)
+    sum_plan = get_total_from_hours(planed_work_hours)
+
+    # 受注情報から受注工数、受注金額を合計する
+    total_estimate_work_hours = 0
+    @orders.each do |order|
+      total_estimate_work_hours = total_estimate_work_hours + order.estimate_work_hours
+    end
+
+    data[:consume_worked_hours] = consume_worked_hours
+    data[:planed_work_hours] = planed_work_hours
+    data[:total_estimate_work_hours] = total_estimate_work_hours
+
+    return data
+  end
+
+  # 「受注,年,月」毎の集計値データを集計する
+  def get_total_from_hours(hours_data)
+    total = 0
+    hours_data.each do |elem|
+      total = total + elem.worked_hours
+    end
+    return total
+  end
 
   # 週番号から対象日に作業時間を按分してデータ登録する
   def store_planed(project_id, worker_number, year, week_num, hour)
