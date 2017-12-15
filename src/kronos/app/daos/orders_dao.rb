@@ -6,6 +6,7 @@ class OrdersDao
         orders.order_no,
         orders.name,
         orders.estimate_work_hours,
+        orders.ordered_work_hours,
         orders.ordered_volume
       FROM m_projects projects
       INNER JOIN m_orders orders

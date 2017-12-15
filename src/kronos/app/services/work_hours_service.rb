@@ -71,17 +71,41 @@ class WorkHoursService
 
     # 受注情報から受注工数、受注金額を合計する
     total_estimate_work_hours = 0
+    total_ordered_work_hours = 0
     @orders.each do |order|
       if order['estimate_work_hours'] != nil
         total_estimate_work_hours = total_estimate_work_hours + order['estimate_work_hours']
+      end
+      if order['ordered_work_hours'] != nil
+        total_ordered_work_hours = total_ordered_work_hours + order['ordered_work_hours']
       end
     end
 
     data[:consume_worked_hours] = consume_worked_hours
     data[:planed_work_hours] = planed_work_hours
     data[:total_estimate_work_hours] = total_estimate_work_hours
+    data[:total_ordered_work_hours] = total_ordered_work_hours
+
+    # 作業済工数
     data[:total_consume_worked_hours] = get_total_from_hours(consume_worked_hours)
+    # 計画工数
     data[:total_planed_work_hours] = get_total_from_hours(planed_work_hours)
+
+    # 着地見込み工数
+    data[:landing_total_work_hours] = data[:total_consume_worked_hours] + data[:total_planed_work_hours]
+
+    # 現時点残工数
+    data[:current_rest_work_hours] = total_ordered_work_hours - (data[:total_consume_worked_hours])
+    # 着地時点残工数
+    data[:landing_rest_work_hours] = total_ordered_work_hours - (data[:landing_total_work_hours])
+
+    # 工数進捗率
+    if total_ordered_work_hours == 0
+      data[:current_rate_of_work_hour_progress] = 0
+    else
+      rate = data[:total_consume_worked_hours] / total_ordered_work_hours * 100
+      data[:current_rate_of_work_hour_progress] = rate.round(2);
+    end
 
     return data
   end
