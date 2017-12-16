@@ -34,7 +34,7 @@ class WorkedHoursDao
         month_of_year,
         week_num_of_year
       ORDER BY
-      worker_id, week_num_of_year
+        worker_id, week_num_of_year
     '
     # プレースホルダーを利用し、sql文を組み当て
     prepared = ActiveRecord::Base.send(
