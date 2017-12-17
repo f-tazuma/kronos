@@ -45,6 +45,8 @@ $ rails new kronos --skip-sprockets
 ...
 ```
 
+#### データベース
+
 #### サーバの起動
 ```text
 $ rails server
@@ -142,6 +144,11 @@ kronos-mysql | 2017-08-03T15:00:51.001630Z 0 [Warning] TIMESTAMP with implicit D
 ```text
 $ mysql -h 127.0.0.1 --port 13307 -u webapp kronos -p < kronos.sql 
 Enter password: 
+```
+
+### テーブル作成
+```text
+$ rails db:migrate
 ```
 
 ### データ投入
