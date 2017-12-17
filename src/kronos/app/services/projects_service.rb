@@ -1,4 +1,4 @@
-class ProjectService
+class ProjectsService
   def initialize(params)
     @params = params
   end

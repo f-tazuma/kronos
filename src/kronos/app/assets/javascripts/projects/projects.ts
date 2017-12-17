@@ -17,7 +17,9 @@ let app = new Vue({
                     <project-component v-bind:project="project"></project-component>
                 </section>
                 <section>
-                    <progress-component v-bind:progress="progress" v-on:project-updatePlanWorkHours="updatePlanWorkHours"></progress-component>
+                    <progress-component v-bind:progress="progress" 
+                        v-on:project-updatePlanWorkHours="updatePlanWorkHours" 
+                        v-on:project-searchWorkers="searchWorkers"></progress-component>
                 </section>
                 </div>
             `,
@@ -32,7 +34,13 @@ let app = new Vue({
                 orders: {},
                 total: {}
             },
-            progress: {}
+            progress: {
+                workHours: {},
+                terms: {},
+                inputPlanHours: {},
+                workers: [],
+                workersSearchConditions: {}
+            }
         }
     }
     ,
@@ -79,9 +87,10 @@ let app = new Vue({
                 },
                 progress : {
                     workHours: data.work_hours,
-                    // planHours: data.planed_work_hours,
                     terms: data.terms,
-                    inputPlanHours: workerPlanedHours
+                    inputPlanHours: workerPlanedHours,
+                    workers: [],
+                    workersSearchConditions: {}
                 }
             }
             // dataに値を設定
@@ -102,11 +111,29 @@ let app = new Vue({
                 data: self.progress.inputPlanHours
                 // data: self.$data.progress.planHours
             }).then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                Logger.debug("sucsess to call: " + url);
+                Logger.debug(JSON.stringify(response));
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+
+        // 作業者を検索する
+        searchWorkers: function() {
+            let url = "/api/workers/search"
+            let self = this;
+            axios({
+                method: 'get',
+                url: url,
+                data: self.progress.workersSearchConditions
+            }).then(function (response) {
+                Logger.debug("sucsess to call: " + url);
+                Logger.debug(JSON.stringify(response));
+
+                self.$data.progress.workers = response.data
+            }).catch(function (error) {
+                Logger.error(JSON.stringify(error));
+            });
         }
     }
 });

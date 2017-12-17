@@ -1,31 +1,50 @@
 <template>
-    <div class="progress">
-        <table>
-            <thead>
+    <div>
+        <div class="progress">
+            <table>
+                <thead>
                 <td class="worker_name">氏名</td>
                 <td>予定<br>実績</td>
                 <td v-for="(term, key) in progress.terms">
                     {{term.cweek}}
                 </td>
-            </thead>
+                </thead>
 
-            <template v-for="(elem, workerId) in progress.workHours">
-                <tr>
-                    <td class="worker_name" rowspan="2">{{elem.family_name}}{{elem.first_name}}</td>
-                    <td>予定</td>
-                    <td v-for="(hours, key) in elem.hours">
-                        <input type="number" size="4" v-model="progress.inputPlanHours[workerId][key]">
-                    </td>
-                </tr>
-                <tr>
-                    <td>実績</td>
-                    <td v-for="(hours, key) in elem.hours">
-                        {{hours}}
-                    </td>
-                </tr>
-            </template>
-        </table>
-        <button v-on:click="updatePlanWorkHours">予定時間更新</button>
+                <template v-for="(elem, workerId) in progress.workHours">
+                    <tr>
+                        <td class="worker_name" rowspan="2">{{elem.family_name}}{{elem.first_name}}</td>
+                        <td>予定</td>
+                        <td v-for="(hours, key) in elem.hours">
+                            <input type="number" size="4" v-model="progress.inputPlanHours[workerId][key]">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>実績</td>
+                        <td v-for="(hours, key) in elem.hours">
+                            {{hours}}
+                        </td>
+                    </tr>
+                </template>
+            </table>
+            <button v-on:click="searchWorkers">作業者追加</button>
+            <button v-on:click="updatePlanWorkHours">予定時間更新</button>
+        </div>
+
+        <div class="workers">
+            <table>
+                <thead>
+                    <td class="department">部署</td>
+                    <td class="worker_name">氏名</td>
+                </thead>
+
+                <template v-for="(elem) in progress.workers">
+                    <tr>
+                        <td class="department">{{elem.department_name}}</td>
+                        <td class="worker_name">{{elem.family_name}}{{elem.first_name}}</td>
+                    </tr>
+                </template>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -38,6 +57,9 @@
         methods: {
             updatePlanWorkHours() {
                 this.$emit('project-updatePlanWorkHours');
+            },
+            searchWorkers() {
+                this.$emit('project-searchWorkers');
             }
         }
     })
