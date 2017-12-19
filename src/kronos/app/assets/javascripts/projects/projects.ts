@@ -39,7 +39,8 @@ let app = new Vue({
                 terms: {},
                 inputPlanHours: {},
                 workers: [],
-                workersSearchConditions: {}
+                workersSearchConditions: {},
+                isModal: false
             }
         }
     }
@@ -90,7 +91,8 @@ let app = new Vue({
                     terms: data.terms,
                     inputPlanHours: workerPlanedHours,
                     workers: [],
-                    workersSearchConditions: {}
+                    workersSearchConditions: {},
+                    isModal: false
                 }
             }
             // dataに値を設定

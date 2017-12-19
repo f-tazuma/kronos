@@ -31,19 +31,22 @@
         </div>
 
         <div class="workers">
-            <table>
-                <thead>
-                    <td class="department">部署</td>
-                    <td class="worker_name">氏名</td>
-                </thead>
+            <transition name="modal" v-if="progress.isModal">
+                <table>
+                    <thead>
+                        <td class="check">選択</td>
+                        <td class="worker_name">氏名</td>
+                    </thead>
 
-                <template v-for="(elem) in progress.workers">
-                    <tr>
-                        <td class="department">{{elem.department_name}}</td>
-                        <td class="worker_name">{{elem.family_name}}{{elem.first_name}}</td>
-                    </tr>
-                </template>
-            </table>
+                    <template v-for="(elem) in progress.workers">
+                        <tr>
+                            <td class="check"><input type="checkbox" value={elem.worker_number}/></td>
+                            <td class="worker_name">{{elem.family_name}}{{elem.first_name}}</td>
+                        </tr>
+                    </template>
+                </table>
+                <button class="btn" @click="progress.isModal = false">閉じる</button>
+            </transition>
         </div>
     </div>
 </template>
@@ -59,6 +62,7 @@
                 this.$emit('project-updatePlanWorkHours');
             },
             searchWorkers() {
+                this.progress.isModal = true;
                 this.$emit('project-searchWorkers');
             }
         }

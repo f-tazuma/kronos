@@ -4,6 +4,7 @@ class WorkersDao
     sql ='
       SELECT
         department.name department_name,
+        worker.worker_number,
         worker.family_name,
         worker.first_name,
         worker.family_name_kana,
