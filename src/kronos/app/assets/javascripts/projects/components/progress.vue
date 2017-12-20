@@ -66,6 +66,11 @@
             // 作業者追加
             addWorker(workerNumber) {
                 Logger.debug(workerNumber)
+                let data = {}
+                let targetWorker = {}
+                // progress.termsをループして
+
+
             }
         }
     })
