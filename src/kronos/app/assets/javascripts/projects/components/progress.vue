@@ -30,23 +30,19 @@
             <button v-on:click="updatePlanWorkHours">予定時間更新</button>
         </div>
 
-        <div class="workers">
-            <transition name="modal" v-if="progress.isModal">
-                <table>
-                    <thead>
-                        <td class="check">選択</td>
-                        <td class="worker_name">氏名</td>
-                    </thead>
+        <div class="workers" v-if="progress.isModal">
+            <table>
+                <thead>
+                    <td class="check">選択</td>
+                    <td class="worker_name">氏名</td>
+                </thead>
 
-                    <template v-for="(elem) in progress.workers">
-                        <tr>
-                            <td class="check"><input type="checkbox" value={elem.worker_number}/></td>
-                            <td class="worker_name">{{elem.family_name}}{{elem.first_name}}</td>
-                        </tr>
-                    </template>
-                </table>
-                <button class="btn" @click="progress.isModal = false">閉じる</button>
-            </transition>
+                    <tr v-for="(elem) in progress.workers">
+                        <td class="check"><button v-on:click="addWorker(elem.worker_number)">追加</button></td>
+                        <td class="worker_name">{{elem.family_name}}{{elem.first_name}}</td>
+                    </tr>
+            </table>
+            <button class="btn" @click="progress.isModal = false">閉じる</button>
         </div>
     </div>
 </template>
@@ -58,12 +54,23 @@
     export default Vue.extend({
         props: ["progress"],
         methods: {
+            // 作業予定登録
             updatePlanWorkHours() {
                 this.$emit('project-updatePlanWorkHours');
             },
+            // 作業者検索
             searchWorkers() {
                 this.progress.isModal = true;
                 this.$emit('project-searchWorkers');
+            },
+            // 作業者追加
+            addWorker(workerNumber) {
+                Logger.debug(workerNumber)
+                let data = {}
+                let targetWorker = {}
+                // progress.termsをループして
+
+
             }
         }
     })
