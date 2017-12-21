@@ -50,6 +50,7 @@
 <script lang="ts">
     import Vue from "vue";
     import Logger from './../../common/logger'
+    import WorkHours from './../../model/work_hours_model'
 
     export default Vue.extend({
         props: ["progress"],
@@ -64,13 +65,21 @@
                 this.$emit('project-searchWorkers');
             },
             // 作業者追加
-            addWorker(workerNumber) {
+            addWorker(workerNumber :any) {
                 Logger.debug(workerNumber)
-                let data = {}
-                let targetWorker = {}
-                // progress.termsをループして
+                let targetWorker = this.progress.workers[workerNumber]
 
+                let workHours = new WorkHours()
+                workHours.family_name = targetWorker.family_name
+                workHours.first_name = targetWorker.first_name
 
+                // progress.termsをループして対象期間のキーを作成
+                let hours = {}
+                for(let key in this.progress.terms) {
+                    workHours.hours[key] = null
+                }
+
+                this.prgress.workHours.push(workHours)
             }
         }
     })
