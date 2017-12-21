@@ -65,21 +65,39 @@
                 this.$emit('project-searchWorkers');
             },
             // 作業者追加
-            addWorker(workerNumber :any) {
+            addWorker(workerNumber :string) {
                 Logger.debug(workerNumber)
                 let targetWorker = this.progress.workers[workerNumber]
 
-                let workHours = new WorkHours()
-                workHours.family_name = targetWorker.family_name
-                workHours.first_name = targetWorker.first_name
-
-                // progress.termsをループして対象期間のキーを作成
-                let hours = {}
+                let workHours = {}
+                workHours['family_name'] = targetWorker.family_name
+                workHours['first_name'] = targetWorker.first_name
+                workHours['hours'] = {}
                 for(let key in this.progress.terms) {
-                    workHours.hours[key] = null
+                    workHours['hours'][key] = 0
                 }
 
-                this.prgress.workHours.push(workHours)
+                //
+                // let workHours = new WorkHours()
+                // workHours.family_name = targetWorker.family_name
+                // workHours.first_name = targetWorker.first_name
+                //
+                // // progress.termsをループして対象期間のキーを作成
+                // workHours.hours = {}
+                // for(let key in this.progress.terms) {
+                //     workHours.hours[key] = 0
+                // }
+
+                let workerWorkHours = {}
+                workerWorkHours[workerNumber] = workHours
+
+                let thisWorkHours = this.progress.workHours
+                thisWorkHours[workerNumber] = workHours
+
+
+                this.$set(this.progress, 'workHours', thisWorkHours)
+
+                // this.progress.workHours.push(worker)
             }
         }
     })
