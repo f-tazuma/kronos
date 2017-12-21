@@ -12,6 +12,7 @@ class WorkersDao
       FROM m_workers worker
       INNER JOIN m_departments department
         ON worker.m_department_id = department.id
+      ORDER BY department_name, family_name_kana, first_name_kana
     '
 
     prepared = ActiveRecord::Base.send(
