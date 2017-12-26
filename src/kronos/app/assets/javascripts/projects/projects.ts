@@ -5,6 +5,7 @@ import Vue from 'vue';
 import ProjectComponent from './components/project.vue';
 import ProgressComponent from './components/progress.vue';
 import Filter from './../common/filter';
+import WorkHours from './../model/work_hours_model'
 
 // フィルタ設定読み込み
 (new Filter())
@@ -131,7 +132,6 @@ let app = new Vue({
             }).then(function (response) {
                 Logger.debug("sucsess to call: " + url);
                 Logger.debug(JSON.stringify(response));
-
                 self.$data.progress.workers = response.data
             }).catch(function (error) {
                 Logger.error(JSON.stringify(error));

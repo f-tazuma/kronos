@@ -94,6 +94,7 @@
                 let thisWorkHours = this.progress.workHours
                 thisWorkHours[workerNumber] = workHours
 
+                Logger.debug(thisWorkHours)
 
                 this.$set(this.progress, 'workHours', thisWorkHours)
 
