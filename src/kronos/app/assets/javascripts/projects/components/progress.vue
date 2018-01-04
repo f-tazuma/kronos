@@ -74,7 +74,7 @@
                 workHours['first_name'] = targetWorker.first_name
                 workHours['hours'] = {}
                 for(let key in this.progress.terms) {
-                    workHours['hours'][key] = 0
+                    workHours['hours'][key] = null
                 }
 
                 //
@@ -87,18 +87,16 @@
                 // for(let key in this.progress.terms) {
                 //     workHours.hours[key] = 0
                 // }
+                // let workerWorkHours = {}
+                // workerWorkHours[workerNumber] = workHours
+                //
+                // let thisWorkHours = this.progress.workHours
+                // thisWorkHours[workerNumber] = workHours
+                //
+                // Logger.debug(thisWorkHours)
 
-                let workerWorkHours = {}
-                workerWorkHours[workerNumber] = workHours
-
-                let thisWorkHours = this.progress.workHours
-                thisWorkHours[workerNumber] = workHours
-
-                Logger.debug(thisWorkHours)
-
-                this.$set(this.progress, 'workHours', thisWorkHours)
-
-                // this.progress.workHours.push(worker)
+                this.$set(this.progress.workHours, workerNumber, workHours)
+                this.$set(this.progress.inputPlanHours, workerNumber, workHours)
             }
         }
     })
