@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
 
   def update
 
-    service = ProjectService.new(params)
+    service = ProjectsService.new(params)
     service.update_project
 
     redirect_to action: 'index'
