@@ -77,24 +77,7 @@
                     workHours['hours'][key] = null
                 }
 
-                //
-                // let workHours = new WorkHours()
-                // workHours.family_name = targetWorker.family_name
-                // workHours.first_name = targetWorker.first_name
-                //
-                // // progress.termsをループして対象期間のキーを作成
-                // workHours.hours = {}
-                // for(let key in this.progress.terms) {
-                //     workHours.hours[key] = 0
-                // }
-                // let workerWorkHours = {}
-                // workerWorkHours[workerNumber] = workHours
-                //
-                // let thisWorkHours = this.progress.workHours
-                // thisWorkHours[workerNumber] = workHours
-                //
-                // Logger.debug(thisWorkHours)
-
+                // 作業実績と作業予定に対象の作業者を追加
                 this.$set(this.progress.workHours, workerNumber, workHours)
                 this.$set(this.progress.inputPlanHours, workerNumber, workHours)
             }

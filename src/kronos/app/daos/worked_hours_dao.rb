@@ -10,6 +10,8 @@ class WorkedHoursDao
         workers.worker_number,
         workers.family_name,
         workers.first_name,
+        MIN(worked.work_day) start_work_day,
+        MAX(worked.work_day) end_work_day,
         YEAR(worked.work_day) year,
         MONTH(worked.work_day) month_of_year,
         WEEK(worked.work_day, 7) week_num_of_year,

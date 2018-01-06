@@ -4,16 +4,18 @@ class PlanedWorkHoursDao
   def self.select_report_planed_work_data(project_id)
     sql = '
       SELECT
-        projects.id                          project_id,
+        projects.id,
         projects.name,
-        workers.id                           worker_id,
+        workers.id worker_id,
         workers.worker_number,
         workers.family_name,
         workers.first_name,
-        YEAR(planed.work_plan_day)            year,
-        MONTH(planed.work_plan_day)           month_of_year,
-        WEEK(planed.work_plan_day, 7)         week_num_of_year,
-        sum(planed.work_hours)                week_work_hours
+        MIN(planed.work_plan_day) start_work_day,
+        MAX(planed.work_plan_day) end_work_day,
+        YEAR(planed.work_plan_day) year,
+        MONTH(planed.work_plan_day) month_of_year,
+        WEEK(planed.work_plan_day, 7) week_num_of_year,
+        sum(planed.work_hours) week_work_hours
       FROM t_planed_work_hours planed
         INNER JOIN m_projects projects
           ON planed.m_project_id = projects.id

@@ -4,10 +4,14 @@ class WorkHoursService
 
   def initialize(params)
     @params = params
+    project_id = @params[:id]
 
-    # 対象期間を設定
-    @term_from = params['term_from'] || Date.commercial(Date.today.year, 1, 1)
-    @term_to = params['term_to'] || Date.new(Date.today.year, 12, 31)
+    # 実績工数
+    @db_work_hours = WorkedHoursDao.select_report_worked_data(project_id)
+    # 予定工数
+    @db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(project_id)
+
+    set_term()
   end
 
   # プロジェクト情報、稼働時間、計画時間を取得する
@@ -27,12 +31,12 @@ class WorkHoursService
 
     # 稼働情報
     # 稼働時間
-    db_work_hours = WorkedHoursDao.select_report_worked_data(project_id)
-    work_hours = convert_row_report_hash(db_work_hours)
+    # db_work_hours = WorkedHoursDao.select_report_worked_data(project_id)
+    work_hours = convert_row_report_hash(@db_work_hours)
 
     # 稼働予定時間
-    db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(project_id)
-    planed_work_hours = convert_row_report_hash(db_planed_work_hours)
+    # db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(project_id)
+    planed_work_hours = convert_row_report_hash(@db_planed_work_hours)
 
     data[:work_hours] = work_hours
     data[:planed_work_hours] = planed_work_hours
@@ -58,6 +62,31 @@ class WorkHoursService
   end
 
   private
+
+  # 表示期間対象週を設定する
+  def set_term
+    # 開始：実績工数ベースの最初の週（実績がない場合は、システム日時の週）
+    if @db_work_hours.length > 0
+      sorted = @db_work_hours.sort_by{ |item| item['start_work_day'] }
+      @term_from = sorted.first['start_work_day'].to_date
+      @term_to = sorted.last['start_work_day'].to_date
+    else
+      @term_from = Date.today
+    end
+
+    # 実績工数、予定工数の最後の週+3ヶ月（実績、予定がない場合は、システム日時+3ヶ月）
+    if @db_planed_work_hours.length > 0
+      plan_sorted = @db_planed_work_hours.sort_by{ |item| item['start_work_day'] }
+      @term_to = plan_sorted.last['start_work_day'].to_date
+    end
+
+    if !@term_to
+      @term_to = Date.today()
+    end
+
+    @term_to = @term_to + 3.months
+
+  end
 
   # 作業時間の集計値情報を取得する
   def get_total_work_hours(project_id)
