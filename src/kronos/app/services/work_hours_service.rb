@@ -219,10 +219,34 @@ class WorkHoursService
   # 対象期間 年.週番号 を取得する
   def get_terms
     terms = {}
+
+    # 年、月毎に、週の数を保持する
+    weeks_of_year_month = {}
+    year_buff = 0
+    month_buff = 0
+    (@term_from..@term_to).each do | looper |
+      if year_buff != looper.year
+        year_buff = looper.year
+        weeks_of_year_month[looper.year] = {}
+        weeks_of_year_month[looper.year]['count'] = 0
+      else
+        weeks_of_year_month[looper.year]['count'] = weeks_of_year_month[looper.year]['count'].next
+      end
+
+      if month_buff != looper.month
+        month_buff = looper.month
+        weeks_of_year_month[looper.year][looper.month] = 0
+      else
+        weeks_of_year_month[looper.year][looper.month] = weeks_of_year_month[looper.year][looper.month].next
+      end
+    end
+
     (@term_from..@term_to).each do | looper |
       buff = {}
       buff['year'] = looper.year
+      buff['year_count'] = weeks_of_year_month[looper.year]['count']
       buff['month'] = looper.month
+      buff['month_count'] = weeks_of_year_month[looper.year][looper.month]
       buff['cweek'] = looper.cweek
       key  = "#{looper.year}.#{looper.cweek}"
       terms[key] = buff
