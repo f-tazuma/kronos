@@ -40,7 +40,8 @@ class WorkHoursService
 
     data[:work_hours] = work_hours
     data[:planed_work_hours] = planed_work_hours
-    data[:terms] = get_terms()
+    data[:weeks] = get_weeks()
+    data[:weeks_of_year_month] = get_weeks_of_year_month(data[:weeks])
 
     return data
   end
@@ -217,41 +218,42 @@ class WorkHoursService
   end
 
   # 対象期間 年.週番号 を取得する
-  def get_terms
-    terms = {}
-
-    # 年、月毎に、週の数を保持する
-    weeks_of_year_month = {}
-    year_buff = 0
-    month_buff = 0
-    (@term_from..@term_to).each do | looper |
-      if year_buff != looper.year
-        year_buff = looper.year
-        weeks_of_year_month[looper.year] = {}
-        weeks_of_year_month[looper.year]['count'] = 0
-      else
-        weeks_of_year_month[looper.year]['count'] = weeks_of_year_month[looper.year]['count'].next
-      end
-
-      if month_buff != looper.month
-        month_buff = looper.month
-        weeks_of_year_month[looper.year][looper.month] = 0
-      else
-        weeks_of_year_month[looper.year][looper.month] = weeks_of_year_month[looper.year][looper.month].next
-      end
-    end
-
+  def get_weeks
+    weeks = {}
     (@term_from..@term_to).each do | looper |
       buff = {}
       buff['year'] = looper.year
-      buff['year_count'] = weeks_of_year_month[looper.year]['count']
       buff['month'] = looper.month
-      buff['month_count'] = weeks_of_year_month[looper.year][looper.month]
       buff['cweek'] = looper.cweek
       key  = "#{looper.year}.#{looper.cweek}"
-      terms[key] = buff
+      weeks[key] = buff
     end
-    return terms
+    return weeks
+  end
+
+  # 週番号の年、月単位の数を取得する
+  def get_weeks_of_year_month(terms)
+    # 週番号について、年、月毎に数を求める
+    weeks_of_year_month = {}
+    tmp_year, tmp_month = nil
+    terms.each do | key, looper |
+      if tmp_year != looper['year']
+        tmp_year = looper['year']
+        weeks_of_year_month[tmp_year] = {}
+        weeks_of_year_month[tmp_year]['total'] = 1
+      else
+        weeks_of_year_month[tmp_year]['total'] += 1
+      end
+
+      if tmp_month != looper['month']
+        tmp_month = looper['month']
+        weeks_of_year_month[tmp_year][tmp_month] = 1
+      else
+        weeks_of_year_month[tmp_year][tmp_month] += 1
+      end
+    end
+
+    return weeks_of_year_month
   end
 
 end

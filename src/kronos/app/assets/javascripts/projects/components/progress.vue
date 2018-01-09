@@ -2,17 +2,37 @@
     <div>
         <div class="progress">
             <table>
-                <thead>
-                <td class="worker_name">氏名</td>
-                <td>予定<br>実績</td>
-                <td v-for="(term, key) in progress.terms">
-                    {{term.cweek}}
-                </td>
-                </thead>
+                <colgroup>
+                    <col style='width:100px;'>
+                    <col style='width:100px;'>
+                    <col style='width:700px;'>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td rowspan="3">氏名</td>
+                    <td rowspan="3">予定<br>実績</td>
+                    <template v-for="(elem, year) in progress.weeksOfYearMonth">
+                        <td :colspan="elem.total">{{year}}年</td>
+                    </template>
+                </tr>
+                <tr>
+                    <template v-for="(obj) in progress.weeksOfYearMonth">
+                        <template v-for="(elem, month) in obj">
+                            <template v-if="month!='total'">
+                                <td :colspan="elem">{{month}}月</td>
+                            </template>
+                        </template>
+                    </template>
+                </tr>
+                <tr>
+                    <td v-for="(weeks, key) in progress.weeks">
+                        {{weeks.cweek}}
+                    </td>
+                </tr>
 
                 <template v-for="(elem, workerId) in progress.workHours">
                     <tr>
-                        <td class="worker_name" rowspan="2">{{elem.family_name}}{{elem.first_name}}</td>
+                        <td rowspan="2">{{elem.family_name}}{{elem.first_name}}</td>
                         <td>予定</td>
                         <td v-for="(hours, key) in elem.hours">
                             <input type="number" size="4" v-model="progress.inputPlanHours[workerId][key]">
@@ -25,6 +45,7 @@
                         </td>
                     </tr>
                 </template>
+                </tbody>
             </table>
             <button v-on:click="searchWorkers">作業者追加</button>
             <button v-on:click="updatePlanWorkHours">予定時間更新</button>
@@ -111,12 +132,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    table thead td.worker_name,
-    table tr td.worker_name
-    {
-        width: 100px;
     }
 
     table tr th {
