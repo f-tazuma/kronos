@@ -3,9 +3,11 @@
         <div class="progress">
             <table>
                 <colgroup>
-                    <col style='width:100px;'>
-                    <col style='width:100px;'>
-                    <col style='width:700px;'>
+                    <col style='width:120px;'>
+                    <col style='width:80px;'>
+                    <template v-for="(weeks, key) in progress.weeks">
+                        <col style='width:60px;'>
+                    </template>
                 </colgroup>
                 <tbody>
                 <tr>
@@ -35,12 +37,12 @@
                         <td rowspan="2">{{elem.family_name}}{{elem.first_name}}</td>
                         <td>予定</td>
                         <td v-for="(hours, key) in elem.hours">
-                            <input type="number" size="4" v-model="progress.inputPlanHours[workerId][key]">
+                            <input type="number" size="4" width="50px" v-model="progress.inputPlanHours[workerId][key]">
                         </td>
                     </tr>
                     <tr>
                         <td>実績</td>
-                        <td v-for="(hours, key) in elem.hours">
+                        <td width="50px" v-for="(hours, key) in elem.hours">
                             {{hours}}
                         </td>
                     </tr>
