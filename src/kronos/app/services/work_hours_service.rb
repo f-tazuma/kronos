@@ -153,6 +153,10 @@ class WorkHoursService
 
   # 週番号から対象日に作業時間を按分してデータ登録する
   def store_planed(project_id, worker_number, year, week_num, hour)
+    if hour == 0
+      return
+    end
+
     # 対象週番号の日付を取得
     days = DateUtil::get_days_by_week_num(year.to_i, week_num.to_i)
 
