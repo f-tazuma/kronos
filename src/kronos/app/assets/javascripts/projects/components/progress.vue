@@ -96,7 +96,7 @@
                 workHours['family_name'] = targetWorker.family_name
                 workHours['first_name'] = targetWorker.first_name
                 workHours['hours'] = {}
-                for(let key in this.progress.terms) {
+                for(let key in this.progress.weeks) {
                     workHours['hours'][key] = null
                 }
 

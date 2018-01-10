@@ -72,12 +72,12 @@ let app = new Vue({
 
             for(let workerId in data.work_hours) {
                 workerPlanedHours[workerId] = {}
-                for(let term in data.terms) {
+                for(let week in data.weeks) {
                     if(workerId in data.planed_work_hours
-                        && term in data.planed_work_hours[workerId]['hours']) {
-                        workerPlanedHours[workerId][term] = data.planed_work_hours[workerId]['hours'][term]
+                        && week in data.planed_work_hours[workerId]['hours']) {
+                        workerPlanedHours[workerId][week] = data.planed_work_hours[workerId]['hours'][week]
                     }else{
-                        workerPlanedHours[workerId][term] = null
+                        workerPlanedHours[workerId][week] = null
                     }
                 }
             }
