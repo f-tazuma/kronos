@@ -93,6 +93,7 @@
                 let targetWorker = this.progress.workers[workerNumber]
 
                 let workHours = {}
+                let planWorkHours = {}
                 workHours['family_name'] = targetWorker.family_name
                 workHours['first_name'] = targetWorker.first_name
                 workHours['hours'] = {}
@@ -100,9 +101,13 @@
                     workHours['hours'][key] = null
                 }
 
+                for(let key in this.progress.weeks) {
+                    planWorkHours[key] = null
+                }
+
                 // 作業実績と作業予定に対象の作業者を追加
                 this.$set(this.progress.workHours, workerNumber, workHours)
-                this.$set(this.progress.inputPlanHours, workerNumber, workHours)
+                this.$set(this.progress.inputPlanHours, workerNumber, planWorkHours)
             }
         }
     })
