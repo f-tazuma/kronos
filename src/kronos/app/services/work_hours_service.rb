@@ -31,11 +31,9 @@ class WorkHoursService
 
     # 稼働情報
     # 稼働時間
-    # db_work_hours = WorkedHoursDao.select_report_worked_data(project_id)
     work_hours = convert_row_report_hash(@db_work_hours)
 
     # 稼働予定時間
-    # db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(project_id)
     planed_work_hours = convert_row_report_hash(@db_planed_work_hours)
 
     data[:work_hours] = work_hours
@@ -160,8 +158,6 @@ class WorkHoursService
     # 対象週番号の日付を取得
     days = DateUtil::get_workdays_by_week_num(year.to_i, week_num.to_i)
 
-    p days.first.to_time
-
     ActiveRecord::Base.transaction do
       # 対象日のデータを削除
       TPlanedWorkHour.where(work_plan_day: days.first.to_time..days.last.to_time)
@@ -170,23 +166,27 @@ class WorkHoursService
 
       # 作業時間を按分
       divmod = hour.to_i.divmod(days.size)
+      p = divmod[0] # 商
+      q = divmod[1] # 余り
 
-      # 4営業日は按分した作業時間を登録する
-      days.first(4).each do |day|
-        TPlanedWorkHour.create(
-            worker_number: worker_number,
-            m_project_id: 1,
-            work_plan_day: day,
-            work_hours: divmod[0]
-        )
+      days_work_hours = []
+      # 対象日に商を設定
+      days.each do | day |
+        days_work_hours.push(p)
       end
-      # 1営業日は按分時間に余りを足して登録する
-      days.last(1).each do |day|
+
+      # 余りの数分ループ処理して、1加算する
+      0.upto(q-1) { |i|
+        days_work_hours[i] += 1
+      }
+
+      # DBデータ登録
+      days.each_with_index do |day, index|
         TPlanedWorkHour.create(
             worker_number: worker_number,
-            m_project_id: 1,
+            m_project_id: project_id,
             work_plan_day: day,
-            work_hours: divmod[0] + divmod[1]
+            work_hours: days_work_hours[index]
         )
       end
     end
