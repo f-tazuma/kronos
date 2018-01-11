@@ -158,16 +158,17 @@ class WorkHoursService
     end
 
     # 対象週番号の日付を取得
-    days = DateUtil::get_days_by_week_num(year.to_i, week_num.to_i)
+    days = DateUtil::get_workdays_by_week_num(year.to_i, week_num.to_i)
+
+    p days.first.to_time
 
     ActiveRecord::Base.transaction do
       # 対象日のデータを削除
-      TPlanedWorkHour.where(work_plan_day: days.last..days.first)
+      TPlanedWorkHour.where(work_plan_day: days.first.to_time..days.last.to_time)
         .where(worker_number: worker_number)
         .where(m_project_id: project_id).delete_all
 
-      # 対象週の日付配列は先頭2要素が、土曜日、日曜日。よって、2要素は削除する
-      days = days.slice(0, 5)
+      # 作業時間を按分
       divmod = hour.to_i.divmod(days.size)
 
       # 4営業日は按分した作業時間を登録する
