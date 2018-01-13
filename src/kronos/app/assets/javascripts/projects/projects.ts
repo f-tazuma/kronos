@@ -36,11 +36,9 @@ let app = new Vue({
                 total: {}
             },
             progress: {
-                workHours: {},
+                hours: {},
                 weeks: {},
                 weeksOfYearMonth: {},
-                inputPlanHours: {},
-                workers: [],
                 workersSearchConditions: {},
                 isModal: false
             }
@@ -89,11 +87,9 @@ let app = new Vue({
                     total: data.total
                 },
                 progress : {
-                    workHours: data.work_hours,
+                    hours: data.hours,
                     weeks: data.weeks,
                     weeksOfYearMonth: data.weeks_of_year_month,
-                    inputPlanHours: workerPlanedHours,
-                    workers: [],
                     workersSearchConditions: {},
                     isModal: false
                 }

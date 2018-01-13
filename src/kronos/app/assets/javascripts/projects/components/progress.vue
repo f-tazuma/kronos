@@ -32,21 +32,22 @@
                     </td>
                 </tr>
 
-                <template v-for="(elem, workerId) in progress.workHours">
+                <template v-for="(elem, workerId) in progress.hours">
                     <tr>
                         <td rowspan="2">{{elem.family_name}}{{elem.first_name}}</td>
                         <td>予定</td>
-                        <td v-for="(hours, key) in elem.hours">
-                            <input type="number" size="4" width="50px" v-model="progress.inputPlanHours[workerId][key]">
+                        <td v-for="(hours, key) in elem.plan">
+                            <input type="number" size="4" width="50px" v-model="progress.hours[workerId]['plan'][key]">
                         </td>
                     </tr>
                     <tr>
                         <td>実績</td>
-                        <td width="50px" v-for="(hours, key) in elem.hours">
+                        <td v-for="(hours, key) in elem.work">
                             {{hours}}
                         </td>
                     </tr>
                 </template>
+
                 </tbody>
             </table>
             <button v-on:click="searchWorkers">作業者追加</button>

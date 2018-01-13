@@ -11,6 +11,7 @@ class WorkHoursService
     # 予定工数
     @db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(project_id)
 
+    @hours = {}
     set_term()
   end
 
@@ -31,13 +32,11 @@ class WorkHoursService
 
     # 稼働情報
     # 稼働時間
-    work_hours = convert_row_report_hash(@db_work_hours)
-
+    convert_row_report_hash(@db_work_hours, "work")
     # 稼働予定時間
-    planed_work_hours = convert_row_report_hash(@db_planed_work_hours)
+    convert_row_report_hash(@db_planed_work_hours, "plan")
 
-    data[:work_hours] = work_hours
-    data[:planed_work_hours] = planed_work_hours
+    data[:hours] = @hours
     data[:weeks] = get_weeks()
     data[:weeks_of_year_month] = get_weeks_of_year_month(data[:weeks])
 
@@ -193,9 +192,7 @@ class WorkHoursService
   end
 
   # 実績、予定時間のデータベースデータをhashに変換する
-  def convert_row_report_hash(db_data)
-    tmp_hours = {}
-
+  def convert_row_report_hash(db_data, hour_type)
     db_data.each do |elem|
       worker_number = elem['worker_number']
       year = elem['year']
@@ -203,23 +200,24 @@ class WorkHoursService
       week_num = elem['week_num_of_year']
       year_week_num = "#{year}.#{week_num}"
 
-      if(! tmp_hours.key?(worker_number))
+      if !@hours.key?(worker_number)
         # 新しい作業者idの場合、対象期間分キーを作成
-        tmp_hours[worker_number] = {}
-        tmp_hours[worker_number]['hours'] = {}
-        tmp_hours[worker_number]['family_name'] = elem['family_name']
-        tmp_hours[worker_number]['first_name'] = elem['first_name']
+        @hours[worker_number] = {}
+        @hours[worker_number]['work'] = {}
+        @hours[worker_number]['plan'] = {}
+        @hours[worker_number]['family_name'] = elem['family_name']
+        @hours[worker_number]['first_name'] = elem['first_name']
+
         (@term_from..@term_to).each do | looper |
           key  = "#{looper.year}.#{looper.cweek}"
-          tmp_hours[worker_number]['hours'][key] = nil
+          @hours[worker_number]['work'][key] = nil
+          @hours[worker_number]['plan'][key] = nil
         end
-        tmp_hours[worker_number]['hours'][year_week_num] = elem['week_work_hours']
+        @hours[worker_number][hour_type][year_week_num] = elem['week_work_hours']
       else
-        tmp_hours[worker_number]['hours'][year_week_num] = elem['week_work_hours']
+        @hours[worker_number][hour_type][year_week_num] = elem['week_work_hours']
       end
     end
-
-    return tmp_hours
   end
 
   # 対象期間 年.週番号 を取得する
