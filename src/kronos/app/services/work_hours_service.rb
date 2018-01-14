@@ -45,15 +45,17 @@ class WorkHoursService
 
   # 計画稼働時間を登録する
   def store_planed_work_hours
-    plan_data = @params[:project]
     project_id = @params[:id]
 
-    plan_data.each do |worker_number, work_hours|
-      # 作業者毎の予定作業時間データをループ処理
-      work_hours.each do |year_week_num, hour|
-        if hour != nil
-          year_week_num = year_week_num.split(".")
-          store_planed(project_id, worker_number, year_week_num[0], year_week_num[1], hour)
+    @params.each do |worker_number, data|
+      if data['plan']
+        # 計画時間がある場合
+        plan_hours = data['plan']
+        data['plan'].each do |year_week_num, hour|
+          if hour != nil
+            year_week_num = year_week_num.split(".")
+            store_planed(project_id, worker_number, year_week_num[0], year_week_num[1], hour)
+          end
         end
       end
     end

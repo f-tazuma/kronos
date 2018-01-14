@@ -109,7 +109,7 @@ let app = new Vue({
             axios({
                 method: 'post',
                 url: url,
-                data: self.progress.inputPlanHours
+                data: self.progress.hours
                 // data: self.$data.progress.planHours
             }).then(function (response) {
                 Logger.debug("sucsess to call: " + url);
