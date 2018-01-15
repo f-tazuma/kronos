@@ -105,11 +105,12 @@ let app = new Vue({
 
             let url = "/api/projects/plan-work-hours/" + String(pathInfo.pop())
             let self = this;
+            let postJson = {'hours' : self.progress.hours}
 
             axios({
                 method: 'post',
                 url: url,
-                data: self.progress.hours
+                data: postJson
                 // data: self.$data.progress.planHours
             }).then(function (response) {
                 Logger.debug("sucsess to call: " + url);

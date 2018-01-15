@@ -47,10 +47,9 @@ class WorkHoursService
   def store_planed_work_hours
     project_id = @params[:id]
 
-    @params.each do |worker_number, data|
+    @params['hours'].each do |worker_number, data|
       if data['plan']
         # 計画時間がある場合
-        plan_hours = data['plan']
         data['plan'].each do |year_week_num, hour|
           if hour != nil
             year_week_num = year_week_num.split(".")
