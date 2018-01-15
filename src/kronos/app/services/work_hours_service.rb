@@ -10,7 +10,7 @@ class WorkHoursService
     @db_work_hours = WorkedHoursDao.select_report_worked_data(project_id)
     # 予定工数
     @db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(project_id)
-
+    # 作業者毎、実績工数、予定工数
     @hours = {}
     set_term()
   end
