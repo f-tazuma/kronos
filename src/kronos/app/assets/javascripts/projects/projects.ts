@@ -36,10 +36,9 @@ let app = new Vue({
                 total: {}
             },
             progress: {
-                workHours: {},
-                terms: {},
-                inputPlanHours: {},
-                workers: [],
+                hours: {},
+                weeks: {},
+                weeksOfYearMonth: {},
                 workersSearchConditions: {},
                 isModal: false
             }
@@ -71,12 +70,12 @@ let app = new Vue({
 
             for(let workerId in data.work_hours) {
                 workerPlanedHours[workerId] = {}
-                for(let term in data.terms) {
+                for(let week in data.weeks) {
                     if(workerId in data.planed_work_hours
-                        && term in data.planed_work_hours[workerId]['hours']) {
-                        workerPlanedHours[workerId][term] = data.planed_work_hours[workerId]['hours'][term]
+                        && week in data.planed_work_hours[workerId]['hours']) {
+                        workerPlanedHours[workerId][week] = data.planed_work_hours[workerId]['hours'][week]
                     }else{
-                        workerPlanedHours[workerId][term] = null
+                        workerPlanedHours[workerId][week] = null
                     }
                 }
             }
@@ -88,10 +87,9 @@ let app = new Vue({
                     total: data.total
                 },
                 progress : {
-                    workHours: data.work_hours,
-                    terms: data.terms,
-                    inputPlanHours: workerPlanedHours,
-                    workers: [],
+                    hours: data.hours,
+                    weeks: data.weeks,
+                    weeksOfYearMonth: data.weeks_of_year_month,
                     workersSearchConditions: {},
                     isModal: false
                 }
@@ -107,11 +105,12 @@ let app = new Vue({
 
             let url = "/api/projects/plan-work-hours/" + String(pathInfo.pop())
             let self = this;
+            let postJson = {'hours' : self.progress.hours}
 
             axios({
                 method: 'post',
                 url: url,
-                data: self.progress.inputPlanHours
+                data: postJson
                 // data: self.$data.progress.planHours
             }).then(function (response) {
                 Logger.debug("sucsess to call: " + url);

@@ -1,9 +1,17 @@
 require "date"
 
 class DateUtil
+  # 年(数値)、週番号(数値)を引数に、対象週番号に該当する平日を返す
+  def self.get_workdays_by_week_num(year, week_number)
+    days = self.get_days_by_week_num(year, week_number)
+    # 配列後ろ2日は、土曜日、日曜日
+    days = days.slice(0, 5)
+    return days
+  end
+
   # 年(数値)、週番号(数値)を引数に、対象週番号に該当する日を配列で返す
   def self.get_days_by_week_num(year, week_number)
-    year_start_date = Date.new(Date.today.year, 1, 1)
+    year_start_date = Date.new(year, 1, 1)
     # 対象週番号から1/1に加算する日付を生成
     plus_days = 7 * week_number
 
@@ -25,6 +33,6 @@ class DateUtil
       end
     end
 
-    return days
+    return days.sort!
   end
 end

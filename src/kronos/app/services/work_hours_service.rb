@@ -4,10 +4,15 @@ class WorkHoursService
 
   def initialize(params)
     @params = params
+    project_id = @params[:id]
 
-    # 対象期間を設定
-    @term_from = params['term_from'] || Date.commercial(Date.today.year, 1, 1)
-    @term_to = params['term_to'] || Date.new(Date.today.year, 12, 31)
+    # 実績工数
+    @db_work_hours = WorkedHoursDao.select_report_worked_data(project_id)
+    # 予定工数
+    @db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(project_id)
+
+    @hours = {}
+    set_term()
   end
 
   # プロジェクト情報、稼働時間、計画時間を取得する
@@ -27,37 +32,60 @@ class WorkHoursService
 
     # 稼働情報
     # 稼働時間
-    db_work_hours = WorkedHoursDao.select_report_worked_data(project_id)
-    work_hours = convert_row_report_hash(db_work_hours)
-
+    convert_row_report_hash(@db_work_hours, "work")
     # 稼働予定時間
-    db_planed_work_hours = PlanedWorkHoursDao.select_report_planed_work_data(project_id)
-    planed_work_hours = convert_row_report_hash(db_planed_work_hours)
+    convert_row_report_hash(@db_planed_work_hours, "plan")
 
-    data[:work_hours] = work_hours
-    data[:planed_work_hours] = planed_work_hours
-    data[:terms] = get_terms()
+    data[:hours] = @hours
+    data[:weeks] = get_weeks()
+    data[:weeks_of_year_month] = get_weeks_of_year_month(data[:weeks])
 
     return data
   end
 
   # 計画稼働時間を登録する
   def store_planed_work_hours
-    plan_data = @params[:project]
     project_id = @params[:id]
 
-    plan_data.each do |worker_number, work_hours|
-      # 作業者毎の予定作業時間データをループ処理
-      work_hours.each do |year_week_num, hour|
-        if hour != nil
-          year_week_num = year_week_num.split(".")
-          store_planed(project_id, worker_number, year_week_num[0], year_week_num[1], hour)
+    @params['hours'].each do |worker_number, data|
+      if data['plan']
+        # 計画時間がある場合
+        data['plan'].each do |year_week_num, hour|
+          if hour != nil
+            year_week_num = year_week_num.split(".")
+            store_planed(project_id, worker_number, year_week_num[0], year_week_num[1], hour)
+          end
         end
       end
     end
   end
 
   private
+
+  # 表示期間対象週を設定する
+  def set_term
+    # 開始：実績工数ベースの最初の週（実績がない場合は、システム日時の週）
+    if @db_work_hours.length > 0
+      sorted = @db_work_hours.sort_by{ |item| item['start_work_day'] }
+      @term_from = sorted.first['start_work_day'].to_date
+      @term_to = sorted.last['start_work_day'].to_date
+    else
+      @term_from = Date.today
+    end
+
+    # 実績工数、予定工数の最後の週+3ヶ月（実績、予定がない場合は、システム日時+3ヶ月）
+    if @db_planed_work_hours.length > 0
+      plan_sorted = @db_planed_work_hours.sort_by{ |item| item['start_work_day'] }
+      @term_to = plan_sorted.last['start_work_day'].to_date
+    end
+
+    if !@term_to
+      @term_to = Date.today()
+    end
+
+    @term_to = @term_to + 3.months
+
+  end
 
   # 作業時間の集計値情報を取得する
   def get_total_work_hours(project_id)
@@ -123,44 +151,49 @@ class WorkHoursService
 
   # 週番号から対象日に作業時間を按分してデータ登録する
   def store_planed(project_id, worker_number, year, week_num, hour)
+    if hour == 0
+      return
+    end
+
     # 対象週番号の日付を取得
-    days = DateUtil::get_days_by_week_num(year.to_i, week_num.to_i)
+    days = DateUtil::get_workdays_by_week_num(year.to_i, week_num.to_i)
 
     ActiveRecord::Base.transaction do
       # 対象日のデータを削除
-      TPlanedWorkHour.where(work_plan_day: days.last..days.first)
+      TPlanedWorkHour.where(work_plan_day: days.first.to_time..days.last.to_time)
         .where(worker_number: worker_number)
         .where(m_project_id: project_id).delete_all
 
-      # 対象週の日付配列は先頭2要素が、土曜日、日曜日。よって、2要素は削除する
-      days = days.slice(0, 5)
+      # 作業時間を按分
       divmod = hour.to_i.divmod(days.size)
+      p = divmod[0] # 商
+      q = divmod[1] # 余り
 
-      # 4営業日は按分した作業時間を登録する
-      days.first(4).each do |day|
-        TPlanedWorkHour.create(
-            worker_number: worker_number,
-            m_project_id: 1,
-            work_plan_day: day,
-            work_hours: divmod[0]
-        )
+      days_work_hours = []
+      # 対象日に商を設定
+      days.each do | day |
+        days_work_hours.push(p)
       end
-      # 1営業日は按分時間に余りを足して登録する
-      days.last(1).each do |day|
+
+      # 余りの数分ループ処理して、1加算する
+      0.upto(q-1) { |i|
+        days_work_hours[i] += 1
+      }
+
+      # DBデータ登録
+      days.each_with_index do |day, index|
         TPlanedWorkHour.create(
             worker_number: worker_number,
-            m_project_id: 1,
+            m_project_id: project_id,
             work_plan_day: day,
-            work_hours: divmod[0] + divmod[1]
+            work_hours: days_work_hours[index]
         )
       end
     end
   end
 
   # 実績、予定時間のデータベースデータをhashに変換する
-  def convert_row_report_hash(db_data)
-    tmp_hours = {}
-
+  def convert_row_report_hash(db_data, hour_type)
     db_data.each do |elem|
       worker_number = elem['worker_number']
       year = elem['year']
@@ -168,37 +201,63 @@ class WorkHoursService
       week_num = elem['week_num_of_year']
       year_week_num = "#{year}.#{week_num}"
 
-      if(! tmp_hours.key?(worker_number))
+      if !@hours.key?(worker_number)
         # 新しい作業者idの場合、対象期間分キーを作成
-        tmp_hours[worker_number] = {}
-        tmp_hours[worker_number]['hours'] = {}
-        tmp_hours[worker_number]['family_name'] = elem['family_name']
-        tmp_hours[worker_number]['first_name'] = elem['first_name']
+        @hours[worker_number] = {}
+        @hours[worker_number]['work'] = {}
+        @hours[worker_number]['plan'] = {}
+        @hours[worker_number]['family_name'] = elem['family_name']
+        @hours[worker_number]['first_name'] = elem['first_name']
+
         (@term_from..@term_to).each do | looper |
           key  = "#{looper.year}.#{looper.cweek}"
-          tmp_hours[worker_number]['hours'][key] = nil
+          @hours[worker_number]['work'][key] = nil
+          @hours[worker_number]['plan'][key] = nil
         end
-        tmp_hours[worker_number]['hours'][year_week_num] = elem['week_work_hours']
+        @hours[worker_number][hour_type][year_week_num] = elem['week_work_hours']
       else
-        tmp_hours[worker_number]['hours'][year_week_num] = elem['week_work_hours']
+        @hours[worker_number][hour_type][year_week_num] = elem['week_work_hours']
       end
     end
-
-    return tmp_hours
   end
 
   # 対象期間 年.週番号 を取得する
-  def get_terms
-    terms = {}
+  def get_weeks
+    weeks = {}
     (@term_from..@term_to).each do | looper |
       buff = {}
       buff['year'] = looper.year
       buff['month'] = looper.month
       buff['cweek'] = looper.cweek
       key  = "#{looper.year}.#{looper.cweek}"
-      terms[key] = buff
+      weeks[key] = buff
     end
-    return terms
+    return weeks
+  end
+
+  # 週番号の年、月単位の数を取得する
+  def get_weeks_of_year_month(terms)
+    # 週番号について、年、月毎に数を求める
+    weeks_of_year_month = {}
+    tmp_year, tmp_month = nil
+    terms.each do | key, looper |
+      if tmp_year != looper['year']
+        tmp_year = looper['year']
+        weeks_of_year_month[tmp_year] = {}
+        weeks_of_year_month[tmp_year]['total'] = 1
+      else
+        weeks_of_year_month[tmp_year]['total'] += 1
+      end
+
+      if tmp_month != looper['month']
+        tmp_month = looper['month']
+        weeks_of_year_month[tmp_year][tmp_month] = 1
+      else
+        weeks_of_year_month[tmp_year][tmp_month] += 1
+      end
+    end
+
+    return weeks_of_year_month
   end
 
 end

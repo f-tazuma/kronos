@@ -25,12 +25,21 @@ end
 
 ### migrationファイルの作成
 
+#### テーブル作成
 クラス名は、アクション+モデル名のような形。
 ```
 $ rails g migration CreateMOrders
 Running via Spring preloader in process 14113
       invoke  active_record
       create    db/migrate/20171215184318_create_m_orders.rb
+```
+
+#### カラム変更
+```text
+$ rails g migration AlterColumnTWorkedHours
+Running via Spring preloader in process 20055
+      invoke  active_record
+      create    db/migrate/20180111133302_alter_column_t_worked_hours.rb
 ```
 
 
