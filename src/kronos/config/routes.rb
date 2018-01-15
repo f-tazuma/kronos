@@ -21,6 +21,10 @@ Rails.application.routes.draw do
   get 'import_csvs', to: 'import_csvs#index'
   post 'import_csvs', to: 'import_csvs#import'
 
+  # 売上
+  get 'sales', to: 'sales#index'
+
+
   # テスト
   get 'test01', to: 'test01#index'
 
