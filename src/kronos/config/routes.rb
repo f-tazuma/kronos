@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   # 売上
   get 'sales', to: 'sales#index'
+  get 'sales/show_sales_operation', to: 'sales#show_sales_operation'
 
 
   # テスト
