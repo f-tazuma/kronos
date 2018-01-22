@@ -1,0 +1,9 @@
+<% provide(:title, @title) %>
+
+<h1><%= @title %></h1>
+
+<main>
+  <div>
+    <%= link_to "売上計上処理実行画面へ", :controller => "sales", :action => "show_sales_operation" %>
+  </div>
+</main>
