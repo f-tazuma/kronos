@@ -1,7 +1,7 @@
 class SalesController < ApplicationController
   # 売上処理トップ画面
   def index
-    @title = '売上処理ホーム'
+    @title = '売上処理'
     render :action => 'index'
   end
 
@@ -12,7 +12,9 @@ class SalesController < ApplicationController
   end
 
   # 売上計上処理実行
+  #   売上計上処理対象のプロジェクトについて、売上データを作成する
   def allocate_sales
+
 
   end
 
