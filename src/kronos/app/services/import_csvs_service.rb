@@ -66,8 +66,10 @@ class ImportCsvsService
 
     map = {
         1 => 'order_no',
+        5 => 'sales_entry_name',
         9 => 'worker_number',
         11 => 'work_day',
+        12 => 'work_content',
         16 => 'work_hours'
     }
     tmp_work_hours_hash_list = CsvFileReader::convert_csv_to_hash_list(@file_path, map, 2, true)
