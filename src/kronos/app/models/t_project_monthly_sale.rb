@@ -1,0 +1,2 @@
+class TProjectMonthlySale < ApplicationRecord
+end

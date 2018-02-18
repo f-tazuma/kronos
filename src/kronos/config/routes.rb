@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   # ルート
   root to: 'root#index'
 
+  # テスト
+  get 'test01', to: 'test01#index'
+
+  # -------------------------
+  # 画面
+  # -------------------------
   # 受注情報
   get 'orders', to: 'orders#index'
   get 'orders/:id', to: 'orders#show'
@@ -21,16 +27,15 @@ Rails.application.routes.draw do
   get 'import_csvs', to: 'import_csvs#index'
   post 'import_csvs', to: 'import_csvs#import'
 
-  # 売上処理
+  # 売上
   get 'sales', to: 'sales#index'
-  get 'sales/show_sales_operation', to: 'sales#show_sales_operation'
-  post 'sales/allo', to: 'sales#show_sales_operation'
+  #   売上計上
+  post 'sales/allocate_sales', to: 'sales#allocate_sales'
 
 
-  # テスト
-  get 'test01', to: 'test01#index'
-
+  # -------------------------
   # API
+  # -------------------------
   namespace :api, {format: 'json'} do
     # プロジェクト詳細 初期情報取得
     get 'projects/:id', to: 'projects#show'

@@ -5,16 +5,13 @@ class SalesController < ApplicationController
     render :action => 'index'
   end
 
-  # 売上計上処理実施画面
-  def show_sales_operation
-    @title = '売上計上処理実行'
-    render :action => 'show_sales_operation'
-  end
-
   # 売上計上処理実行
   #   売上計上処理対象のプロジェクトについて、売上データを作成する
   def allocate_sales
+    service = SalesService.new(params)
+    service.
 
+    redirect_to action: 'index'
 
   end
 
