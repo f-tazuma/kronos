@@ -9,10 +9,9 @@ class SalesController < ApplicationController
   #   売上計上処理対象のプロジェクトについて、売上データを作成する
   def allocate_sales
     service = SalesService.new(params)
-    service.
+    service.allocate_sales
 
     redirect_to action: 'index'
-
   end
 
   # 売上結果参照画面
