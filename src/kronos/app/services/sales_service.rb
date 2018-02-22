@@ -13,12 +13,14 @@ class SalesService
     projects.each do | project |
 
       # テーブル:プロジェクト日次売上 からステータスが"未確定"のデータを削除
-      TProjectMonthlySale.destroy_all(status: "未確定")
+      TProjectMonthlySale.where(m_project_id: project.id).where(status: "未確定").delete_all
 
       # テーブル:プロジェクト日次売上 からステータスが"確定"の最新行を取得 --- record(a)
-      records = TProjectMonthlySale.find(status: "未確定")
+      latest_record = TProjectMonthlySale.where(m_project_id: project.id).where(status: "確定")
+        .order(:sales_month).first()
 
       # record(a).sales_month の翌月から売上計上処理を行う
+      p latest_record
 
 
     end
