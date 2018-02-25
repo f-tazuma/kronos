@@ -22,7 +22,6 @@ class SalesService
 
     end
 
-
   end
 
   # プロジェクト個別の売り上げ計上処理を行う
@@ -32,14 +31,10 @@ class SalesService
     latest_record = TProjectMonthlySale.where(m_project_id: project.id).where(status: "確定")
                         .order(:sales_month).first()
 
-    # 月次売り上げ情報集計
-    if latest_record.blank?
-      # 月次売り上げレコードがない
+      # record(a).sales_month の翌月から売上計上処理を行う
+      p latest_record
 
-    else
-      # 月次売り上げレコードがある
 
   end
-
 
 end
