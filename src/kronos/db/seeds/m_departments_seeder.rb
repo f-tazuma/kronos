@@ -1,4 +1,4 @@
-class MDepartmentSeeder
+class MDepartmentsSeeder
 
   attr_accessor :data
 

@@ -1,0 +1,2 @@
+class TWorkerPriceRate < ApplicationRecord
+end

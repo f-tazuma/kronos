@@ -1,4 +1,4 @@
-class MPriceRateSeeder
+class MPriceRatesSeeder
 
   attr_accessor :data
 
@@ -7,7 +7,7 @@ class MPriceRateSeeder
         {:id => 1, :name => "エンジニア", :cost_price => 8245, :selling_price => 10833},
         {:id => 2, :name => "デザイナ", :cost_price => 8245, :selling_price => 10833},
         {:id => 3, :name => "テスタ", :cost_price => 8245, :selling_price => 10833},
-        {:id => 4, :name => "テスタ(アルバイト)", :cost_price => 8245, :selling_price => 1239}
+        {:id => 4, :name => "テスタ(アルバイト)", :cost_price => 1080, :selling_price => 1239}
     ]
     MPriceRate.delete_all
     MPriceRate.create(data)
