@@ -1,12 +1,14 @@
 var path = require('path')
 var webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
+    mode: 'development',
     entry: {
-        app: './assets/javascripts/main.js',
+        app: './assets/javascripts/index.js',
     },
     output: {
-        path: path.join(__dirname, 'pages'),
+        path: path.join(__dirname, 'pages/dist'),
         filename: "[name].bundle.js",
     },
     module: {
@@ -34,4 +36,7 @@ module.exports = {
     devServer: {
         contentBase: 'pages',
     },
+    plugins: [
+        new VueLoaderPlugin()
+    ]
 }
