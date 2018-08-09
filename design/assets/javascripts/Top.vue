@@ -9,7 +9,7 @@
         </section>
 
         <section class="app-contents">
-            <LoginUser :user="user"></LoginUser>
+            <LoginUser v-bind:user="user"></LoginUser>
         </section>
     </div>
 </template>

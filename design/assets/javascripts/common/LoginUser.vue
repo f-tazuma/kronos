@@ -11,7 +11,7 @@
 <script>
     export default {
         name: "LoginUser",
-        props: [user],
+        props: ["user"],
     }
 </script>
 
