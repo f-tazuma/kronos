@@ -1,12 +1,24 @@
+
 <template>
     <div>
-        <h1>TOPページ</h1>
+        <section class="app-header">
+        </section>
+
+        <section class="app-menu">
+            <Menu/>
+        </section>
+
+        <section class="app-contents">
+
+        </section>
     </div>
 </template>
 
 <script>
+    import Menu from './Menu.vue'
     export default {
-        name: "Top"
+        name: "Top",
+        components: {Menu}
     }
 </script>
 
