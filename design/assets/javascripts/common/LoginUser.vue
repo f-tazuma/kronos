@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="app-menu">
         <ul>
             <li>{{user.full_name}}</li>
             <li>{{user.role}}</li>
