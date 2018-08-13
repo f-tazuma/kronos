@@ -1,3 +1,4 @@
+import './../scss/entry.scss';
 import Vue from 'vue'
 import Top from './Top'
 
