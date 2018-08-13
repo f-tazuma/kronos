@@ -6,10 +6,11 @@
 
         <section class="app-menu">
             <Menu/>
+            <LoginUser v-bind:user="user"></LoginUser>
         </section>
 
         <section class="app-contents">
-            <LoginUser v-bind:user="user"></LoginUser>
+
         </section>
     </div>
 </template>
