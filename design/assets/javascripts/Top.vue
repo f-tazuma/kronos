@@ -1,15 +1,15 @@
 
 <template>
     <div>
-        <section class="app-header">
+        <section class="app-section-header">
         </section>
 
-        <section class="app-menu">
+        <section class="app-section-menu">
             <Menu/>
             <LoginUser v-bind:user="user"></LoginUser>
         </section>
 
-        <section class="app-contents">
+        <section class="app-section-contents">
 
         </section>
     </div>

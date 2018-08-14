@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="app-menu">
         <ul>
             <li><a href="/projects">プロジェクト管理</a></li>
             <li><a href="/orders">受注管理</a></li>
@@ -15,6 +15,17 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .app-menu {
+        background-color: #fdd35c;
+        height: 50px;
+        line-height: 50px;
+        ul {
+            text-align: center;
+            vertical-align: middle;
+        }
+        li {
+            display: inline-block;
+        }
+    }
 </style>

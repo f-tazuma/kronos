@@ -4,8 +4,11 @@ import Top from './Top'
 
 Vue.config.productionTip = false
 
-new Vue({
-    el: '#top',
-    template: '<Top/>',
-    components: { Top }
-})
+if(document.getElementById('top')) {
+    new Vue({
+        el: '#top',
+        template: '<Top/>',
+        components: { Top }
+    })
+}
+
