@@ -18,10 +18,10 @@
 <script>
     import Menu from './common/Menu.vue'
     import LoginUser from './common/LoginUser'
-    import dataLoginUser from './data/LoginUser.json';
+    import dataLoginUser from './data/LoginUser.json'
 
     export default {
-        name: "Top",
+        name: "ProjectList",
         components: {
             Menu,
             LoginUser
