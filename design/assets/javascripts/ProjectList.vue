@@ -10,7 +10,24 @@
         </section>
 
         <section class="app-section-contents">
-
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>プロジェクトNo</th>
+                    <th>プロジェクト名</th>
+                    <th>開始日</th>
+                    <th>終了日</th>
+                    <th>備考</th>
+                </tr>
+                <tr v-for="project in projectList">
+                    <td >{{ project.id }}</td>
+                    <td >{{ project.no }}</td>
+                    <td >{{ project.name }}</td>
+                    <td >{{ project.start_day }}</td>
+                    <td >{{ project.end_day }}</td>
+                    <td >{{ project.description }}</td>
+                </tr>
+            </table>
         </section>
     </div>
 </template>
@@ -19,6 +36,7 @@
     import Menu from './common/Menu.vue'
     import LoginUser from './common/LoginUser'
     import dataLoginUser from './data/LoginUser.json'
+    import dataProjectList from './data/ProjectList.json'
 
     export default {
         name: "ProjectList",
@@ -28,26 +46,13 @@
         },
         data: function() {
             return {
-                loginUser: dataLoginUser
+                loginUser: dataLoginUser,
+                projectList: dataProjectList
             }
         }
     }
 </script>
 
 <style scoped lang="scss">
-    .app-section-menu {
-        background-color: #00008b;
-        height: 80px;
-        line-height: 80px;
-        .app-top-menu {
-            float: left;
-            height: 80px;
-            line-height: 80px;
-        }
-        .app-top-user {
-            float: right;
-            height: 80px;
-            line-height: 80px;
-        }
-    }
+
 </style>

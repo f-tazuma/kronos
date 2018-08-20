@@ -35,19 +35,4 @@
 </script>
 
 <style scoped lang="scss">
-    .app-section-menu {
-        background-color: #00008b;
-        height: 80px;
-        line-height: 80px;
-        .app-top-menu {
-            float: left;
-            height: 80px;
-            line-height: 80px;
-        }
-        .app-top-user {
-            float: right;
-            height: 80px;
-            line-height: 80px;
-        }
-    }
 </style>
