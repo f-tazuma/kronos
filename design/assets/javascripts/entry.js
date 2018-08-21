@@ -20,3 +20,11 @@ if(document.getElementById('project-list')) {
         components: { ProjectList }
     })
 }
+
+if(document.getElementById('project-manage')) {
+    new Vue({
+        el: '#project-manage',
+        template: '<ProjectManaget/>',
+        components: { projectManage }
+    })
+}
