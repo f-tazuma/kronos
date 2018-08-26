@@ -50,7 +50,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from "vue";
     import Logger from "./../../common/logger"
 

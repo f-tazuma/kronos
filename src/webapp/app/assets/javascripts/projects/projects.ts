@@ -2,8 +2,8 @@ import Logger from './../common/logger'
 import axios from 'axios';
 import Vue from 'vue';
 
-import ProjectComponent from './components/project.vue';
-import ProgressComponent from './components/progress.vue';
+import ProjectComponent from './components/Project.vue';
+import ProgressComponent from './components/Progress.vue';
 import Filter from './../common/filter';
 import WorkHours from './../model/work_hours_model'
 

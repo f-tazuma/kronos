@@ -71,7 +71,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from "vue";
     import Logger from './../../common/logger'
     import WorkHours from './../../model/work_hours_model'
