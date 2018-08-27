@@ -1,7 +1,5 @@
-import './../scss/entry.scss';
 import Vue from 'vue'
-import Top from './Top'
-import ProjectList from './ProjectList'
+import ProjectManage from './projects/ProjectManage'
 
 Vue.config.productionTip = false
 

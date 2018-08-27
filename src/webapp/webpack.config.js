@@ -50,5 +50,6 @@ module.exports = {
     },
     devServer: {
         contentBase: 'pages',
-    }
+    },
+    devtool: 'inline-source-map'
 }
