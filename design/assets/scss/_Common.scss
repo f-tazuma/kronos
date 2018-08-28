@@ -1,0 +1,21 @@
+body {
+  font-family: '-apple-system', 'BlinkMacSystemFont','Hiragino Sans','Hiragino Kaku Gothic ProN',
+  "segoe ui",'游ゴシック  Medium','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+  margin: 0;
+}
+
+.app-section-menu {
+  background-color: #00008b;
+  height: 80px;
+  line-height: 80px;
+  .app-top-menu {
+    float: left;
+    height: 80px;
+    line-height: 80px;
+  }
+  .app-top-user {
+    float: right;
+    height: 80px;
+    line-height: 80px;
+  }
+}

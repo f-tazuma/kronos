@@ -1,0 +1,13 @@
+<% provide(:title, @title) %>
+
+<h1><%= @title %></h1>
+
+<main>
+  <div>
+    <%= form_tag("/sales/allocate_sales", method: "post") do %>
+      <%= label_tag(:target_month, "処理対象年月") %>
+      <%= month_field_tag(:target_month) %>
+      <%= submit_tag("売上計上") %>
+    <% end %>
+  </div>
+</main>
