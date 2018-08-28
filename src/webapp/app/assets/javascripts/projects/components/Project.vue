@@ -52,7 +52,6 @@
 
 <script>
     import Vue from "vue";
-    import Logger from "./../../common/logger"
 
     export default Vue.extend({
         props: ["project"],
@@ -105,6 +104,4 @@
     ul.orders li:first-child {
         border:none;
     }
-
-
 </style>

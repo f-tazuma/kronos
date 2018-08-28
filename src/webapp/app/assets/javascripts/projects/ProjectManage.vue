@@ -1,20 +1,26 @@
 <template>
     <div>
         <section>
-            <project-component v-bind:project="project"></project-component>
+            <Project v-bind:project="project"></Project>
         </section>
         <section>
-            <progress-component v-bind:progress="progress"
+            <Progress v-bind:progress="progress"
                                 v-on:project-updatePlanWorkHours="updatePlanWorkHours"
                                 v-on:project-searchWorkers="searchWorkers">
-            </progress-component>
+            </Progress>
         </section>
     </div>
 </template>
 
 <script>
+    import axios from 'axios';
+    import Logger from './../common/Logger'
+    import Filter from './../common/Fillter';
     import Progress from './components/Progress'
     import Project from './components/Project'
+
+    // フィルタ設定読み込み
+    (new Filter())
 
     export default {
         name: "ProjectManage",

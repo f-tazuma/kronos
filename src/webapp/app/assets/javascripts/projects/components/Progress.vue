@@ -73,23 +73,23 @@
 
 <script>
     import Vue from "vue";
-    import Logger from './../../common/logger'
-    import WorkHours from './../../model/work_hours_model'
+    import Logger from './../../common/Logger'
+    // import WorkHours from './../../model/work_hours_model'
 
     export default Vue.extend({
         props: ["progress"],
         methods: {
             // 作業予定登録
-            updatePlanWorkHours() {
+            updatePlanWorkHours: function() {
                 this.$emit('project-updatePlanWorkHours');
             },
             // 作業者検索
-            searchWorkers() {
+            searchWorkers: function() {
                 this.progress.isModal = true;
                 this.$emit('project-searchWorkers');
             },
             // 作業者追加
-            addWorker(workerNumber :string) {
+            addWorker: function(workerNumber) {
                 Logger.debug(workerNumber)
                 let targetWorker = this.progress.workers[workerNumber]
 
