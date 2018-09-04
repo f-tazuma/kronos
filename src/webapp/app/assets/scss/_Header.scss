@@ -1,0 +1,32 @@
+.app-header {
+  background-color: #373737;
+  height: 80px;
+  line-height: 80px;
+
+  .app-menu {
+    float: left;
+    height: 80px;
+    line-height: 80px;
+
+    ul {
+      margin: 0;
+      vertical-align: middle;
+
+    }
+    li {
+      display: inline-block;
+      margin: 0 10px;
+
+      a:any-link {
+        color: #ffffff;
+        font-size: 16px;
+        text-decoration: none;
+      }
+    }
+  }
+  .app-user {
+    float: right;
+    height: 80px;
+    line-height: 80px;
+  }
+}

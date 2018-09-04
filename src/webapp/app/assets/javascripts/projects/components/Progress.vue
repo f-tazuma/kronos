@@ -116,7 +116,7 @@
 
 <style scoped>
     .progress {
-        width: 900px;
+        width: 1000px;
         overflow-y:scroll;
     }
 

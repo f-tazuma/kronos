@@ -1,14 +1,8 @@
-<% provide(:title, @title) %>
+<%= render 'layouts/message' %>
 
-<h1><%= @title %></h1>
-
-<main>
-  <%= render 'layouts/message' %>
-
-  <%= form_for @project, :url => { :action => "update" } do |f| %>
-    <div class="orders-base center-block">
-      <%= render 'form', f: f %>
-      <%= f.submit "編集" %>
-    </div>
-  <% end %>
-</main>
+<%= form_for @project, :url => { :action => "update" } do |f| %>
+<div class="orders-base center-block">
+  <%= render 'form', f: f %>
+  <%= f.submit "編集" %>
+</div>
+<% end %>

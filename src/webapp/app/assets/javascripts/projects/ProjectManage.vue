@@ -5,8 +5,8 @@
         </section>
         <section>
             <Progress v-bind:progress="progress"
-                                v-on:project-updatePlanWorkHours="updatePlanWorkHours"
-                                v-on:project-searchWorkers="searchWorkers">
+                v-on:project-updatePlanWorkHours="updatePlanWorkHours"
+                v-on:project-searchWorkers="searchWorkers">
             </Progress>
         </section>
     </div>

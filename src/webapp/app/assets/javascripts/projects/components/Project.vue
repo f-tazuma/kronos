@@ -71,12 +71,20 @@
     })
 </script>
 
-<style scoped>
+<style lang="scss">
     .work-hours {
         display: inline-block;
+        h2 {
+            font-size: 18px;
+            margin: 5px 0 5px;
+        }
     }
     .orders {
         display: inline-block;
+        h2 {
+            font-size: 18px;
+            margin: 5px 0 5px;
+        }
     }
 
     ul.project {

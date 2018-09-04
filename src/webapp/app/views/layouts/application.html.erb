@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--<title>Kronos</title>-->
     <title><%= get_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
-
-    <!--<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>-->
-    <!--<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>-->
   </head>
 
   <body>
-    <%= yield %>
+    <%= render 'layouts/header' %>
+    <main>
+      <%= render 'layouts/title' %>
+      <section class="contents">
+        <%= yield %>
+      </section>
+      <script type="text/javascript" src="/dist/app.bundle.js"></script>
+      <link rel="stylesheet" type="text/css" href="/dist/app.css" />
+    </main>
   </body>
 </html>

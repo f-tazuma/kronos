@@ -52,7 +52,7 @@ module.exports = {
         },
     },
     devServer: {
-        contentBase: 'pages',
+        contentBase: 'app/assets',
     },
     devtool: 'inline-source-map'
 }
