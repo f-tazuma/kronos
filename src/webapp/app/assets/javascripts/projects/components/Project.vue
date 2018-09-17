@@ -24,6 +24,9 @@
                     <td>受注工数</td><td>{{ project.total.total_estimate_work_hours }}</td>
                 </tr>
                 <tr>
+                    <td>受注金額</td><td>{{ project.total.total_estimate_work_hours }}</td>
+                </tr>
+                <tr>
                     <td>作業済工数</td><td>{{ project.total.total_consume_worked_hours }} ({{ project.total.current_rate_of_work_hour_progress }}%)</td>
                 </tr>
                 <tr>

@@ -3,12 +3,12 @@
 ## ruby、gemset設定
 
 ```text
-$ echo "2.4.1" > .ruby-version
+$ echo "2.4.4" > .ruby-version
 $ echo "kronos" > .rbenv-gemsets
 
 $ rbenv versions
   system
-  * 2.4.1 (set by /Users/Yasumasa/Develop/Repos/Kronos/app/.ruby-version)
+  * 2.4.4 (set by /Users/Yasumasa/Develop/Repos/Kronos/app/.ruby-version)
 $ rbenv gemset active
 kronos global
 ```
@@ -31,6 +31,7 @@ Gemfileにインストールするgemを記述。
 
 #### gemのインストール
 ```text
+$ brew install mysql
 $ rbenv exec bundle install
 ```
 
@@ -45,8 +46,6 @@ $ rails new kronos --skip-sprockets
 ...
 ```
 
-#### データベース
-
 #### サーバの起動
 ```text
 $ rails server
@@ -56,18 +55,8 @@ $ rails server
 ```
 
 ## フロント開発
-
-### TypeScript & Vue.jsの開発環境作成
-[参考](https://github.com/Microsoft/TypeScript-Vue-Starter)
-```
-$ npm install --save-dev jquery
-$ npm install --save-dev @types/jquery
-$ npm install --save-dev axios
-$ npm install --save-dev vue
-$ npm install --save-dev typescript webpack ts-loader css-loader vue-loader vue-template-compiler@2.2.1
-```
-
-### 初回
++ ES2015以上で記述。JSフレームワークはVueJs、Webpackでビルドする。
++ フロントコードはrailsで管理しない。
 
 #### assetsディレクトリのクリア
 ```text
@@ -77,7 +66,32 @@ $ mkdir -p app/assets/javascripts
 $ mkdir -p app/assets/stylesheets
 ```
 
-#### webpackによるビルド
+### node設定
+```
+$ nodenv local 8.11.4
+$ npm init
+This utility will walk you through creating a package.json file.
+...
+```
+
+### webpack, vue, sassなど関連パッケージインストール
+```
+$ npm install --save vue
+$ npm install --save-dev webpack webpack-cli webpack-dev-server
+$ npm install --save-dev vue-loader vue-template-compiler css-loader
+$ npm install --save-dev babel-loader babel babel-core babel-preset-es2015
+$ npm install --save-dev sass-loader node-sass style-loader postcss-loader
+```
+
+### scssをwebpackでビルドする
+webpack4系ではmini-css-extract-pluginを利用する。
+(extract-text-webpack-pluginはwebpack3まで)
+
+```
+$ npm install --save-dev mini-css-extract-plugin
+```
+
+### webpackによるビルド
 package.json
 ```
   "scripts": {
@@ -140,19 +154,12 @@ kronos-mysql | 2017-08-03T15:00:51.001630Z 0 [Warning] TIMESTAMP with implicit D
 
 ## データベース構築
 
-### テーブル作成
-```text
-$ mysql -h 127.0.0.1 --port 13307 -u webapp kronos -p < kronos.sql 
-Enter password: 
+### migration
 ```
-
-### テーブル作成
-```text
-$ rails db:migrate
+$ rake db:migrate
 ```
 
 ### データ投入
 ```text
-$ cd ./Kronos/src/kronos
 $ rbenv exec rake db:seed
 ```
