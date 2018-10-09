@@ -1,6 +1,6 @@
 class CreateMWorkers < ActiveRecord::Migration[5.1]
   def change
-    create_table :m_workers do |t|
+    create_table :m_workers ,comment:'作業者マスタ'do |t|
       t.string :worker_number, null: false, limit: 20
       t.string :family_name, null: true, limit: 50
       t.string :first_name, null: true, limit: 50

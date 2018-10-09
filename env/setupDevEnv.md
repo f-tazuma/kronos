@@ -8,7 +8,7 @@ $ echo "kronos" > .rbenv-gemsets
 
 $ rbenv versions
   system
-  * 2.4.4 (set by /Users/Yasumasa/Develop/Repos/Kronos/app/.ruby-version)
+  * 2.4.4 (set by /Users/xxx/Develop/Repos/Kronos/app/.ruby-version)
 $ rbenv gemset active
 kronos global
 ```

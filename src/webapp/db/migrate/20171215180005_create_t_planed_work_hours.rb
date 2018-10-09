@@ -1,10 +1,10 @@
 class CreateTPlanedWorkHours < ActiveRecord::Migration[5.1]
   def change
-    create_table :t_planed_work_hours do |t|
+    create_table :t_planed_work_hours, comment:'予定作業工数' do |t|
       t.string :worker_number, null: false, limit: 20
       t.bigint :m_project_id, foreign_key: true
       t.bigint :t_order_work_breakdown_id, foreign_key: true, null: true
-      t.datetime :work_plan_day, null: false
+      t.date :work_plan_day, null: false
       t.decimal :work_hours, precision: 5, scale: 2, null: true
       t.timestamps
     end

@@ -6,6 +6,16 @@ class SalesService
   # 売上計上処理
   def allocate_sales
 
+    # 受注リストを取得 ステータスは「仮受注、受注、納品、検収
+    target_orders = MOrder::where(sales_kind: '売上').take!
+
+    # 受注リストをループ処理
+    target_orders do | order |
+
+
+    end
+
+
     # TODO いったん全プロジェクトを対象にする
     projects = MProject.all
 

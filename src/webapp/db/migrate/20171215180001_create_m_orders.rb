@@ -1,6 +1,6 @@
 class CreateMOrders < ActiveRecord::Migration[5.1]
   def change
-    create_table :m_orders do |t|
+    create_table :m_orders, comment:'受注マスタ' do |t|
       t.string :order_no, null: false, limit: 20
       t.string :name, null: false, limit: 100
       t.string :client_name, null: false, limit: 100

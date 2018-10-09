@@ -1,4 +1,4 @@
-#
+# rails開発ナレッジ
 
 ## railsコマンドで各種クラスを作成する
 [参照](https://railsguides.jp/command_line.html#rails-generate)
@@ -42,6 +42,17 @@ Running via Spring preloader in process 20055
       create    db/migrate/20180111133302_alter_column_t_worked_hours.rb
 ```
 
+### migration
+
+#### 通常のmigrate
+```
+$ rails db:migrate
+```
+
+#### migrateやり直し
+````
+$ rails db:migrate:reset
+````
 
 ## rails generate でassets, helpersを生成しない
 rails generateコマンドを利用すると、assetsやhelpersに初期ファイルが生成される。
@@ -63,6 +74,25 @@ rails generateコマンドを利用すると、assetsやhelpersに初期ファ�
     end
   end
 ```
+
+## rails console
+rails consoleを使うと、コンソールから簡単にrubyプログラムを実行することができる。
+
++ 起動
+```
+$ rails console
+Running via Spring preloader in process 11393
+Loading development environment (Rails 5.1.6)
+```
+
++ 利用例
+```
+> MOrder::where(sales_kind: "1").where("status > ?", 2)
+   (1.0ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+  MOrder Load (2.4ms)  SELECT `m_orders`.* FROM `m_orders` WHERE `m_orders`.`sales_kind` = '1' AND (status > 2)
+=> []
+```
+
 
 ## mysqlへの接続
 + ローカル環境
